@@ -289,8 +289,7 @@
 <div class="mask" id="macMask">
   <div class="modal">
     <h3 data-i18n="mac_t">选择 macOS 版本</h3><div class="ms" data-i18n="mac_s">Select your Mac chip</div>
-    <a class="opt" href="https://xxhuber.lanzoup.com/ioRlJ3tds9cf" target="_blank" rel="noopener"><div><div class="on">Apple Silicon</div><div class="od">M1 / M2 / M3 / M4</div></div><div>→</div></a>
-    <a class="opt" href="https://xxhuber.lanzoup.com/ixESx3tds10f" target="_blank" rel="noopener"><div><div class="on">Intel</div><div class="od" data-i18n="mac_intel">x64 芯片</div></div><div>→</div></a>
+    <a class="opt" href="https://xxhuber.lanzout.com/s/Mineradio-Mac" target="_blank" rel="noopener"><div><div class="on">Mac 版</div><div class="od">含 Intel + Apple Silicon（M 系列）最新版</div></div><div>→</div></a>
     <button class="x" data-close data-i18n="mac_cancel">取消</button>
   </div>
 </div>
@@ -318,8 +317,7 @@
 (function(){
   // ===== 下载配置 =====
   var DL={
-    'mac-arm':{os:'macOS',sub:{zh:'Apple Silicon · M 系列',en:'Apple Silicon'},ver:'1.1.1',url:'https://xxhuber.lanzoup.com/ioRlJ3tds9cf',modal:true},
-    'mac-intel':{os:'macOS',sub:{zh:'Intel',en:'Intel'},ver:'1.1.1',url:'https://xxhuber.lanzoup.com/ixESx3tds10f',modal:true},
+    'mac':{os:'macOS',sub:{zh:'含 Intel + Apple Silicon(M 系列)',en:'Intel + Apple Silicon'},ver:'1.1.2',url:'https://xxhuber.lanzout.com/s/Mineradio-Mac'},
     'windows':{os:'Windows',sub:{zh:'Windows 10 / 11',en:'Windows 10 / 11'},ver:'1.1.1',url:'https://xxhuber.lanzoub.com/i4CgO3szkl8b'},
     'android':{os:'Android',sub:{zh:'Android 8.0+',en:'Android 8.0+'},ver:'1.1.2',url:'https://xxhuber.lanzout.com/Mineradio-Android'},
     'web':{os:'网页版',sub:{zh:'浏览器直接体验',en:'Run in browser'},ver:'',url:'https://mineradio.art'}
@@ -376,19 +374,19 @@
   // ===== 下载卡片 =====
   var currentOS='all';
   function renderHeroPlat(){
-    var t=I18N[lang];var rec={mac:'mac-arm',windows:'windows',android:'android',web:'web'}[detected];
+    var t=I18N[lang];var rec={mac:'mac',windows:'windows',android:'android',web:'web'}[detected];
     var el=document.getElementById('heroPlat');
     if(rec&&DL[rec]){el.textContent=t.detect+' '+(DL[rec].os)+' · v'+(DL[rec].ver||'');}else{el.textContent='';}
     var hd=document.getElementById('heroDl');
   }
   function osList(os){
-    if(os==='all')return['mac-arm','mac-intel','windows','android','web'];
-    if(os==='mac')return['mac-arm','mac-intel'];
+    if(os==='all')return['mac','windows','android','web'];
+    if(os==='mac')return['mac'];
     return [os];
   }
   function renderDownloads(os){
     currentOS=os;var t=I18N[lang];var box=document.getElementById('dlCards');box.innerHTML='';
-    var recId={mac:'mac-arm',windows:'windows',android:'android',web:'web'}[detected];
+    var recId={mac:'mac',windows:'windows',android:'android',web:'web'}[detected];
     osList(os).forEach(function(id){var d=DL[id];if(!d)return;
       var card=document.createElement('div');card.className='dl';
       var rec=(id===recId)?('<div class="rec">● '+t.rec+'</div>'):'';

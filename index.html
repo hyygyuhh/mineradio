@@ -253,9 +253,9 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
       <div data-reveal="1" data-dl-os="windows" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,190px">
         <div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:26px 24px;height:100%;box-sizing:border-box">
           <span style="font-size:20px;font-weight:700;color:#111113">Windows</span>
-          <span style="font-size:13px;color:rgba(17,17,19,.55)">Windows 10 / 11 · v1.1.1</span>
+          <span style="font-size:13px;color:rgba(17,17,19,.55)">Windows 10 / 11 · v2.0.1</span>
           <span data-rec style="display:none;font-size:11.5px;font-weight:700;color:#5c6b00">● 为你的设备推荐</span>
-          <a data-dl-link="win" href="https://xxhuber.lanzoub.com/i4CgO3szkl8b" target="_blank" rel="noreferrer" data-i18n="get2" style="margin-top:14px;font-size:14px;font-weight:700;color:#111113;border-bottom:1.5px solid #d8ec3f" style-hover="color:#000000">获取 ↓</a>
+          <a data-dl-link="win" href="https://pan.quark.cn/s/585c70979de0" target="_blank" rel="noreferrer" data-i18n="get2" style="margin-top:14px;font-size:14px;font-weight:700;color:#111113;border-bottom:1.5px solid #d8ec3f" style-hover="color:#000000">获取 ↓</a>
         </div>
       </x-import></div>
       <div data-reveal="2" data-dl-os="android" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,190px">
@@ -448,7 +448,7 @@ class Component extends DCLogic {
   GUIDES = {
     mac: { zh: ['下载 DMG（v1.1.3 起 Intel 与 Apple 芯片同一安装包）。', '双击 DMG，把 Mineradio 拖进「应用程序」。', '首次打开提示「已损坏」时：打开终端，粘贴 xattr -cr /Applications/Mineradio.app 后回车（如需密码就是开机密码，输入时不显示）。', '仍打不开：系统设置 → 隐私与安全性 → 仍要打开。'], en: ['Download the DMG (from v1.1.3 one installer covers Intel and Apple Silicon).', 'Open the DMG and drag Mineradio into Applications.', 'If it says "damaged": open Terminal and run xattr -cr /Applications/Mineradio.app (your login password won\u2019t show while typing).', 'Still blocked? System Settings → Privacy & Security → Open Anyway.'] },
     win: { zh: ['下载 MineRadio-Windows.exe，双击安装。', '若 SmartScreen 拦截：点「更多信息」→「仍要运行」。'], en: ['Download MineRadio-Windows.exe and run it.', 'If SmartScreen warns: click "More info" → "Run anyway".'] },
-    web: { zh: ['在浏览器中打开 mineradio.art，无需下载安装。', '戴上耳机，让封面粒子、动态歌词与随节拍生长的视觉一次到位——沉浸式视听体验，打开即享。'], en: ['Open mineradio.art in your browser — nothing to download or install.', 'Put on your headphones: cover particles, live lyrics and beat-driven visuals arrive at once — an immersive audiovisual experience, ready the moment it opens.'] },
+    web: { zh: ['直接访问：在浏览器中打开', '无需下载安装任何客户端，只需安装扩展：首次访问时，系统会提示安装 Bridge 扩展（支持 Chrome / Edge）。该扩展是网页版接通音源的核心组件，请务必安装。', '登录使用：完成扩展安装后，登录您的个人账号，即可开始畅享服务。'], en: ['Direct access: Open in your browser', 'No need to download or install any client. Just install the extension: On first visit, the system will prompt you to install the Bridge extension (supports Chrome / Edge). This extension is a core component for the web version to connect to music sources, please make sure to install it.', 'Log in to use: After completing the extension installation, log in to your personal account to start enjoying the service.'] },
     and: { zh: ['下载 Mineradio_1.1.6.apk（gitee 直链）。', '安装时允许「未知来源」即可。', '若浏览器把文件存成 .apk.1，重命名回 .apk 再安装。'], en: ['Download Mineradio_1.1.6.apk (direct gitee link).', 'Allow "unknown sources" when installing.', 'If your browser saves it as .apk.1, rename it back to .apk first.'] },
   };
   renderVals() {
@@ -463,7 +463,7 @@ class Component extends DCLogic {
       guideSteps: this.GUIDES[this.state.guideTab][L],
       dlOpen: !!this.state.dlModal,
       dlSteps: this.state.dlModal ? this.GUIDES[this.state.dlModal][L] : [],
-      dlPlatLabel: this.state.dlModal ? ({ mac: 'MACOS · V1.1.3', win: 'WINDOWS · V1.1.1', and: 'ANDROID · V1.1.6', web: L === 'en' ? 'WEB APP' : '网页版' })[this.state.dlModal] : '',
+      dlPlatLabel: this.state.dlModal ? ({ mac: 'MACOS · V1.1.3', win: 'WINDOWS · V2.0.1', and: 'ANDROID · V1.1.6', web: L === 'en' ? 'WEB APP' : '网页版' })[this.state.dlModal] : '',
       dlConfirmLabel: this.state.dlModal === 'web' ? (L === 'en' ? 'Got it, open the web app' : '知道了，打开网页版') : (L === 'en' ? 'Got it, start download' : '知道了，开始下载'),
       dlCancel: () => this.setState({ dlModal: null }),
       dlConfirm: () => { const h = this.state.dlHref; this.setState({ dlModal: null }); if (h) window.open(h, '_blank'); },

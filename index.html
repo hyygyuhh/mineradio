@@ -255,9 +255,9 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
       <div data-reveal="1" data-dl-os="windows" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,190px">
         <div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:26px 24px;height:100%;box-sizing:border-box">
           <span style="font-size:20px;font-weight:700;color:#111113">Windows</span>
-          <span style="font-size:13px;color:rgba(17,17,19,.55)">Windows 10 / 11 · v2.0.3</span>
+          <span style="font-size:13px;color:rgba(17,17,19,.55)">Windows 10 / 11 · v2.1.0</span>
           <span data-rec style="display:none;font-size:11.5px;font-weight:700;color:#5c6b00">● 为你的设备推荐</span>
-          <a data-dl-link="win" href="https://pan.quark.cn/s/f40289e1c5d3" target="_blank" rel="noreferrer" data-i18n="get2" style="margin-top:14px;font-size:14px;font-weight:700;color:#111113;border-bottom:1.5px solid #d8ec3f" style-hover="color:#000000">获取 ↓</a>
+          <a data-dl-link="win" href="https://pan.quark.cn/s/df00d9520835" target="_blank" rel="noreferrer" data-i18n="get2" style="margin-top:14px;font-size:14px;font-weight:700;color:#111113;border-bottom:1.5px solid #d8ec3f" style-hover="color:#000000">获取 ↓</a>
         </div>
       </x-import></div>
       <div data-reveal="2" data-dl-os="android" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,190px">
@@ -387,9 +387,9 @@ class Component extends DCLogic {
     dlModal: null,
     dlHref: '',
     dlSources: {
-      quark: 'https://pan.quark.cn/s/f40289e1c5d3',
-      baidu: 'https://pan.baidu.com/s/14fgTABgbfseOg9QuX0Um7Q?pwd=sjhp',
-      lanzou: 'https://xxhuber.lanzout.com/mineradio2'
+      quark: 'https://pan.quark.cn/s/df00d9520835',
+      baidu: 'https://pan.baidu.com/s/1UAAyvXHNJjxVXAHIPtl4Ow?pwd=SJHP',
+      lanzou: 'https://xxhuber.lanzout.com/s/Mineradio'
     },
     dlSelectedSource: null,
     guideTab: 'mac',
@@ -481,7 +481,7 @@ class Component extends DCLogic {
       guideSteps: this.GUIDES[this.state.guideTab][L],
       dlOpen: !!this.state.dlModal,
       dlSteps: this.state.dlModal ? this.GUIDES[this.state.dlModal][L] : [],
-      dlPlatLabel: this.state.dlModal ? ({ mac: 'MACOS · V2.0.0', win: 'WINDOWS · V2.0.3', and: 'ANDROID · V1.1.6', web: L === 'en' ? 'WEB APP' : '网页版' })[this.state.dlModal] : '',
+      dlPlatLabel: this.state.dlModal ? ({ mac: 'MACOS · V2.0.0', win: 'WINDOWS · V2.1.0', and: 'ANDROID · V1.1.6', web: L === 'en' ? 'WEB APP' : '网页版' })[this.state.dlModal] : '',
       dlConfirmLabel: this.state.dlModal === 'web' ? (L === 'en' ? 'Got it, open the web app' : '知道了，打开网页版') : (L === 'en' ? 'Got it, start download' : '知道了，开始下载'),
       dlConfirmDisabled: this.state.dlModal === 'win' && !this.state.dlSelectedSource,
       dlConfirmBg: (this.state.dlModal === 'win' && !this.state.dlSelectedSource) ? 'rgba(216,236,63,.3)' : '#d8ec3f',

@@ -263,9 +263,9 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
       <div data-reveal="2" data-dl-os="android" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,190px">
         <div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:26px 24px;height:100%;box-sizing:border-box">
           <span style="font-size:20px;font-weight:700;color:#111113">Android</span>
-          <span style="font-size:13px;color:rgba(17,17,19,.55)">Android 8.0+ · v1.1.6</span>
+          <span style="font-size:13px;color:rgba(17,17,19,.55)">Android 8.0+ · v2.1.0</span>
           <span data-rec style="display:none;font-size:11.5px;font-weight:700;color:#5c6b00">● 为你的设备推荐</span>
-          <a data-dl-link="and" href="https://gitee.com/mini-cream-puffs/mineradio-update-package/releases/download/1.1.6/Mineradio_1.1.6.apk" target="_blank" rel="noreferrer" data-i18n="get3" style="margin-top:14px;font-size:14px;font-weight:700;color:#111113;border-bottom:1.5px solid #d8ec3f" style-hover="color:#000000">获取 ↓</a>
+          <a data-dl-link="and" href="https://gitee.com/mini-cream-puffs/mineradio-update-package/releases/download/2.1.0/Mineradio_2.1.0.apk" target="_blank" rel="noreferrer" data-i18n="get3" style="margin-top:14px;font-size:14px;font-weight:700;color:#111113;border-bottom:1.5px solid #d8ec3f" style-hover="color:#000000">获取 ↓</a>
         </div>
       </x-import></div>
       <div data-reveal="3" data-dl-os="web" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,190px">
@@ -347,7 +347,7 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
           <div style="display:flex;flex-direction:column;gap:8px">
             <button onClick="{{ selectQuark }}" style="text-align:left;border:none;background:{{ dlSelectedQuark }};color:{{ dlSelectedColorQuark }};border-radius:8px;padding:10px 12px;font-size:13px;font-weight:{{ dlSelectedWeightQuark }};font-family:inherit;cursor:pointer;transition:all .2s" style-hover="background:{{ dlHoverQuark }};color:{{ dlHoverColorQuark }}">夸克网盘</button>
             <button onClick="{{ selectBaidu }}" style="text-align:left;border:none;background:{{ dlSelectedBaidu }};color:{{ dlSelectedColorBaidu }};border-radius:8px;padding:10px 12px;font-size:13px;font-weight:{{ dlSelectedWeightBaidu }};font-family:inherit;cursor:pointer;transition:all .2s" style-hover="background:{{ dlHoverBaidu }};color:{{ dlHoverColorBaidu }}">百度云盘</button>
-            <button onClick="{{ selectLanzou }}" style="text-align:left;border:none;background:{{ dlSelectedLanzou }};color:{{ dlSelectedColorLanzou }};border-radius:8px;padding:10px 12px;font-size:13px;font-weight:{{ dlSelectedWeightLanzou }};font-family:inherit;cursor:pointer;transition:all .2s" style-hover="background:{{ dlHoverLanzou }};color:{{ dlHoverColorLanzou }}">蓝奏云</button>
+            <button onClick="{{ selectThird }}" style="text-align:left;border:none;background:{{ dlSelectedThird }};color:{{ dlSelectedColorThird }};border-radius:8px;padding:10px 12px;font-size:13px;font-weight:{{ dlSelectedWeightThird }};font-family:inherit;cursor:pointer;transition:all .2s" style-hover="background:{{ dlHoverThird }};color:{{ dlHoverColorThird }}">{{ dlThirdSourceLabel }}</button>
           </div>
         </div>
       </sc-if>
@@ -365,7 +365,7 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
       <h3 data-i18n="clog_t" style="margin:0 0 4px;font-size:21px;font-weight:700">更新日志</h3>
       <p style="margin:0 0 20px;font-size:12px;letter-spacing:.14em;color:#6e6e76">CHANGELOG</p>
       <div style="display:flex;flex-direction:column;gap:14px">
-        <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb"><strong style="color:#f5f5f7">v1.1.6 · Android</strong><br><span data-i18n="clog1">安卓端更新至 1.1.6，提供 gitee 直链下载。</span></p></div>
+        <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb"><strong style="color:#f5f5f7">v2.1.0 · Android</strong><br><span data-i18n="clog1">安卓端更新至 2.1.0，支持多下载源选择。</span></p></div>
         <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb"><strong style="color:#f5f5f7">v1.1.3 · macOS</strong><br><span data-i18n="clog2">Intel 与 Apple 芯片合并为同一安装包。</span></p></div>
         <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p data-i18n="clog3" style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb">修复 QQ 音乐无法登录的问题；重构安装包，体积更小。</p></div>
       </div>
@@ -387,9 +387,16 @@ class Component extends DCLogic {
     dlModal: null,
     dlHref: '',
     dlSources: {
-      quark: 'https://pan.quark.cn/s/df00d9520835',
-      baidu: 'https://pan.baidu.com/s/1UAAyvXHNJjxVXAHIPtl4Ow?pwd=SJHP',
-      lanzou: 'https://xxhuber.lanzout.com/s/Mineradio'
+      win: {
+        quark: 'https://pan.quark.cn/s/df00d9520835',
+        baidu: 'https://pan.baidu.com/s/1UAAyvXHNJjxVXAHIPtl4Ow?pwd=SJHP',
+        lanzou: 'https://xxhuber.lanzout.com/s/Mineradio'
+      },
+      and: {
+        quark: 'https://pan.quark.cn/s/d98246190a25',
+        baidu: 'https://pan.baidu.com/s/1wCl5KwE8MI9ijBW8B_FSgg?pwd=8g19',
+        xunlei: 'https://pan.xunlei.com/s/VOzqaVUL4iROuxyWWcv8Ot6rA1'
+      }
     },
     dlSelectedSource: null,
     guideTab: 'mac',
@@ -442,7 +449,7 @@ class Component extends DCLogic {
     foot_slogan: { zh: '听见，也看见。', en: 'Hear it. See it.' },
     foot_legal: { zh: '© 2026 Mineradio · GPL-3.0 开源', en: '© 2026 Mineradio · GPL-3.0 open source' },
     clog_t: { zh: '更新日志', en: 'Changelog' },
-    clog1: { zh: '安卓端更新至 1.1.6，提供 gitee 直链下载。', en: 'Android updated to 1.1.6 with a direct gitee download.' },
+    clog1: { zh: '安卓端更新至 2.1.0，支持多下载源选择。', en: 'Android updated to 2.1.0 with multi-source download support.' },
     clog2: { zh: 'Intel 与 Apple 芯片合并为同一安装包。', en: 'Intel and Apple Silicon merged into a single installer.' },
     clog3: { zh: '修复 QQ 音乐无法登录的问题；重构安装包，体积更小。', en: 'Fixed QQ Music login; rebuilt installers for a smaller size.' },
     clog_close: { zh: '关闭', en: 'Close' },
@@ -467,7 +474,7 @@ class Component extends DCLogic {
     mac: { zh: ['下载 DMG（v1.1.3 起 Intel 与 Apple 芯片同一安装包）。', '双击 DMG，把 Mineradio 拖进「应用程序」。', '首次打开提示「已损坏」时：打开终端，粘贴 xattr -cr /Applications/Mineradio.app 后回车（如需密码就是开机密码，输入时不显示）。', '仍打不开：系统设置 → 隐私与安全性 → 仍要打开。'], en: ['Download the DMG (from v1.1.3 one installer covers Intel and Apple Silicon).', 'Open the DMG and drag Mineradio into Applications.', 'If it says "damaged": open Terminal and run xattr -cr /Applications/Mineradio.app (your login password won\u2019t show while typing).', 'Still blocked? System Settings → Privacy & Security → Open Anyway.'] },
     win: { zh: ['下载 MineRadio-Windows.exe，双击安装。', '若 SmartScreen 拦截：点「更多信息」→「仍要运行」。', '请选择下载源后再点击下载按钮。'], en: ['Download MineRadio-Windows.exe and run it.', 'If SmartScreen warns: click "More info" → "Run anyway".', 'Please select a download source before clicking the download button.'] },
     web: { zh: ['直接访问：在浏览器中打开', '无需下载安装任何客户端，只需安装扩展：首次访问时，系统会提示安装 Bridge 扩展（支持 Chrome / Edge）。该扩展是网页版接通音源的核心组件，请务必安装。', '登录使用：完成扩展安装后，登录您的个人账号，即可开始畅享服务。'], en: ['Direct access: Open in your browser', 'No need to download or install any client. Just install the extension: On first visit, the system will prompt you to install the Bridge extension (supports Chrome / Edge). This extension is a core component for the web version to connect to music sources, please make sure to install it.', 'Log in to use: After completing the extension installation, log in to your personal account to start enjoying the service.'] },
-    and: { zh: ['下载 Mineradio_1.1.6.apk（gitee 直链）。', '安装时允许「未知来源」即可。', '若浏览器把文件存成 .apk.1，重命名回 .apk 再安装。'], en: ['Download Mineradio_1.1.6.apk (direct gitee link).', 'Allow "unknown sources" when installing.', 'If your browser saves it as .apk.1, rename it back to .apk first.'] },
+    and: { zh: ['下载 Mineradio_2.1.0.apk，选择下载源后点击下载。', '安装时允许「未知来源」即可。', '若浏览器把文件存成 .apk.1，重命名回 .apk 再安装。'], en: ['Download Mineradio_2.1.0.apk. Select a download source before clicking download.', 'Allow "unknown sources" when installing.', 'If your browser saves it as .apk.1, rename it back to .apk first.'] },
   };
   renderVals() {
     const L = this.state.lang;
@@ -481,16 +488,16 @@ class Component extends DCLogic {
       guideSteps: this.GUIDES[this.state.guideTab][L],
       dlOpen: !!this.state.dlModal,
       dlSteps: this.state.dlModal ? this.GUIDES[this.state.dlModal][L] : [],
-      dlPlatLabel: this.state.dlModal ? ({ mac: 'MACOS · V2.0.0', win: 'WINDOWS · V2.1.0', and: 'ANDROID · V1.1.6', web: L === 'en' ? 'WEB APP' : '网页版' })[this.state.dlModal] : '',
+      dlPlatLabel: this.state.dlModal ? ({ mac: 'MACOS · V2.0.0', win: 'WINDOWS · V2.1.0', and: 'ANDROID · V2.1.0', web: L === 'en' ? 'WEB APP' : '网页版' })[this.state.dlModal] : '',
       dlConfirmLabel: this.state.dlModal === 'web' ? (L === 'en' ? 'Got it, open the web app' : '知道了，打开网页版') : (L === 'en' ? 'Got it, start download' : '知道了，开始下载'),
-      dlConfirmDisabled: this.state.dlModal === 'win' && !this.state.dlSelectedSource,
-      dlConfirmBg: (this.state.dlModal === 'win' && !this.state.dlSelectedSource) ? 'rgba(216,236,63,.3)' : '#d8ec3f',
-      dlConfirmColor: (this.state.dlModal === 'win' && !this.state.dlSelectedSource) ? 'rgba(10,10,12,.4)' : '#0a0a0c',
-      dlConfirmCursor: (this.state.dlModal === 'win' && !this.state.dlSelectedSource) ? 'not-allowed' : 'pointer',
+      dlConfirmDisabled: (this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource,
+      dlConfirmBg: ((this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'rgba(216,236,63,.3)' : '#d8ec3f',
+      dlConfirmColor: ((this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'rgba(10,10,12,.4)' : '#0a0a0c',
+      dlConfirmCursor: ((this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'not-allowed' : 'pointer',
       dlCancel: () => this.setState({ dlModal: null, dlSelectedSource: null }),
-      dlConfirm: () => { if (this.state.dlModal === 'win' && !this.state.dlSelectedSource) return; const h = this.state.dlHref; this.setState({ dlModal: null, dlSelectedSource: null }); if (h) window.open(h, '_blank'); },
+      dlConfirm: () => { if ((this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) return; const h = this.state.dlHref; this.setState({ dlModal: null, dlSelectedSource: null }); if (h) window.open(h, '_blank'); },
       dlMaskClick: e => { if (e.target.hasAttribute && e.target.hasAttribute('data-dl-mask')) this.setState({ dlModal: null, dlSelectedSource: null }); },
-      showDlSources: this.state.dlModal === 'win',
+      showDlSources: this.state.dlModal === 'win' || this.state.dlModal === 'and',
       dlSelectedQuark: this.state.dlSelectedSource === 'quark' ? '#d8ec3f' : 'rgba(255,255,255,.06)',
       dlSelectedColorQuark: this.state.dlSelectedSource === 'quark' ? '#0a0a0c' : '#c4c4cb',
       dlSelectedWeightQuark: this.state.dlSelectedSource === 'quark' ? '700' : '400',
@@ -501,14 +508,15 @@ class Component extends DCLogic {
       dlSelectedWeightBaidu: this.state.dlSelectedSource === 'baidu' ? '700' : '400',
       dlHoverBaidu: this.state.dlSelectedSource === 'baidu' ? '#d8ec3f' : 'rgba(255,255,255,.1)',
       dlHoverColorBaidu: this.state.dlSelectedSource === 'baidu' ? '#0a0a0c' : '#f5f5f7',
-      dlSelectedLanzou: this.state.dlSelectedSource === 'lanzou' ? '#d8ec3f' : 'rgba(255,255,255,.06)',
-      dlSelectedColorLanzou: this.state.dlSelectedSource === 'lanzou' ? '#0a0a0c' : '#c4c4cb',
-      dlSelectedWeightLanzou: this.state.dlSelectedSource === 'lanzou' ? '700' : '400',
-      dlHoverLanzou: this.state.dlSelectedSource === 'lanzou' ? '#d8ec3f' : 'rgba(255,255,255,.1)',
-      dlHoverColorLanzou: this.state.dlSelectedSource === 'lanzou' ? '#0a0a0c' : '#f5f5f7',
-      selectQuark: () => this.setState({ dlHref: this.state.dlSources.quark, dlSelectedSource: 'quark' }),
-      selectBaidu: () => this.setState({ dlHref: this.state.dlSources.baidu, dlSelectedSource: 'baidu' }),
-      selectLanzou: () => this.setState({ dlHref: this.state.dlSources.lanzou, dlSelectedSource: 'lanzou' }),
+      dlSelectedThird: (this.state.dlSelectedSource === 'lanzou' || this.state.dlSelectedSource === 'xunlei') ? '#d8ec3f' : 'rgba(255,255,255,.06)',
+      dlSelectedColorThird: (this.state.dlSelectedSource === 'lanzou' || this.state.dlSelectedSource === 'xunlei') ? '#0a0a0c' : '#c4c4cb',
+      dlSelectedWeightThird: (this.state.dlSelectedSource === 'lanzou' || this.state.dlSelectedSource === 'xunlei') ? '700' : '400',
+      dlHoverThird: (this.state.dlSelectedSource === 'lanzou' || this.state.dlSelectedSource === 'xunlei') ? '#d8ec3f' : 'rgba(255,255,255,.1)',
+      dlHoverColorThird: (this.state.dlSelectedSource === 'lanzou' || this.state.dlSelectedSource === 'xunlei') ? '#0a0a0c' : '#f5f5f7',
+      dlThirdSourceLabel: this.state.dlModal === 'and' ? (L === 'en' ? 'Xunlei Drive' : '迅雷网盘') : (L === 'en' ? 'Lanzou' : '蓝奏云'),
+      selectThird: () => { const key = this.state.dlModal === 'and' ? 'xunlei' : 'lanzou'; this.setState({ dlHref: this.state.dlSources[this.state.dlModal][key], dlSelectedSource: key }); },
+      selectQuark: () => this.setState({ dlHref: this.state.dlSources[this.state.dlModal].quark, dlSelectedSource: 'quark' }),
+      selectBaidu: () => this.setState({ dlHref: this.state.dlSources[this.state.dlModal].baidu, dlSelectedSource: 'baidu' }),
       guideMac: () => this.setState({ guideTab: 'mac' }),
       guideWin: () => this.setState({ guideTab: 'win' }),
       guideAnd: () => this.setState({ guideTab: 'and' }),

@@ -569,8 +569,8 @@ class Component extends DCLogic {
       })(),
       macDownloadHref: this._macArch
         ? (this._macArch === 'arm64'
-            ? (this.state.dlSources.mac.lanzou.arm64 || this.state.dlSources.mac.xunlei.arm64 || '#')
-            : (this.state.dlSources.mac.lanzou.x64 || this.state.dlSources.mac.xunlei.x64 || '#'))
+            ? (this.state.dlSources.mac.lanzou.arm64 || this.state.dlSources.mac.xunlei.arm64 || this.state.dlSources.mac.baidu.arm64 || this.state.dlSources.mac.quark.arm64 || '#')
+            : (this.state.dlSources.mac.lanzou.x64 || this.state.dlSources.mac.xunlei.x64 || this.state.dlSources.mac.baidu.x64 || this.state.dlSources.mac.quark.x64 || '#'))
         : '#',
     };
   }
@@ -624,23 +624,41 @@ class Component extends DCLogic {
   }
   detectMacArch() {
     try {
-      const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      if (!gl) return null;
-      const ext = gl.getExtension('WEBGL_debug_renderer_info');
-      let renderer = '';
-      if (ext) {
-        renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '';
-      } else {
-        renderer = gl.getParameter(gl.RENDERER) || '';
-      }
       const u = navigator.userAgent || '';
-      const isMac = /Macintosh|Mac OS X/i.test(u);
-      if (!isMac) return null;
-      if (/Apple/i.test(renderer)) return 'arm64';
-      return 'x64';
+      if (!/Macintosh|Mac OS X/i.test(u)) return null;
+      let arch = null;
+      let hasWebGL = false;
+      try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (gl) {
+          hasWebGL = true;
+          let renderer = '';
+          const ext = gl.getExtension('WEBGL_debug_renderer_info');
+          if (ext) {
+            renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '';
+          } else {
+            renderer = gl.getParameter(gl.RENDERER) || '';
+          }
+          if (/Apple/i.test(renderer)) arch = 'arm64';
+          else if (/Intel/i.test(renderer)) arch = 'x64';
+        }
+      } catch (e) {}
+      if (!arch) {
+        const m = u.match(/Mac OS X (\d+)[_.](\d+)/);
+        if (m) {
+          const major = parseInt(m[1], 10);
+          if (major >= 11) arch = 'arm64';
+          else if (major >= 10 && parseInt(m[2], 10) >= 15) arch = 'arm64';
+          else arch = 'x64';
+        }
+      }
+      if (!arch) arch = 'x64';
+      console.log('[Mineradio] Mac arch detected:', arch, '(WebGL' + (hasWebGL ? '✓' : '✗') + ')');
+      return arch;
     } catch (e) {
-      return null;
+      console.warn('[Mineradio] Mac arch detection failed, fallback to x64');
+      return 'x64';
     }
   }
   resolveSrcUrl(key) {

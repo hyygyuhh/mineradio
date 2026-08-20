@@ -14,6 +14,72 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/favicon.svg">
+<!-- ============ 网站统计配置 ============ -->
+<!-- 百度统计：注册 https://tongji.baidu.com 获取 siteId，替换下面的 BAIDU_SITE_ID -->
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?78f7b7ba65689eaeae9e9a7e4b796704';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+<!-- Google Analytics 4 (GA4)：注册 https://analytics.google.com 获取 G-ID，替换 GA_MEASUREMENT_ID 后把上面两段 <script> 取消注释即可
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID', {
+    anonymize_ip: true,
+    page_path: location.pathname + location.search
+  });
+</script>
+-->
+<!-- Microsoft Clarity：注册 https://clarity.microsoft.com ，替换下面的 CLARITY_PROJECT_ID -->
+<script>
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, 'clarity', 'script', 'y5df0zq3wk');
+</script>
+<!-- ============ 统一事件追踪工具（百度+GA+Clarity 三合一） ============ -->
+<script>
+  window.trackEvent = function(eventName, params) {
+    params = params || {};
+    try {
+      // 百度统计（旧版 trackEvent：category, action, opt_label, opt_value）
+      if (typeof _hmt !== 'undefined') {
+        _hmt.push(['_trackEvent',
+          params.category || 'General',
+          eventName,
+          params.label || '',
+          typeof params.value === 'number' ? params.value : 0
+        ]);
+      }
+    } catch (e) {}
+    try {
+      // GA4（事件名 + 参数对象）
+      if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, params);
+      }
+    } catch (e) {}
+    try {
+      // Clarity（自定义事件 / 标签）
+      if (typeof clarity !== 'undefined') {
+        if (clarity.event) clarity.event(eventName);
+        if (clarity.set && params) {
+          Object.keys(params).forEach(function(k){
+            try { clarity.set(k, String(params[k])); } catch (e) {}
+          });
+        }
+      }
+    } catch (e) {}
+    if (typeof console !== 'undefined') console.log('[track]', eventName, params);
+  };
+</script>
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
 </head>
@@ -497,7 +563,7 @@ class Component extends DCLogic {
     return {
       rootRef: this.rootRef,
       clogOpen: this.state.clogOpen,
-      openClog: () => this.setState({ clogOpen: true }),
+      openClog: () => { try { if (window.trackEvent) window.trackEvent('changelog_open', { category: 'Engagement' }); } catch (e) {} this.setState({ clogOpen: true }); },
       closeClog: () => this.setState({ clogOpen: false }),
       clogMaskClick: e => { if (e.target === e.currentTarget || e.target.hasAttribute('data-clog-mask')) this.setState({ clogOpen: false }); },
       guideSteps: this.GUIDES[this.state.guideTab][L],
@@ -509,8 +575,22 @@ class Component extends DCLogic {
       dlConfirmBg: ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'rgba(216,236,63,.3)' : '#d8ec3f',
       dlConfirmColor: ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'rgba(10,10,12,.4)' : '#0a0a0c',
       dlConfirmCursor: ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'not-allowed' : 'pointer',
-      dlCancel: () => this.setState({ dlModal: null, dlSelectedSource: null }),
-      dlConfirm: () => { if ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) return; const h = this.state.dlHref; this.setState({ dlModal: null, dlSelectedSource: null }); if (h) window.open(h, '_blank'); },
+      dlCancel: () => { try { if (window.trackEvent) window.trackEvent('download_cancel', { category: 'Download', platform: this.state.dlModal || 'unknown' }); } catch (e) {} this.setState({ dlModal: null, dlSelectedSource: null }); },
+      dlConfirm: () => {
+        if ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) return;
+        const h = this.state.dlHref;
+        const plat = this.state.dlModal;
+        const src = this.state.dlSelectedSource;
+        try {
+          if (window.trackEvent) {
+            const p = { category: 'Download', platform: plat || 'unknown', source: src || (plat === 'web' ? 'webapp' : 'direct') };
+            if (plat === 'mac' && this._macArch) p.mac_arch = this._macArch;
+            window.trackEvent('download_confirm', p);
+          }
+        } catch (err) {}
+        this.setState({ dlModal: null, dlSelectedSource: null });
+        if (h) window.open(h, '_blank');
+      },
       dlMaskClick: e => { if (e.target.hasAttribute && e.target.hasAttribute('data-dl-mask')) this.setState({ dlModal: null, dlSelectedSource: null }); },
       showDlSources: this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and',
       dlSelectedQuark: this.state.dlSelectedSource === 'quark' ? '#d8ec3f' : 'rgba(255,255,255,.06)',
@@ -541,17 +621,17 @@ class Component extends DCLogic {
       dlSelectedWeightLanzou: this.state.dlSelectedSource === 'lanzou' ? '700' : '400',
       dlHoverLanzou: this.state.dlSelectedSource === 'lanzou' ? '#d8ec3f' : 'rgba(255,255,255,.1)',
       dlHoverColorLanzou: this.state.dlSelectedSource === 'lanzou' ? '#0a0a0c' : '#f5f5f7',
-      selectLanzou: () => { const url = this.resolveSrcUrl('lanzou'); if (!url) return; this.setState({ dlHref: url, dlSelectedSource: 'lanzou' }); },
-      selectThird: () => { const key = (this.state.dlModal === 'and' || this.state.dlModal === 'mac') ? 'xunlei' : 'lanzou'; const url = this.resolveSrcUrl(key); if (!url) return; this.setState({ dlHref: url, dlSelectedSource: key }); },
-      selectQuark: () => { const url = this.resolveSrcUrl('quark'); if (!url) return; this.setState({ dlHref: url, dlSelectedSource: 'quark' }); },
-      selectBaidu: () => { const url = this.resolveSrcUrl('baidu'); if (!url) return; this.setState({ dlHref: url, dlSelectedSource: 'baidu' }); },
-      selectUc: () => { const url = this.resolveSrcUrl('uc'); if (!url) return; this.setState({ dlHref: url, dlSelectedSource: 'uc' }); },
+      selectLanzou: () => { const url = this.resolveSrcUrl('lanzou'); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'lanzou' }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: 'lanzou' }); },
+      selectThird: () => { const key = (this.state.dlModal === 'and' || this.state.dlModal === 'mac') ? 'xunlei' : 'lanzou'; const url = this.resolveSrcUrl(key); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: key }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: key }); },
+      selectQuark: () => { const url = this.resolveSrcUrl('quark'); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'quark' }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: 'quark' }); },
+      selectBaidu: () => { const url = this.resolveSrcUrl('baidu'); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'baidu' }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: 'baidu' }); },
+      selectUc: () => { const url = this.resolveSrcUrl('uc'); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'uc' }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: 'uc' }); },
       guideMac: () => this.setState({ guideTab: 'mac' }),
       guideWin: () => this.setState({ guideTab: 'win' }),
       guideAnd: () => this.setState({ guideTab: 'and' }),
       guideWeb: () => this.setState({ guideTab: 'web' }),
-      setZh: () => { try { localStorage.setItem('mr_lang', 'zh'); } catch (e) {} this.setState({ lang: 'zh' }); },
-      setEn: () => { try { localStorage.setItem('mr_lang', 'en'); } catch (e) {} this.setState({ lang: 'en' }); },
+      setZh: () => { try { localStorage.setItem('mr_lang', 'zh'); if (window.trackEvent) window.trackEvent('language_change', { category: 'Engagement', lang: 'zh' }); } catch (e) {} this.setState({ lang: 'zh' }); },
+      setEn: () => { try { localStorage.setItem('mr_lang', 'en'); if (window.trackEvent) window.trackEvent('language_change', { category: 'Engagement', lang: 'en' }); } catch (e) {} this.setState({ lang: 'en' }); },
       tHeroA: t('heroA'), tHeroB: t('heroB'),
       tSearchEye: t('searchEye'), tSearchH: t('searchH'), tSearchPh: t('searchPh'),
       tVisEye: t('visEye'), tVisH: t('visH'),
@@ -697,7 +777,13 @@ class Component extends DCLogic {
       document.body.appendChild(vs);
     }
     this.q('[data-dl-link]').forEach(a => {
-      const onClick = e => { e.preventDefault(); this.setState({ dlModal: a.getAttribute('data-dl-link'), dlHref: a.getAttribute('href') }); };
+      const onClick = e => {
+        e.preventDefault();
+        const plat = a.getAttribute('data-dl-link');
+        const href = a.getAttribute('href');
+        try { if (window.trackEvent) window.trackEvent('download_open', { category: 'Download', platform: plat, from: 'card' }); } catch (err) {}
+        this.setState({ dlModal: plat, dlHref: href });
+      };
       a.addEventListener('click', onClick);
       this._cleanup.push(() => a.removeEventListener('click', onClick));
     });
@@ -715,6 +801,14 @@ class Component extends DCLogic {
     }
     this._detectedOs = os;
     console.log('[Mineradio] OS detected:', os, '| Mac arch:', this._macArch, '| UA:', u);
+    try {
+      if (window.trackEvent) {
+        window.trackEvent('os_detected', { category: 'Visitor', os: os, mac_arch: this._macArch || 'n/a', debug_override: debugOs ? 'yes' : 'no' });
+        if (os === 'mac' && this._macArch) {
+          window.trackEvent('mac_arch_detected', { category: 'Visitor', arch: this._macArch });
+        }
+      }
+    } catch (e) {}
     const vps = this.q('[data-vp-grid] > div');
     if (vps.length) {
       const setVp = i => vps.forEach((c, j) => {

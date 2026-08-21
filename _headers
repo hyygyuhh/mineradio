@@ -1,0 +1,64 @@
+# Mineradio 官网 — 静态资源配置（Cloudflare Pages / Netlify 通用 `_headers` 语法）
+#
+# NFR-2: 启用 Brotli / gzip（由 CDN 边缘按 Accept-Encoding 自动协商；本配置声明 Content-Type / Cache / 安全头）
+# NFR-3: HTML 短缓存 + 静态资源长缓存（带指纹者 1y、其余 1d）
+# 注意：真正启用 Brotli 的做法在 Nginx/Caddy/Cloudflare 上略有差别；此处提供 CDN 友好的 `_headers`，
+#       并在下述 /public/_redirects/_headers 基础上附上一份 nginx.conf 片段。
+
+# ========== HTML（不可缓存太久，更新需立即生效） ==========
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://www.clarity.ms https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://cloudflareinsights.com https://www.clarity.ms https://vitals.vercel-insights.com;
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# ========== 字体 / 样式：预连接 + 7d ==========
+/fonts/*
+  Cache-Control: public, max-age=604800, immutable
+/*.css
+  Cache-Control: public, max-age=604800
+
+# ========== 图片：30d ==========
+/images/*
+  Cache-Control: public, max-age=2592000, immutable
+/*.jpg
+  Cache-Control: public, max-age=2592000, immutable
+/*.jpeg
+  Cache-Control: public, max-age=2592000, immutable
+/*.png
+  Cache-Control: public, max-age=2592000, immutable
+/*.gif
+  Cache-Control: public, max-age=2592000, immutable
+/*.webp
+  Cache-Control: public, max-age=2592000, immutable
+/*.svg
+  Cache-Control: public, max-age=2592000, immutable
+
+# ========== 字体文件（woff2 长缓存） ==========
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+/*.ttf
+  Cache-Control: public, max-age=31536000, immutable
+
+# ========== JS / 外部 UMD 资源：7d ==========
+/*.js
+  Cache-Control: public, max-age=604800
+/*.mjs
+  Cache-Control: public, max-age=604800
+
+# ========== 下载文件：永久 ==========
+/*.exe
+  Cache-Control: public, max-age=31536000, immutable
+/*.dmg
+  Cache-Control: public, max-age=31536000, immutable
+/*.zip
+  Cache-Control: public, max-age=31536000, immutable

@@ -1,0 +1,110 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'mineradio-ios/**'
+      - 'Mineradio-Bridge-1.4.1/**'
+      - 'mineradio-browser/bridge-host/**'
+      - 'scripts/sync-bridge-all.ps1'
+      - '.github/workflows/ios-build.yml'
+  pull_request:
+    paths:
+      - 'mineradio-ios/**'
+      - 'Mineradio-Bridge-1.4.1/**'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Build mode'
+        required: true
+        default: 'simulator'
+        type: choice
+        options:
+          - simulator
+          - ipa
+          - testflight
+
+concurrency:
+  group: ios-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Make ci-build executable
+        run: chmod +x mineradio-ios/scripts/ci-build.sh mineradio-ios/scripts/sync-bridge.sh
+
+      - name: Build (simulator smoke test)
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.mode == 'simulator'
+        run: ./mineradio-ios/scripts/ci-build.sh simulator
+
+      - name: Build signed IPA
+        if: |
+          (github.event_name == 'workflow_dispatch' && (github.event.inputs.mode == 'ipa' || github.event.inputs.mode == 'testflight')) ||
+          (github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch))
+        env:
+          IOS_TEAM_ID: ${{ secrets.IOS_TEAM_ID }}
+          IOS_CODE_SIGN_IDENTITY: ${{ secrets.IOS_CODE_SIGN_IDENTITY }}
+          IOS_PROVISIONING_PROFILE_NAME: ${{ secrets.IOS_PROVISIONING_PROFILE_NAME }}
+          IOS_CERTIFICATE_BASE64: ${{ secrets.IOS_CERTIFICATE_BASE64 }}
+          IOS_P12_PASSWORD: ${{ secrets.IOS_P12_PASSWORD }}
+          IOS_PROVISION_PROFILE_BASE64: ${{ secrets.IOS_PROVISION_PROFILE_BASE64 }}
+          IOS_KEYCHAIN_PASSWORD: ${{ secrets.IOS_KEYCHAIN_PASSWORD }}
+        run: |
+          if [[ -z "$IOS_CERTIFICATE_BASE64" ]]; then
+            echo "Signing secrets not configured — skip IPA (simulator build already passed)."
+            exit 0
+          fi
+          ./mineradio-ios/scripts/ci-build.sh ipa
+
+      - name: Upload to TestFlight
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.mode == 'testflight'
+        env:
+          IOS_TEAM_ID: ${{ secrets.IOS_TEAM_ID }}
+          IOS_CODE_SIGN_IDENTITY: ${{ secrets.IOS_CODE_SIGN_IDENTITY }}
+          IOS_PROVISIONING_PROFILE_NAME: ${{ secrets.IOS_PROVISIONING_PROFILE_NAME }}
+          IOS_CERTIFICATE_BASE64: ${{ secrets.IOS_CERTIFICATE_BASE64 }}
+          IOS_P12_PASSWORD: ${{ secrets.IOS_P12_PASSWORD }}
+          IOS_PROVISION_PROFILE_BASE64: ${{ secrets.IOS_PROVISION_PROFILE_BASE64 }}
+          IOS_KEYCHAIN_PASSWORD: ${{ secrets.IOS_KEYCHAIN_PASSWORD }}
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+        run: |
+          if [[ -z "$APP_STORE_CONNECT_API_KEY_ID" ]]; then
+            echo "TestFlight API key secrets not configured."
+            exit 1
+          fi
+          ./mineradio-ios/scripts/ci-build.sh testflight
+
+      - name: Upload IPA artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: MineRadio-web-ipa
+          path: mineradio-ios/build/ipa/*.ipa
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload xarchive (debug)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: MineRadio-web-build-logs
+          path: |
+            mineradio-ios/build/**
+          if-no-files-found: ignore
+          retention-days: 7

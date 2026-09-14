@@ -379,6 +379,7 @@ class Component extends DCLogic {
     guideTab: 'mac',
   };
   _visIdx = 0;
+  _winQuarkIdx = 0;
   rootRef = React.createRef();
   I18N = {
     nav_feat: { zh: '功能', en: 'Features' }, nav_dl: { zh: '下载', en: 'Download' }, nav_praise: { zh: '评价', en: 'Reviews' }, nav_dlbtn: { zh: '下载', en: 'Download' },
@@ -557,7 +558,20 @@ class Component extends DCLogic {
       document.body.appendChild(vs);
     }
     this.q('[data-dl-link]').forEach(a => {
-      const onClick = e => { e.preventDefault(); this.setState({ dlModal: a.getAttribute('data-dl-link'), dlHref: a.getAttribute('href') }); };
+      const onClick = e => {
+        e.preventDefault();
+        const plat = a.getAttribute('data-dl-link');
+        let href = a.getAttribute('href');
+        if (plat === 'win') {
+          const links = ['https://pan.quark.cn/s/408490c838d6'];
+          const list = links.filter(Boolean);
+          if (list.length) {
+            href = list[this._winQuarkIdx % list.length];
+            this._winQuarkIdx = (this._winQuarkIdx + 1) % list.length;
+          }
+        }
+        this.setState({ dlModal: plat, dlHref: href });
+      };
       a.addEventListener('click', onClick);
       this._cleanup.push(() => a.removeEventListener('click', onClick));
     });

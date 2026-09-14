@@ -610,7 +610,7 @@ class Component extends DCLogic {
         lanzou: { arm64: 'https://xxhuber.lanzout.com/s/Mineradio-Mac', x64: 'https://xxhuber.lanzout.com/s/Mineradio-Mac' }
       },
       win: {
-        quark: 'https://pan.quark.cn/s/408490c838d6',
+        quark: ['https://pan.quark.cn/s/408490c838d6'],
         baidu: 'https://pan.baidu.com/s/12Vst-hsKZDUsnjkIznAaQg?pwd=SJHP',
         lanzou: 'https://xxhuber.lanzout.com/s/Mineradio'
       },
@@ -625,6 +625,8 @@ class Component extends DCLogic {
     guideTab: 'mac',
   };
   _visIdx = 0;
+  _winQuarkIdx = 0;
+  _winQuarkCurrent = null;
   rootRef = React.createRef();
   I18N = {
     nav_feat: { zh: '功能', en: 'Features' }, nav_dl: { zh: '下载', en: 'Download' }, nav_praise: { zh: '评价', en: 'Reviews' }, nav_dlbtn: { zh: '下载', en: 'Download' },
@@ -718,7 +720,7 @@ class Component extends DCLogic {
       dlConfirmBg: ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'rgba(216,236,63,.3)' : '#d8ec3f',
       dlConfirmColor: ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'rgba(10,10,12,.4)' : '#0a0a0c',
       dlConfirmCursor: ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'not-allowed' : 'pointer',
-      dlCancel: () => { try { if (window.trackEvent) window.trackEvent('download_cancel', { category: 'Download', platform: this.state.dlModal || 'unknown' }); } catch (e) {} this.setState({ dlModal: null, dlSelectedSource: null }); },
+      dlCancel: () => { try { if (window.trackEvent) window.trackEvent('download_cancel', { category: 'Download', platform: this.state.dlModal || 'unknown' }); } catch (e) {} this._winQuarkCurrent = null; this.setState({ dlModal: null, dlSelectedSource: null }); },
       dlConfirm: () => {
         if ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) return;
         const h = this.state.dlHref;
@@ -732,9 +734,10 @@ class Component extends DCLogic {
           }
         } catch (err) {}
         this.setState({ dlModal: null, dlSelectedSource: null });
+        this._winQuarkCurrent = null;
         if (h) window.open(h, '_blank');
       },
-      dlMaskClick: e => { if (e.target.hasAttribute && e.target.hasAttribute('data-dl-mask')) this.setState({ dlModal: null, dlSelectedSource: null }); },
+      dlMaskClick: e => { if (e.target.hasAttribute && e.target.hasAttribute('data-dl-mask')) { this._winQuarkCurrent = null; this.setState({ dlModal: null, dlSelectedSource: null }); } },
       showDlSources: this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and',
       dlSelectedQuark: this.state.dlSelectedSource === 'quark' ? '#d8ec3f' : 'rgba(255,255,255,.06)',
       dlSelectedColorQuark: this.state.dlSelectedSource === 'quark' ? '#0a0a0c' : '#c4c4cb',
@@ -766,7 +769,18 @@ class Component extends DCLogic {
       dlHoverColorLanzou: this.state.dlSelectedSource === 'lanzou' ? '#0a0a0c' : '#f5f5f7',
       selectLanzou: () => { const url = this.resolveSrcUrl('lanzou'); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'lanzou' }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: 'lanzou' }); },
       selectThird: () => { const key = (this.state.dlModal === 'and' || this.state.dlModal === 'mac') ? 'xunlei' : 'lanzou'; const url = this.resolveSrcUrl(key); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: key }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: key }); },
-      selectQuark: () => { const url = this.resolveSrcUrl('quark'); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'quark' }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: 'quark' }); },
+      selectQuark: () => {
+        let url;
+        if (this.state.dlModal === 'win') {
+          url = this._winQuarkCurrent || this.rotateWinQuarkUrl();
+          if (url) this._winQuarkCurrent = url;
+        } else {
+          url = this.resolveSrcUrl('quark');
+        }
+        if (!url) return;
+        try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'quark' }); } catch (e) {}
+        this.setState({ dlHref: url, dlSelectedSource: 'quark' });
+      },
       selectBaidu: () => { const url = this.resolveSrcUrl('baidu'); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'baidu' }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: 'baidu' }); },
       selectUc: () => { const url = this.resolveSrcUrl('uc'); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'uc' }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: 'uc' }); },
       guideMac: () => this.setState({ guideTab: 'mac' }),
@@ -884,19 +898,27 @@ class Component extends DCLogic {
       return 'x64';
     }
   }
-  resolveSrcUrl(key) {
-    const modal = this.state.dlModal;
+  resolveSrcUrl(key, plat) {
+    const modal = plat || this.state.dlModal;
     const src = this.state.dlSources[modal];
     if (!src || !src[key]) return '';
     if (modal === 'mac') {
       const arch = this._macArch || 'x64';
       const pair = src[key];
-      if (typeof pair === 'object' && pair !== null) {
+      if (typeof pair === 'object' && pair !== null && !Array.isArray(pair)) {
         return pair[arch] || pair.x64 || pair.arm64 || '';
       }
       return pair;
     }
     return src[key];
+  }
+  rotateWinQuarkUrl() {
+    const arr = (this.state.dlSources.win && this.state.dlSources.win.quark) || [];
+    const list = Array.isArray(arr) ? arr.filter(Boolean) : [arr].filter(Boolean);
+    if (list.length === 0) return '';
+    const idx = this._winQuarkIdx % list.length;
+    this._winQuarkIdx = (this._winQuarkIdx + 1) % list.length;
+    return list[idx];
   }
   setup() {
     const root = this.rootRef.current;
@@ -923,9 +945,18 @@ class Component extends DCLogic {
       const onClick = e => {
         e.preventDefault();
         const plat = a.getAttribute('data-dl-link');
-        const href = a.getAttribute('href');
+        let href = a.getAttribute('href');
+        let selectedSource = null;
+        if (plat === 'win') {
+          const rotated = this.rotateWinQuarkUrl();
+          if (rotated) {
+            href = rotated;
+            this._winQuarkCurrent = rotated;
+            selectedSource = 'quark';
+          }
+        }
         try { if (window.trackEvent) window.trackEvent('download_open', { category: 'Download', platform: plat, from: 'card' }); } catch (err) {}
-        this.setState({ dlModal: plat, dlHref: href });
+        this.setState({ dlModal: plat, dlHref: href, dlSelectedSource: selectedSource });
       };
       a.addEventListener('click', onClick);
       this._cleanup.push(() => a.removeEventListener('click', onClick));

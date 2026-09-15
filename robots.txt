@@ -1,4 +1,20 @@
 User-agent: *
 Allow: /
 
+# 允许主流搜索引擎爬虫完整索引
+User-agent: Googlebot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+# 禁止索引打包产物
+Disallow: /.trae-html-share-packages/
+
 Sitemap: https://mineradio.cn/sitemap.xml

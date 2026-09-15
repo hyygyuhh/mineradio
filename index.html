@@ -916,9 +916,14 @@ class Component extends DCLogic {
     const arr = (this.state.dlSources.win && this.state.dlSources.win.quark) || [];
     const list = Array.isArray(arr) ? arr.filter(Boolean) : [arr].filter(Boolean);
     if (list.length === 0) return '';
-    const idx = this._winQuarkIdx % list.length;
-    this._winQuarkIdx = (this._winQuarkIdx + 1) % list.length;
-    return list[idx];
+    let idx = 0;
+    try {
+      const saved = parseInt(localStorage.getItem('mr_win_quark_idx'), 10);
+      idx = isNaN(saved) ? 0 : saved % list.length;
+    } catch (e) { idx = 0; }
+    const url = list[idx];
+    try { localStorage.setItem('mr_win_quark_idx', String((idx + 1) % list.length)); } catch (e) {}
+    return url;
   }
   setup() {
     const root = this.rootRef.current;

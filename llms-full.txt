@@ -56,13 +56,34 @@ Mineradio 官网提供多个下载源，用户可自行选择最快的下载方�
 ## 常见问题
 
 ### Mineradio 是免费的吗？
-是的，Mineradio 是完全免费且开源的音乐播放器，没有任何付费功能、广告或内购。
+是的，Mineradio 是完全免费且开源的音乐播放器，没有任何付费功能、广告或内购。可以免费听歌，支持聚合搜索网易云、QQ音乐、酷狗、Spotify 等全网音乐。
 
 ### Mineradio 支持哪些平台？
 Mineradio 支持 Windows 10/11、macOS（Apple芯片和Intel）、Android 8.0+ 以及网页版（Web）。可在官网 mineradio.cn 免费下载。
 
 ### Mineradio 支持哪些音乐源？
 Mineradio 支持聚合搜索网易云音乐、QQ音乐、酷狗音乐、Spotify 等多个音乐平台，无需切换多个 App 即可搜索全网音乐。
+
+### Mineradio 官网入口在哪？
+Mineradio 官网入口地址是 https://mineradio.cn，在浏览器中输入 mineradio.cn 即可直接访问。官网提供最新版本下载，是 Mineradio 的官方网站。
+
+### Mineradio 官网下载入口在哪？
+访问 Mineradio 官网 mineradio.cn 后，页面顶部和底部均有下载入口按钮，点击即可进入下载页面。支持夸克网盘、百度网盘、迅雷网盘、UC网盘、蓝奏云等多个下载源，可自行选择最快的下载方式。
+
+### Mineradio 有苹果版吗？
+Mineradio 支持 macOS（Apple 芯片和 Intel），macOS 版版本 v2.0.0，官网会自动检测芯片架构并推荐对应版本。目前暂无 iOS/iPhone 版本，但可以通过网页版在 iPhone 浏览器中使用。
+
+### Mineradio 有手机版吗？
+有。Mineradio 手机版支持 Android 8.0 及以上，版本 v2.1.0，在官网 mineradio.cn 下载 APK 安装包即可。同时也支持网页版，在手机浏览器中打开 mineradio.cn 直接使用。
+
+### Mineradio 是开源音乐下载器吗？
+Mineradio 是一款开源音乐播放器，代码完全开源。它聚合搜索多个音乐平台，支持在线播放音乐。同时支持本地音乐文件播放，可作为本地音乐播放器使用。
+
+### Mineradio 有可视化音乐功能吗？
+有。Mineradio 的封面粒子可视化功能是其核心特色之一，专辑封面会化为粒子特效随音乐律动，提供沉浸式听歌体验。
+
+### Mineradio 可以免费听歌吗？
+可以。Mineradio 是一款完全免费、开源、无广告的音乐播放器，可以免费听歌。支持聚合搜索网易云音乐、QQ音乐、酷狗音乐、Spotify 等多个平台，无需付费即可搜索和播放全网音乐。
 
 ### Mac 用户怎么选择 Apple 芯片版还是 Intel 版？
 官网会自动检测你的 Mac 芯片架构（Apple Silicon 或 Intel），并推荐对应的安装包。如果检测失败，默认推荐 Intel 版本（通过 Rosetta 2 也可在 Apple芯片上运行）。

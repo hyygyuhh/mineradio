@@ -1,0 +1,45 @@
+# Mineradio
+
+> Mineradio 是一款免费开源的多平台音乐播放器，支持 Windows、macOS、Android 和网页版。聚合搜索网易云音乐、QQ音乐、酷狗音乐、Spotify 等多个平台，提供封面粒子可视化、桌面歌词与手势控制。
+
+Mineradio 由独立开发者 XxHuber 创建，完全免费、无广告、无内购，代码开源。当前最新版本为 v2.2.0（Windows）、v2.1.0（Android）、v2.0.0（macOS）。官网 mineradio.cn 提供多下载源（夸克网盘、百度网盘、蓝奏云等）。
+
+## 核心功能
+
+- 聚合搜索：支持网易云音乐、QQ音乐、酷狗音乐、Spotify 等多平台音乐源搜索
+- 封面粒子可视化：专辑封面化为粒子特效，随音乐律动
+- 桌面歌词：悬浮桌面歌词显示，支持手势控制
+- 多平台支持：Windows 10/11、macOS（Apple Silicon / Intel）、Android 8.0+、Web 网页版
+- 免费开源：完全免费，无广告，无内购
+
+## 下载
+
+- [Windows 版](https://mineradio.cn/#download): v2.2.0，支持 Windows 10/11，安装包 .exe 格式
+- [macOS 版](https://mineradio.cn/#download): v2.0.0，自动检测 Apple Silicon / Intel 芯片并推荐对应版本
+- [Android 版](https://mineradio.cn/#download): v2.1.0，支持 Android 8.0+，APK 格式
+- [网页版](https://mineradio.cn): 无需下载，浏览器直接使用
+
+## 下载源
+
+- 夸克网盘
+- 百度网盘（提取码 SJHP）
+- 蓝奏云
+
+## 常见问题
+
+- Mineradio 是免费的吗？是的，完全免费且开源，无广告无内购。
+- Mineradio 支持哪些平台？Windows 10/11、macOS（Apple芯片和Intel）、Android 8.0+、网页版。
+- Mineradio 支持哪些音乐源？网易云音乐、QQ音乐、酷狗音乐、Spotify 等。
+- Mac 用户怎么选版本？官网自动检测芯片架构，Apple 芯片推荐 arm64，Intel 推荐x64，检测失败默认提供 Intel 版本。
+
+## 关键信息
+
+- 官网：https://mineradio.cn
+- 开发者：XxHuber
+- 最新版本：Windows v2.2.0 / Android v2.1.0 / macOS v2.0.0
+- 许可证：免费开源
+- 最后更新：2026-09-15
+
+## Optional
+
+- [llms-full.txt](https://mineradio.cn/llms-full.txt): 完整内容版，包含全部详细信息的 Markdown 文件

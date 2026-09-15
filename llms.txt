@@ -31,7 +31,7 @@ Mineradio 由独立开发者 XxHuber 创建，完全免费、无广告、无内�
 - Mineradio 支持哪些平台？Windows 10/11、macOS（Apple芯片和Intel）、Android 8.0+、网页版。
 - Mineradio 支持哪些音乐源？网易云音乐、QQ音乐、酷狗音乐、Spotify 等。
 - Mineradio 官网入口在哪？官网地址 https://mineradio.cn，浏览器输入 mineradio.cn 直接访问。
-- Mineradio 官网下载入口在哪？访问官网后页面顶部和底部有下载入口按钮，支持夸克网盘/百度网盘/迅雷网盘/UC网盘/蓝奏云多下载源。
+- Mineradio 官网下载入口在哪？访问官网后页面顶部和底部有下载入口按钮，支持夸克网盘/百度网盘/迅雷网盘/蓝奏云多下载源。
 - Mineradio 有苹果版吗？支持 macOS（Apple芯片和Intel），暂无 iOS/iPhone 版，可用网页版。
 - Mineradio 有手机版吗？有，Android 8.0+，版本 v2.1.0，官网下载 APK。也可用网页版。
 - Mineradio 是开源音乐下载器吗？是开源音乐播放器，代码开源，支持在线播放和本地音乐播放。

@@ -68,7 +68,7 @@ Mineradio 支持聚合搜索网易云音乐、QQ音乐、酷狗音乐、Spotify 
 Mineradio 官网入口地址是 https://mineradio.cn，在浏览器中输入 mineradio.cn 即可直接访问。官网提供最新版本下载，是 Mineradio 的官方网站。
 
 ### Mineradio 官网下载入口在哪？
-访问 Mineradio 官网 mineradio.cn 后，页面顶部和底部均有下载入口按钮，点击即可进入下载页面。支持夸克网盘、百度网盘、迅雷网盘、UC网盘、蓝奏云等多个下载源，可自行选择最快的下载方式。
+访问 Mineradio 官网 mineradio.cn 后，页面顶部和底部均有下载入口按钮，点击即可进入下载页面。支持夸克网盘、百度网盘、迅雷网盘、蓝奏云等多个下载源，可自行选择最快的下载方式。
 
 ### Mineradio 有苹果版吗？
 Mineradio 支持 macOS（Apple 芯片和 Intel），macOS 版版本 v2.0.0，官网会自动检测芯片架构并推荐对应版本。目前暂无 iOS/iPhone 版本，但可以通过网页版在 iPhone 浏览器中使用。
@@ -89,7 +89,7 @@ Mineradio 是一款开源音乐播放器，代码完全开源。它聚合搜索�
 官网会自动检测你的 Mac 芯片架构（Apple Silicon 或 Intel），并推荐对应的安装包。如果检测失败，默认推荐 Intel 版本（通过 Rosetta 2 也可在 Apple芯片上运行）。
 
 ### Mineradio 安卓版怎么下载？
-在官网 mineradio.cn 点击 Android 下载按钮，选择下载源（夸克网盘/百度网盘/蓝奏云），下载 APK 安装包后直接安装即可。支持 Android 8.0 及以上。
+在官网 mineradio.cn 点击 Android 下载按钮，选择下载源（夸克网盘/百度网盘/迅雷网盘/蓝奏云），下载 APK 安装包后直接安装即可。支持 Android 8.0 及以上。
 
 ### Mineradio Mac 版下载哪个版本？
 官网会自动检测你的 Mac 芯片架构。Apple 芯片（M1/M2/M3/M4）推荐 arm64 版本，Intel 芯片推荐 x64 版本。如果检测失败，默认提供 Intel 版本，通过 Rosetta 2 也可在 Apple 芯片 Mac 上运行。

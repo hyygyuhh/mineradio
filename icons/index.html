@@ -566,13 +566,7 @@ class Component extends DCLogic {
           const links = ['https://pan.quark.cn/s/408490c838d6', 'https://pan.quark.cn/s/66d74f7e6569'];
           const list = links.filter(Boolean);
           if (list.length) {
-            let idx = 0;
-            try {
-              const saved = parseInt(localStorage.getItem('mr_win_quark_idx'), 10);
-              idx = isNaN(saved) ? 0 : saved % list.length;
-            } catch (e) { idx = 0; }
-            href = list[idx];
-            try { localStorage.setItem('mr_win_quark_idx', String((idx + 1) % list.length)); } catch (e) {}
+            href = list[Math.floor(Math.random() * list.length)];
           }
         }
         this.setState({ dlModal: plat, dlHref: href });

@@ -625,8 +625,6 @@ class Component extends DCLogic {
     guideTab: 'mac',
   };
   _visIdx = 0;
-  _winQuarkIdx = 0;
-  _winQuarkCurrent = null;
   rootRef = React.createRef();
   I18N = {
     nav_feat: { zh: '功能', en: 'Features' }, nav_dl: { zh: '下载', en: 'Download' }, nav_praise: { zh: '评价', en: 'Reviews' }, nav_dlbtn: { zh: '下载', en: 'Download' },
@@ -720,7 +718,7 @@ class Component extends DCLogic {
       dlConfirmBg: ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'rgba(216,236,63,.3)' : '#d8ec3f',
       dlConfirmColor: ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'rgba(10,10,12,.4)' : '#0a0a0c',
       dlConfirmCursor: ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'not-allowed' : 'pointer',
-      dlCancel: () => { try { if (window.trackEvent) window.trackEvent('download_cancel', { category: 'Download', platform: this.state.dlModal || 'unknown' }); } catch (e) {} this._winQuarkCurrent = null; this.setState({ dlModal: null, dlSelectedSource: null }); },
+      dlCancel: () => { try { if (window.trackEvent) window.trackEvent('download_cancel', { category: 'Download', platform: this.state.dlModal || 'unknown' }); } catch (e) {} this.setState({ dlModal: null, dlSelectedSource: null }); },
       dlConfirm: () => {
         if ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) return;
         const h = this.state.dlHref;
@@ -734,10 +732,9 @@ class Component extends DCLogic {
           }
         } catch (err) {}
         this.setState({ dlModal: null, dlSelectedSource: null });
-        this._winQuarkCurrent = null;
         if (h) window.open(h, '_blank');
       },
-      dlMaskClick: e => { if (e.target.hasAttribute && e.target.hasAttribute('data-dl-mask')) { this._winQuarkCurrent = null; this.setState({ dlModal: null, dlSelectedSource: null }); } },
+      dlMaskClick: e => { if (e.target.hasAttribute && e.target.hasAttribute('data-dl-mask')) this.setState({ dlModal: null, dlSelectedSource: null }); },
       showDlSources: this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and',
       dlSelectedQuark: this.state.dlSelectedSource === 'quark' ? '#d8ec3f' : 'rgba(255,255,255,.06)',
       dlSelectedColorQuark: this.state.dlSelectedSource === 'quark' ? '#0a0a0c' : '#c4c4cb',
@@ -770,13 +767,7 @@ class Component extends DCLogic {
       selectLanzou: () => { const url = this.resolveSrcUrl('lanzou'); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'lanzou' }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: 'lanzou' }); },
       selectThird: () => { const key = (this.state.dlModal === 'and' || this.state.dlModal === 'mac') ? 'xunlei' : 'lanzou'; const url = this.resolveSrcUrl(key); if (!url) return; try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: key }); } catch (e) {} this.setState({ dlHref: url, dlSelectedSource: key }); },
       selectQuark: () => {
-        let url;
-        if (this.state.dlModal === 'win') {
-          url = this._winQuarkCurrent || this.rotateWinQuarkUrl();
-          if (url) this._winQuarkCurrent = url;
-        } else {
-          url = this.resolveSrcUrl('quark');
-        }
+        const url = this.state.dlModal === 'win' ? this.rotateWinQuarkUrl() : this.resolveSrcUrl('quark');
         if (!url) return;
         try { if (window.trackEvent) window.trackEvent('source_selected', { category: 'Download', platform: this.state.dlModal, source: 'quark' }); } catch (e) {}
         this.setState({ dlHref: url, dlSelectedSource: 'quark' });
@@ -950,7 +941,6 @@ class Component extends DCLogic {
           const rotated = this.rotateWinQuarkUrl();
           if (rotated) {
             href = rotated;
-            this._winQuarkCurrent = rotated;
             selectedSource = 'quark';
           }
         }

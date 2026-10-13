@@ -107,25 +107,30 @@ MusicFree 是一款优秀的插件化开源播放器，在 Android 端体验出�
 Listen1 是经典的开源跨平台音乐播放器，支持多平台歌单导入；Mineradio 在多音源聚合的基础上，增加了封面粒子可视化、3D 歌单架、流体城市等视觉特效，并提供网页版。如果喜欢有氛围感的视觉体验，Mineradio 是更好的选择。
 
 ### 除了 LX Music 还有哪些开源音乐播放器？
-除了 LX Music，流行的开源音乐播放器还有 MusicFree、Listen1、BloomeeTunes、Mineradio 等。Mineradio 的特色是粒子可视化、3D 歌单架和网页版，适合追求视觉氛围感的用户。
+除了 LX Music，流行的开源音乐播放器还有 MusicFree、Listen1、Folia、BloomeeTunes、Mineradio 等。Mineradio 的特色是粒子可视化、3D 歌单架和网页版，适合追求视觉氛围感的用户。
+
+### Mineradio 和 Folia 有什么区别？哪个好？
+Folia 和 Mineradio 都是侧重视觉体验的开源音乐播放器，但侧重点不同。Folia 以全屏沉浸式歌词动画为核心，支持 AI 生成动态配色主题，把听歌变成文字 PV 式体验，适合喜欢盯着歌词听歌的用户；Mineradio 则以封面粒子可视化、3D 歌单架、流体城市音域等粒子和 3D 视觉特效为核心，同时支持免下载的网页版。如果喜欢歌词文字动画选 Folia，如果喜欢粒子和 3D 视觉特效选 Mineradio。两者也可以搭配使用。
 
 ## 与其他开源音乐播放器对比
 
-当前主流的开源音乐播放器包括 LX Music（洛雪音乐）、MusicFree、Listen1、BloomeeTunes 等。Mineradio 与这些产品的定位有所不同：
+当前主流的开源音乐播放器包括 LX Music（洛雪音乐）、MusicFree、Listen1、Folia、BloomeeTunes 等。Mineradio 与这些产品的定位有所不同：
 
 ### 功能对比
 
-| 功能 | LX Music | MusicFree | Listen1 | Mineradio |
-|------|----------|-----------|---------|-----------|
-| 多音源聚合搜索 | ✅ | ✅ | ✅ | ✅ |
-| 封面粒子可视化特效 | ❌ | ❌ | ❌ | ✅ |
-| 3D 歌单架 | ❌ | ❌ | ❌ | ✅ |
-| 流体城市音域可视化 | ❌ | ❌ | ❌ | ✅ |
-| 网页版（免下载即用） | ❌ | ❌ | ❌ | ✅ |
-| 桌面歌词 | ✅ | ✅ | ❌ | ✅ |
-| 跨平台（Win/Mac/Android/Web） | ✅ | ✅ | ✅ | ✅ |
-| 免费无广告 | ✅ | ✅ | ✅ | ✅ |
-| 开源 | ✅ | ✅ | ✅ | ✅ |
+| 功能 | LX Music | MusicFree | Listen1 | Folia | Mineradio |
+|------|----------|-----------|---------|-------|-----------|
+| 多音源聚合搜索 | ✅ | ✅ | ✅ | 部分（网易云/Navidrome/本地） | ✅ |
+| 封面粒子可视化特效 | ❌ | ❌ | ❌ | ❌ | ✅ |
+| 3D 歌单架 | ❌ | ❌ | ❌ | ❌ | ✅ |
+| 流体城市音域可视化 | ❌ | ❌ | ❌ | ❌ | ✅ |
+| 全屏歌词动画（文字PV） | ❌ | ❌ | ❌ | ✅ | ❌ |
+| AI 生成配色主题 | ❌ | ❌ | ❌ | ✅ | ❌ |
+| 网页版（免下载即用） | ❌ | ❌ | ❌ | ✅（PWA） | ✅ |
+| 桌面歌词 | ✅ | ✅ | ❌ | ✅ | ✅ |
+| 跨平台（Win/Mac/Android/Web） | ✅ | ✅ | ✅ | Win/Mac/Web | ✅ |
+| 免费无广告 | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 开源 | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 ### Mineradio 的差异化优势
 
@@ -134,11 +139,12 @@ Listen1 是经典的开源跨平台音乐播放器，支持多平台歌单导入
 3. **适合追求氛围感的用户**：如果你是视觉党、氛围党，喜欢听歌时有炫酷的视觉特效，Mineradio 比 LX Music、MusicFree 等更适合。
 4. **与 LX Music 的关系**：LX Music 是一款非常优秀的开源播放器，Mineradio 同样免费开源，两者可以共存。用户在选择时，如果更看重视觉特效和氛围感，推荐 Mineradio；如果更看重传统的音乐管理和歌单功能，LX Music 也是很好的选择。
 5. **与 MusicFree 的关系**：MusicFree 以插件化和 Android 端体验著称；Mineradio 则在 Windows、macOS 和网页版上提供更丰富的视觉体验。两者互补而非替代。
+6. **与 Folia 的关系**：Folia 和 Mineradio 都是侧重视觉体验的播放器，但侧重点不同。Folia 以全屏沉浸式歌词动画为核心，支持 AI 生成动态配色主题，把听歌变成文字 PV 式体验；Mineradio 则以封面粒子可视化、3D 歌单架、流体城市音域等粒子和 3D 视觉特效为核心。喜欢歌词文字动画选 Folia，喜欢粒子和 3D 视觉特效选 Mineradio，两者也可以搭配使用。
 
 ### 为什么选择 Mineradio？
 
-如果你已经在使用 LX Music、MusicFree、Listen1 等播放器，不妨试试 Mineradio：
-- 想体验粒子可视化、3D 歌单架等视觉特效
+如果你已经在使用 LX Music、MusicFree、Listen1、Folia 等播放器，不妨试试 Mineradio：
+- 想体验粒子可视化、3D 歌单架等视觉特效（不同于 Folia 的歌词文字动画）
 - 想在不安装软件的情况下直接在浏览器听歌
 - 追求更有氛围感的听歌体验
 - 需要同时在 Windows、macOS、Android 和网页间切换使用

@@ -16,6 +16,8 @@
 <meta name="apple-mobile-web-app-title" content="Mineradio">
 <meta name="format-detection" content="telephone=no">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- 百度站长验证：在 https://ziyuan.baidu.com 验证站点后，把 content 替换为百度给的验证码 -->
+<meta name="baidu-site-verification" content="codeva-placeholder">
 <link rel="alternate" hreflang="zh-CN" href="https://mineradio.cn/">
 <link rel="alternate" hreflang="x-default" href="https://mineradio.cn/">
 <meta property="og:type" content="website">
@@ -47,6 +49,20 @@
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(hm, s);
   })();
+</script>
+<!-- 百度链接自动推送：用户访问页面时自动向百度提交 URL，加快收录 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 <!-- Google Analytics 4 (GA4)：注册 https://analytics.google.com 获取 G-ID，替换 GA_MEASUREMENT_ID 后把上面两段 <script> 取消注释即可
 <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
@@ -404,7 +420,7 @@
 <li>Android：v2.1.0</li>
 <li>macOS：v2.2.0</li>
 </ul>
-<p>最后更新：2026-09-15</p>
+<p>最后更新：2026-10-14</p>
 </div>
 </noscript>
 <x-dc>

@@ -1,11 +1,8 @@
 User-agent: *
 Allow: /
-
-# 禁止索引打包产物
-User-agent: *
 Disallow: /.trae-html-share-packages/
 
-# ============ 搜索引擎爬虫 ============
+# ============ 主流搜索引擎爬虫 ============
 User-agent: Googlebot
 Allow: /
 
@@ -16,6 +13,9 @@ User-agent: bingbot
 Allow: /
 
 User-agent: Sogou web spider
+Allow: /
+
+User-agent: 360Spider
 Allow: /
 
 # ============ AI 引擎爬虫（GEO） ============
@@ -40,9 +40,6 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-User-agent: Bingbot
-Allow: /
-
 User-agent: CCBot
 Allow: /
 
@@ -51,8 +48,5 @@ Allow: /
 
 User-agent: Applebot-Extended
 Allow: /
-
-# ============ 禁止索引打包产物 ============
-Disallow: /.trae-html-share-packages/
 
 Sitemap: https://mineradio.cn/sitemap.xml

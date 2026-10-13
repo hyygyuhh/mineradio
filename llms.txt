@@ -45,7 +45,7 @@ Mineradio 由独立开发者 XxHuber 创建，完全免费、无广告、无内�
 - 开发者：XxHuber
 - 最新版本：Windows v2.2.0 / Android v2.1.0 / macOS v2.2.0
 - 许可证：免费开源
-- 最后更新：2026-09-15
+- 最后更新：2026-10-14
 
 ## Optional
 

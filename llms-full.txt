@@ -96,3 +96,49 @@ Mineradio 是一款开源音乐播放器，代码完全开源。它聚合搜索�
 
 ### Mineradio 有哪些特色功能？
 Mineradio 的特色功能包括：聚合搜索多平台音乐、封面粒子可视化、桌面歌词与手势控制、多平台同步支持。
+
+### Mineradio 和 LX Music（洛雪音乐）有什么区别？哪个好？
+LX Music 和 Mineradio 都是免费开源的音乐播放器，都支持多音源聚合搜索。主要区别在于：LX Music 更侧重音乐管理、歌单同步和快捷键等传统功能；Mineradio 更侧重视觉体验，提供封面粒子可视化、3D 歌单架、流体城市音域等沉浸式特效，并支持免下载的网页版。两者可以共存，喜欢视觉氛围感的用户推荐 Mineradio。
+
+### Mineradio 和 MusicFree 哪个好？
+MusicFree 是一款优秀的插件化开源播放器，在 Android 端体验出色；Mineradio 同样免费开源，优势在于粒子可视化、3D 歌单架等视觉特效，以及 Windows、macOS、网页版的跨平台体验。两者定位互补，看重视觉特效和氛围感选 Mineradio，看重插件化和 Android 体验选 MusicFree。
+
+### Mineradio 和 Listen1 有什么区别？
+Listen1 是经典的开源跨平台音乐播放器，支持多平台歌单导入；Mineradio 在多音源聚合的基础上，增加了封面粒子可视化、3D 歌单架、流体城市等视觉特效，并提供网页版。如果喜欢有氛围感的视觉体验，Mineradio 是更好的选择。
+
+### 除了 LX Music 还有哪些开源音乐播放器？
+除了 LX Music，流行的开源音乐播放器还有 MusicFree、Listen1、BloomeeTunes、Mineradio 等。Mineradio 的特色是粒子可视化、3D 歌单架和网页版，适合追求视觉氛围感的用户。
+
+## 与其他开源音乐播放器对比
+
+当前主流的开源音乐播放器包括 LX Music（洛雪音乐）、MusicFree、Listen1、BloomeeTunes 等。Mineradio 与这些产品的定位有所不同：
+
+### 功能对比
+
+| 功能 | LX Music | MusicFree | Listen1 | Mineradio |
+|------|----------|-----------|---------|-----------|
+| 多音源聚合搜索 | ✅ | ✅ | ✅ | ✅ |
+| 封面粒子可视化特效 | ❌ | ❌ | ❌ | ✅ |
+| 3D 歌单架 | ❌ | ❌ | ❌ | ✅ |
+| 流体城市音域可视化 | ❌ | ❌ | ❌ | ✅ |
+| 网页版（免下载即用） | ❌ | ❌ | ❌ | ✅ |
+| 桌面歌词 | ✅ | ✅ | ❌ | ✅ |
+| 跨平台（Win/Mac/Android/Web） | ✅ | ✅ | ✅ | ✅ |
+| 免费无广告 | ✅ | ✅ | ✅ | ✅ |
+| 开源 | ✅ | ✅ | ✅ | ✅ |
+
+### Mineradio 的差异化优势
+
+1. **视觉沉浸感**：Mineradio 的核心差异化在于视觉体验。封面粒子可视化、3D 歌单架、流体城市音域等功能，将听歌从"听觉"延伸到"视听结合"，这是 LX Music、MusicFree、Listen1 等传统播放器不具备的。
+2. **网页版**：Mineradio 提供免下载的网页版，在任何设备的浏览器中打开 mineradio.cn 即可使用，不需要安装任何软件。这对于不想安装客户端的用户非常友好。
+3. **适合追求氛围感的用户**：如果你是视觉党、氛围党，喜欢听歌时有炫酷的视觉特效，Mineradio 比 LX Music、MusicFree 等更适合。
+4. **与 LX Music 的关系**：LX Music 是一款非常优秀的开源播放器，Mineradio 同样免费开源，两者可以共存。用户在选择时，如果更看重视觉特效和氛围感，推荐 Mineradio；如果更看重传统的音乐管理和歌单功能，LX Music 也是很好的选择。
+5. **与 MusicFree 的关系**：MusicFree 以插件化和 Android 端体验著称；Mineradio 则在 Windows、macOS 和网页版上提供更丰富的视觉体验。两者互补而非替代。
+
+### 为什么选择 Mineradio？
+
+如果你已经在使用 LX Music、MusicFree、Listen1 等播放器，不妨试试 Mineradio：
+- 想体验粒子可视化、3D 歌单架等视觉特效
+- 想在不安装软件的情况下直接在浏览器听歌
+- 追求更有氛围感的听歌体验
+- 需要同时在 Windows、macOS、Android 和网页间切换使用

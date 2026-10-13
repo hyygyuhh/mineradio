@@ -64,6 +64,15 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
+<!-- IndexNow 自动推送：页面加载时通知 Bing、Yandex 等搜索引擎，加快收录 -->
+<script>
+(function(){
+    var indexNowKey = '447cd2c000f248cc84cbc2415f3ee4af';
+    var currentUrl = encodeURIComponent(window.location.href);
+    var img = new Image();
+    img.src = 'https://api.indexnow.org/indexnow?url=' + currentUrl + '&key=' + indexNowKey;
+})();
+</script>
 <!-- Google Analytics 4 (GA4)：注册 https://analytics.google.com 获取 G-ID，替换 GA_MEASUREMENT_ID 后把上面两段 <script> 取消注释即可
 <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
 <script>

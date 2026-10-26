@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mineradio 安装指南 - Windows / Mac / Android 排错</title>
+<meta name="description" content="Mineradio 安装指南：Windows SmartScreen、macOS 已损坏 / xattr、Android 未知来源与 APK 重命名、网页版 Bridge 扩展说明。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mineradio.cn/install.html">
+<meta name="theme-color" content="#02030a">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Mineradio 安装指南">
+<meta property="og:description" content="Windows / Mac / Android / 网页版安装步骤与常见拦截排错。">
+<meta property="og:url" content="https://mineradio.cn/install.html">
+<meta property="og:image" content="https://mineradio.cn/images/og-cover.jpg">
+<link rel="stylesheet" href="/page.css">
+<script>window.MR_ANALYTICS={baidu:'78f7b7ba65689eaeae9e9a7e4b796704',clarity:'y5df0zq3wk',ga4:''};</script>
+<script src="/js/analytics.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+<div class="darkveil-stage" aria-hidden="true"><canvas class="darkveil-canvas" id="darkveilCanvas"></canvas></div>
+<div class="page">
+  <nav class="site-nav">
+    <div class="wrap bar">
+      <a class="brand" href="/"><img src="/images/inline/inline-01.jpg" alt=""><span>Mineradio</span></a>
+      <div class="nav-links">
+        <a href="/#features" class="nav-hide-sm">功能</a>
+        <a href="/download.html">下载</a>
+        <a href="/install.html" class="is-active">安装</a>
+        <a href="/compare.html">对比</a>
+        <a href="/#faq" class="nav-hide-sm">FAQ</a>
+        <a href="https://github.com/XxHuberrr/Mineradio" target="_blank" rel="noreferrer" class="nav-hide-sm">GitHub</a>
+        <a class="nav-cta" href="/download.html">下载</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="page-main">
+    <div class="wrap">
+      <header class="page-hero dl-hero">
+        <p class="crumb"><a href="/">官网</a><span>/</span>安装指南</p>
+        <p class="eyebrow">BEFORE YOU INSTALL</p>
+        <h1>安装前必看。</h1>
+        <p class="lead">未签名小众软件在 Windows / macOS 上常被拦截。按平台步骤处理即可正常打开。</p>
+        <div class="dl-jump" id="igJump">
+          <a href="#windows" data-jump="windows">Windows</a>
+          <a href="#macos" data-jump="mac">macOS</a>
+          <a href="#android" data-jump="android">Android</a>
+          <a href="#web" data-jump="web">网页版</a>
+        </div>
+        <p class="dl-rec-line" id="igRecLine" hidden></p>
+      </header>
+    </div>
+
+    <div class="dl-fade-in" aria-hidden="true"></div>
+    <section class="dl-band">
+      <div class="wrap">
+        <div class="dl-band-head">
+          <p class="dl-band-eye">Install guide</p>
+          <h2>四端安装与排错</h2>
+          <p class="dl-band-sub">先下载正式包，再按系统处理拦截提示</p>
+        </div>
+        <div class="dl-notice">
+          请只使用 <a href="/download.html">官方下载页</a> 公布的网盘链接。项目持续更新中，请下载最新版本。
+        </div>
+
+        <div class="ig-grid" id="igGrid">
+          <article class="ig-card" id="windows" data-os="windows">
+            <div class="dl-card-top">
+              <div>
+                <p class="dl-os">Windows</p>
+                <p class="dl-ver">v2.2.0 · Setup.exe</p>
+              </div>
+              <span class="dl-badge" hidden>● 为你的设备推荐</span>
+            </div>
+            <ol class="ig-steps">
+              <li>从下载页获取 <code>Mineradio-2.2.0-Setup.exe</code>。</li>
+              <li>双击安装，按提示完成。</li>
+              <li>浏览器拦截：下载栏「…」→「保留 / 仍要保留」。</li>
+              <li>SmartScreen：点「更多信息」→「仍要运行」。</li>
+              <li>杀毒明确报木马并隔离：删文件后换源重下。</li>
+            </ol>
+            <a class="dl-primary" href="/download.html#win">去下载 Windows 版 →</a>
+          </article>
+
+          <article class="ig-card" id="macos" data-os="mac">
+            <div class="dl-card-top">
+              <div>
+                <p class="dl-os">macOS</p>
+                <p class="dl-ver">v2.2.0 · DMG · Apple / Intel</p>
+              </div>
+              <span class="dl-badge" hidden>● 为你的设备推荐</span>
+            </div>
+            <ol class="ig-steps">
+              <li>打开 DMG，把 Mineradio 拖进「应用程序」。</li>
+              <li>若提示「已损坏」，打开终端执行：</li>
+            </ol>
+            <div class="ig-code"><code>xattr -cr /Applications/Mineradio.app</code></div>
+            <ol class="ig-steps" start="3">
+              <li>密码输入时终端不回显，属正常。</li>
+              <li>仍打不开：系统设置 → 隐私与安全性 → 仍要打开。</li>
+              <li>Apple / Intel 已合并为一包；可用 Rosetta 运行。</li>
+            </ol>
+            <a class="dl-primary" href="/download.html#mac">去下载 macOS 版 →</a>
+          </article>
+
+          <article class="ig-card" id="android" data-os="android">
+            <div class="dl-card-top">
+              <div>
+                <p class="dl-os">Android</p>
+                <p class="dl-ver">v2.1.0 · APK</p>
+              </div>
+              <span class="dl-badge" hidden>● 为你的设备推荐</span>
+            </div>
+            <ol class="ig-steps">
+              <li>下载 <code>Mineradio_2.1.0.apk</code>。</li>
+              <li>允许「未知来源 / 安装未知应用」。</li>
+              <li>若变成 <code>.apk.1</code>，重命名回 <code>.apk</code> 再装。</li>
+            </ol>
+            <a class="dl-primary" href="/download.html#android">去下载 Android 版 →</a>
+          </article>
+
+          <article class="ig-card" id="web" data-os="web">
+            <div class="dl-card-top">
+              <div>
+                <p class="dl-os">网页版</p>
+                <p class="dl-ver">mineradio.art · 免安装</p>
+              </div>
+              <span class="dl-badge" hidden>● 为你的设备推荐</span>
+            </div>
+            <ol class="ig-steps">
+              <li>浏览器打开 mineradio.art。</li>
+              <li>首次按提示安装 Bridge 扩展（Chrome / Edge）。</li>
+              <li>登录账号即可使用。暂无独立 iOS App。</li>
+            </ol>
+            <a class="dl-primary" href="https://mineradio.art/" rel="noreferrer" target="_blank">打开网页版 ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+    <div class="dl-fade-out" aria-hidden="true"></div>
+
+    <div class="wrap page-body">
+      <section class="dl-tips">
+        <h2>安全提示</h2>
+        <div class="dl-tip-grid">
+          <article class="dl-tip">
+            <h3>认准官网源</h3>
+            <p>只用 mineradio.cn 公布的网盘或 GitHub / Gitee 正式附件，勿装「破解版 / 绿色版」。</p>
+          </article>
+          <article class="dl-tip">
+            <h3>拦截很常见</h3>
+            <p>未签名 Electron 包触发 SmartScreen /「已损坏」不等于病毒，按本页步骤即可。</p>
+          </article>
+          <article class="dl-tip">
+            <h3>持续更新</h3>
+            <p>项目正常维护与更新中；问题反馈与讨论可关注 GitHub Issues。</p>
+          </article>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/download.html">返回下载页</a>
+          <a class="btn btn-ghost" href="/compare.html">播放器对比</a>
+          <a class="btn btn-ghost" href="/#faq">常见问题</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap bar">
+      <a class="foot-brand" href="/"><img src="/images/inline/inline-10.jpg" alt=""><span>Mineradio</span><span class="foot-slogan">听见，也看见。</span></a>
+      <div class="foot-links">
+        <a href="/download.html">下载</a>
+        <a href="/install.html">安装</a>
+        <a href="/compare.html">对比</a>
+        <a href="/privacy.html">隐私</a>
+        <a href="https://mineradio.art/" rel="noreferrer" target="_blank">网页版</a>
+        <a href="https://github.com/XxHuberrr/Mineradio" rel="noreferrer" target="_blank">GitHub</a>
+      </div>
+      <span class="foot-legal">© 2026 Mineradio · GPL-3.0 开源</span>
+    </div>
+  </footer>
+</div>
+<script src="/ds/darkveil.js" defer></script>
+<script>
+(function () {
+  var ua = navigator.userAgent || '';
+  var platform = navigator.platform || '';
+  var os = 'web';
+  if (/Android/i.test(ua)) os = 'android';
+  else if (/iPhone|iPad|iPod/i.test(ua)) os = 'web';
+  else if (/Mac|Macintosh|MacIntel|MacPPC/i.test(platform) || /Mac OS X/i.test(ua)) os = 'mac';
+  else if (/Win/i.test(platform) || /Windows/i.test(ua)) os = 'windows';
+
+  var labels = { windows: 'Windows', mac: 'macOS', android: 'Android', web: '网页版' };
+  var card = document.querySelector('.ig-card[data-os="' + os + '"]');
+  if (card) {
+    card.classList.add('is-recommended');
+    var badge = card.querySelector('.dl-badge');
+    if (badge) badge.hidden = false;
+    var grid = document.getElementById('igGrid');
+    if (grid) grid.insertBefore(card, grid.firstChild);
+  }
+  var line = document.getElementById('igRecLine');
+  if (line) {
+    line.hidden = false;
+    line.innerHTML = '检测到你正在使用 <strong>' + (labels[os] || os) + '</strong>，已为你置顶对应安装步骤。';
+  }
+  document.querySelectorAll('#igJump a').forEach(function (a) {
+    if (a.getAttribute('data-jump') === os) a.classList.add('is-on');
+  });
+})();
+</script>
+</body>
+</html>

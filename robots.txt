@@ -1,0 +1,52 @@
+User-agent: *
+Allow: /
+Disallow: /.trae-html-share-packages/
+
+# ============ 主流搜索引擎爬虫 ============
+User-agent: Googlebot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+# ============ AI 引擎爬虫（GEO） ============
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://mineradio.cn/sitemap.xml

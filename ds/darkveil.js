@@ -1,11 +1,37 @@
 (function(){
-  function initDarkVeil(){
+  function stopVeil(canvas){
+    if(!canvas)return;
+    if(canvas.__veilRaf){
+      cancelAnimationFrame(canvas.__veilRaf);
+      canvas.__veilRaf=0;
+    }
+    canvas.__veilRunning=false;
+    canvas.__veilGl=null;
+  }
+
+  function initDarkVeil(force){
     var canvas=document.getElementById('darkveilCanvas');
     if(!canvas)return;
-    if(canvas.__veilRunning)return;
-    canvas.__veilRunning=true;
+    var glPrev=canvas.__veilGl;
+    var alive=!!(canvas.__veilRunning && glPrev && !glPrev.isContextLost());
+    if(!force && alive)return;
+    stopVeil(canvas);
+
     var gl=canvas.getContext('webgl',{alpha:false,antialias:false,preserveDrawingBuffer:true});
-    if(!gl)return;
+    if(!gl || gl.isContextLost())return;
+    canvas.__veilGl=gl;
+    canvas.__veilRunning=true;
+
+    if(!canvas.__veilCtxBound){
+      canvas.__veilCtxBound=true;
+      canvas.addEventListener('webglcontextlost',function(e){
+        e.preventDefault();
+        stopVeil(canvas);
+      },false);
+      canvas.addEventListener('webglcontextrestored',function(){
+        initDarkVeil(true);
+      },false);
+    }
 
     var vertex=[
       'attribute vec2 position;',
@@ -90,7 +116,10 @@
 
     var vertexShader=compile(gl.VERTEX_SHADER,vertex);
     var fragmentShader=compile(gl.FRAGMENT_SHADER,fragment);
-    if(!vertexShader||!fragmentShader)return;
+    if(!vertexShader||!fragmentShader){
+      stopVeil(canvas);
+      return;
+    }
 
     var program=gl.createProgram();
     gl.attachShader(program,vertexShader);
@@ -98,6 +127,7 @@
     gl.linkProgram(program);
     if(!gl.getProgramParameter(program,gl.LINK_STATUS)){
       console.error(gl.getProgramInfoLog(program));
+      stopVeil(canvas);
       return;
     }
 
@@ -115,9 +145,9 @@
     var uWarp=gl.getUniformLocation(program,'uWarp');
     var start=window.__mineradioVeilStart||performance.now();
     window.__mineradioVeilStart=start;
-    var frame=0;
 
     function resize(){
+      if(gl.isContextLost())return;
       var dpr=Math.min(window.devicePixelRatio||1,1.75);
       var width=Math.max(1,Math.floor(canvas.clientWidth*dpr));
       var height=Math.max(1,Math.floor(canvas.clientHeight*dpr));
@@ -129,6 +159,10 @@
     }
 
     function draw(){
+      if(gl.isContextLost()){
+        stopVeil(canvas);
+        return;
+      }
       resize();
       gl.useProgram(program);
       gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
@@ -143,13 +177,36 @@
       gl.uniform1f(uWarp,1.0);
       gl.drawArrays(gl.TRIANGLES,0,3);
       gl.flush();
-      frame=requestAnimationFrame(draw);
+      canvas.__veilRaf=requestAnimationFrame(draw);
     }
 
-    window.addEventListener('resize',resize);
+    if(!canvas.__veilResizeBound){
+      canvas.__veilResizeBound=true;
+      window.addEventListener('resize',function(){
+        if(canvas.__veilRunning)resize();
+      });
+    }
     draw();
-    window.addEventListener('beforeunload',function(){cancelAnimationFrame(frame);});
   }
+
   window.__mrDarkVeil = initDarkVeil;
-  initDarkVeil();
+
+  /* Wait for DC runtime to replace <x-dc> with #dc-root before binding WebGL.
+     Early init on the throwaway template canvas loses context and blocks restart. */
+  function bootWhenReady(){
+    var tries=0;
+    function tick(){
+      tries++;
+      var canvas=document.getElementById('darkveilCanvas');
+      var ready=!!(canvas && (document.getElementById('dc-root') || tries>60));
+      if(ready){
+        initDarkVeil(true);
+        return;
+      }
+      setTimeout(tick,50);
+    }
+    tick();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootWhenReady);
+  else bootWhenReady();
 })();

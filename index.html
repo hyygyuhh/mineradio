@@ -1190,12 +1190,12 @@ class Component extends DCLogic {
     mo.observe(document.body, { childList: true });
     this._cleanup.push(() => mo.disconnect());
     document.querySelectorAll('.mineradio-fluid-mount,.fluid-glass-layer').forEach(el => el.remove());
-    const runVeil = () => { if (window.__mrDarkVeil) window.__mrDarkVeil(); };
+    const runVeil = () => { if (window.__mrDarkVeil) window.__mrDarkVeil(true); };
     if (window.__mrDarkVeil) { runVeil(); }
     else if (!window.__mrVeilInjected) {
       window.__mrVeilInjected = true;
       const vs = document.createElement('script');
-      vs.src = 'ds/darkveil.js';
+      vs.src = '/ds/darkveil.js?v=2';
       vs.onload = runVeil;
       document.body.appendChild(vs);
     }
@@ -1355,7 +1355,7 @@ class Component extends DCLogic {
 }
 </script>
 <script src="/ds/mineradio-ds.js"></script>
-<script src="/ds/darkveil.js"></script>
+<script src="/ds/darkveil.js?v=2"></script>
 <script src="/ds/dc-runtime.js"></script>
 </body>
 </html>

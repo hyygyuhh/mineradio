@@ -61,15 +61,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<!-- IndexNow 自动推送 -->
-<script>
-(function(){
-    var indexNowKey = '447cd2c000f248cc84cbc2415f3ee4af';
-    var currentUrl = encodeURIComponent(window.location.href);
-    var img = new Image();
-    img.src = 'https://api.indexnow.org/indexnow?url=' + currentUrl + '&key=' + indexNowKey;
-})();
-</script>
+<!-- IndexNow：由 /js/analytics.js 统一推送 -->
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>

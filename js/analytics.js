@@ -52,6 +52,15 @@
     console.warn('[Mineradio] GA4 ID 格式无效，应为 G-XXXXXXXXXX，当前：', ga4);
   }
 
+  // —— IndexNow：通知 Bing / Yandex 等当前页可抓 ——
+  try {
+    var indexNowKey = '447cd2c000f248cc84cbc2415f3ee4af';
+    var indexNowUrl = encodeURIComponent(location.href.split('#')[0]);
+    var indexNowImg = new Image();
+    indexNowImg.src =
+      'https://api.indexnow.org/indexnow?url=' + indexNowUrl + '&key=' + indexNowKey;
+  } catch (e) {}
+
   // —— 统一事件 ——
   window.trackEvent = function (eventName, params) {
     params = params || {};

@@ -13,7 +13,7 @@
     var canvas=document.getElementById('darkveilCanvas');
     if(!canvas)return;
     var glPrev=canvas.__veilGl;
-    var alive=!!(canvas.__veilRunning && glPrev && !glPrev.isContextLost());
+    var alive=!!(canvas.__veilRunning && glPrev && !glPrev.isContextLost() && canvas.__veilRaf);
     if(!force && alive)return;
     stopVeil(canvas);
 
@@ -191,15 +191,20 @@
 
   window.__mrDarkVeil = initDarkVeil;
 
-  /* Wait for DC runtime to replace <x-dc> with #dc-root before binding WebGL.
-     Early init on the throwaway template canvas loses context and blocks restart. */
+  /* Homepage (x-dc): wait until DC swaps in #dc-root, else WebGL dies on the
+     throwaway template canvas. Static pages (compare/download/…): init ASAP. */
   function bootWhenReady(){
     var tries=0;
     function tick(){
       tries++;
       var canvas=document.getElementById('darkveilCanvas');
-      var ready=!!(canvas && (document.getElementById('dc-root') || tries>60));
-      if(ready){
+      if(!canvas){
+        if(tries<80)setTimeout(tick,50);
+        return;
+      }
+      var needsDc=!!(document.querySelector('x-dc')||document.querySelector('script[type="text/x-dc"]'));
+      var dcReady=!!document.getElementById('dc-root');
+      if(!needsDc || dcReady || tries>80){
         initDarkVeil(true);
         return;
       }

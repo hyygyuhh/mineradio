@@ -61,24 +61,41 @@
       'https://api.indexnow.org/indexnow?url=' + indexNowUrl + '&key=' + indexNowKey;
   } catch (e) {}
 
-  // —— 邮箱：拆开写进 data-mr-mail，避免 Cloudflare Email Obfuscation 显示成 [email protected] ——
+  // —— 邮箱：拆开写进 data-mr-mail，避免 Cloudflare Email Obfuscation；点击用捕获处理，避免 href="#" 回顶 ——
+  function mrMailFromEl(el) {
+    var parts = String((el && el.getAttribute('data-mr-mail')) || '').split('|');
+    if (parts.length < 2) return '';
+    var user = parts[0].trim();
+    var domain = parts[1].trim();
+    if (!user || !domain) return '';
+    return user + '@' + domain;
+  }
   window.MR_fillMails = function (root) {
     root = root || document;
     var nodes = root.querySelectorAll('[data-mr-mail]');
     for (var i = 0; i < nodes.length; i++) {
       var el = nodes[i];
-      var parts = String(el.getAttribute('data-mr-mail') || '').split('|');
-      if (parts.length < 2) continue;
-      var user = parts[0].trim();
-      var domain = parts[1].trim();
-      if (!user || !domain) continue;
-      var email = user + '@' + domain;
+      var email = mrMailFromEl(el);
+      if (!email) continue;
       el.setAttribute('href', 'mailto:' + email);
       if (el.getAttribute('data-mr-mail-label') !== '1') {
         el.textContent = email;
       }
     }
   };
+  document.addEventListener(
+    'click',
+    function (e) {
+      var el = e.target && e.target.closest ? e.target.closest('[data-mr-mail]') : null;
+      if (!el) return;
+      var email = mrMailFromEl(el);
+      if (!email) return;
+      e.preventDefault();
+      e.stopPropagation();
+      window.location.href = 'mailto:' + email;
+    },
+    true
+  );
   function scheduleFillMails() {
     try { window.MR_fillMails(); } catch (e) {}
   }
@@ -89,6 +106,53 @@
   }
   setTimeout(scheduleFillMails, 0);
   setTimeout(scheduleFillMails, 400);
+  setTimeout(scheduleFillMails, 1200);
+
+  // —— 回到顶部 ——
+  function initToTop() {
+    if (document.getElementById('mr-totop')) return;
+    if (!document.getElementById('mr-totop-css')) {
+      var style = document.createElement('style');
+      style.id = 'mr-totop-css';
+      style.textContent =
+        '#mr-totop{position:fixed;right:22px;bottom:28px;z-index:70;width:44px;height:44px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(10,12,20,.78);color:#f5f5f7;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:grid;place-items:center;cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(10px);transition:opacity .28s ease,transform .28s cubic-bezier(.22,1,.36,1),visibility .28s,background .2s,border-color .2s,color .2s;box-shadow:0 10px 28px rgba(0,0,0,.28)}' +
+        '#mr-totop.is-show{opacity:1;visibility:visible;pointer-events:auto;transform:none}' +
+        '#mr-totop:hover{background:rgba(216,236,63,.92);border-color:rgba(216,236,63,.95);color:#111113}' +
+        '#mr-totop:focus-visible{outline:2px solid #d8ec3f;outline-offset:3px}' +
+        '#mr-totop svg{display:block;width:18px;height:18px}' +
+        '@media (max-width:720px){#mr-totop{right:16px;bottom:20px;width:42px;height:42px;border-radius:12px}}' +
+        '@media (prefers-reduced-motion:reduce){#mr-totop{transition:none}}';
+      document.head.appendChild(style);
+    }
+    var btn = document.createElement('button');
+    btn.id = 'mr-totop';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', '回到顶部');
+    btn.title = '回到顶部';
+    btn.innerHTML =
+      '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg>';
+    document.body.appendChild(btn);
+    var reduce = false;
+    try {
+      reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (e) {}
+    function sync() {
+      btn.classList.toggle('is-show', window.scrollY > 420);
+    }
+    window.addEventListener('scroll', sync, { passive: true });
+    sync();
+    btn.addEventListener('click', function () {
+      try {
+        if (typeof trackEvent === 'function') trackEvent('back_to_top', { category: 'Nav' });
+      } catch (e) {}
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initToTop);
+  } else {
+    initToTop();
+  }
 
   // —— 统一事件 ——
   window.trackEvent = function (eventName, params) {

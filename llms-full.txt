@@ -11,7 +11,7 @@ Mineradio（Mine Radio）是一款完全免费且开源的多平台音乐播放�
 - 官网：https://mineradio.cn
 - 开发者：XxHuber
 - 许可证：免费开源
-- 最新版本：Windows v2.2.0 / Android v2.1.0 / macOS v2.2.0
+- 最新版本：Windows v2.2.0 / Android v2.1.8 / macOS v2.2.0
 
 ## 核心功能
 
@@ -38,7 +38,7 @@ Mineradio（Mine Radio）是一款完全免费且开源的多平台音乐播放�
 - 检测失败：默认提供 Intel 版本，通过 Rosetta 2 也可在 Apple 芯片 Mac 上运行
 
 ### Android 版
-- 版本：v2.1.0
+- 版本：v2.1.8
 - 支持：Android 8.0 及以上
 - 安装方式：下载 APK 安装包后直接安装
 
@@ -74,7 +74,7 @@ Mineradio 官网入口地址是 https://mineradio.cn，在浏览器中输入 min
 Mineradio 支持 macOS（Apple 芯片和 Intel），macOS 版版本 v2.2.0，官网会自动检测芯片架构并推荐对应版本。目前暂无 iOS/iPhone 版本，但可以通过网页版在 iPhone 浏览器中使用。
 
 ### Mineradio 有手机版吗？
-有。Mineradio 手机版支持 Android 8.0 及以上，版本 v2.1.0，在官网 mineradio.cn 下载 APK 安装包即可。同时也支持网页版，在手机浏览器中打开 mineradio.cn 直接使用。
+有。Mineradio 手机版支持 Android 8.0 及以上，版本 v2.1.8，在官网 mineradio.cn 下载 APK 安装包即可。同时也支持网页版，在手机浏览器中打开 mineradio.cn 直接使用。
 
 ### Mineradio 是开源音乐下载器吗？
 Mineradio 是一款开源音乐播放器，代码完全开源。它聚合搜索多个音乐平台，支持在线播放音乐。同时支持本地音乐文件播放，可作为本地音乐播放器使用。

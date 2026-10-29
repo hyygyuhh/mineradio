@@ -285,8 +285,17 @@
   }
 }
 </script>
+<style id="mr-boot-css">
+#seo-crawl{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+#mr-boot{position:fixed;inset:0;z-index:9998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#02030a;color:rgba(245,245,247,.72);font-family:"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif}
+#mr-boot strong{font-size:22px;font-weight:700;letter-spacing:-.03em;color:#f5f5f7}
+#mr-boot span{font-size:13px;letter-spacing:.12em;color:rgba(245,245,247,.38)}
+html.mr-ready #mr-boot{opacity:0;pointer-events:none;transition:opacity .28s ease}
+html.mr-ready #mr-boot.mr-boot-gone{display:none}
+</style>
 </head>
 <body>
+<div id="mr-boot" aria-hidden="true"><strong>Mineradio</strong><span>LOADING</span></div>
 <noscript>
 <div style="max-width:860px;margin:40px auto;padding:0 24px;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;color:#111;line-height:1.8">
 <h1>Mineradio 官网 - 免费开源音乐播放器下载 | Windows/Mac/Android/网页版</h1>
@@ -756,14 +765,28 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
   </div>
 </sc-if>
 
+<sc-if value="{{ noticeOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ noticeMaskClick }}" data-notice-mask="" style="position:fixed;inset:0;z-index:96;background:rgba(0,0,0,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px">
+    <div role="dialog" aria-modal="true" aria-labelledby="mr-notice-title" style="width:min(440px,100%);background:rgba(18,18,22,.97);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:28px 28px 22px;animation:mrModal .4s cubic-bezier(.22,1,.36,1) both">
+      <p style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.18em;color:#d8ec3f">NEW RELEASE</p>
+      <h3 id="mr-notice-title" data-i18n="notice_t" style="margin:0 0 12px;font-size:21px;font-weight:700">有新版本可下载</h3>
+      <p data-i18n="notice_body" style="margin:0 0 18px;font-size:14.5px;line-height:1.75;color:#c4c4cb">Android 已更新至 <strong style="color:#f5f5f7">v2.1.8</strong>。官网网盘已转存量并更换分享链接，请从本站下载页重新获取安装包，勿使用旧链接或第三方转发包。</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="/download.html" data-i18n="notice_go" onClick="{{ dismissNotice }}" style="flex:1;min-width:140px;text-align:center;background:#d8ec3f;color:#0a0a0c;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:700">去下载页</a>
+        <button type="button" onClick="{{ dismissNotice }}" data-i18n="notice_later" style="flex:1;min-width:120px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#f5f5f7;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">知道了</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
 <sc-if value="{{ clogOpen }}" hint-placeholder-val="{{ false }}">
   <div onClick="{{ clogMaskClick }}" data-clog-mask="" style="position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px">
     <div style="width:min(460px,100%);background:rgba(18,18,22,.96);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:30px 30px 24px;animation:mrModal .4s cubic-bezier(.22,1,.36,1) both">
       <h3 data-i18n="clog_t" style="margin:0 0 4px;font-size:21px;font-weight:700">更新日志</h3>
       <p style="margin:0 0 20px;font-size:12px;letter-spacing:.14em;color:#6e6e76">CHANGELOG</p>
       <div style="display:flex;flex-direction:column;gap:14px">
-        <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb"><strong style="color:#f5f5f7">v2.1.8 · Android</strong><br><span data-i18n="clog1">安卓端更新至 2.1.8，支持多下载源选择。</span></p></div>
-        <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb"><strong style="color:#f5f5f7">v1.1.3 · macOS</strong><br><span data-i18n="clog2">Intel 与 Apple 芯片合并为同一安装包。</span></p></div>
+        <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb"><strong style="color:#f5f5f7">v2.1.8 · Android</strong><br><span data-i18n="clog1">安卓端更新至 2.1.8；官网夸克/百度网盘已转存量并更换链接，请从下载页重新获取。</span></p></div>
+        <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb"><strong style="color:#f5f5f7">v2.2.0 · Windows / macOS</strong><br><span data-i18n="clog2">桌面端当前为 v2.2.0；Intel 与 Apple 芯片共用安装包。</span></p></div>
         <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p data-i18n="clog3" style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb">修复 QQ 音乐无法登录的问题；重构安装包，体积更小。</p></div>
       </div>
       <button onClick="{{ closeClog }}" data-i18n="clog_close" style="margin-top:24px;width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#f5f5f7;border-radius:12px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s" style-hover="background:rgba(255,255,255,.12)">关闭</button>
@@ -776,16 +799,9 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
 
 <!-- Baidu/search crawlable copy (also kept in noscript) -->
 <style id="seo-crawl-style">
-#seo-crawl{max-width:860px;margin:48px auto 64px;padding:0 24px 40px;color:#c4c4cb;font-family:"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.75;font-size:14px;border-top:1px solid rgba(255,255,255,.08)}
-#seo-crawl h1,#seo-crawl h2,#seo-crawl h3{color:#f5f5f7;font-weight:700;line-height:1.35}
-#seo-crawl h1{font-size:1.35rem;margin:28px 0 12px}
-#seo-crawl h2{font-size:1.15rem;margin:24px 0 10px}
-#seo-crawl h3{font-size:1rem;margin:18px 0 8px}
-#seo-crawl p,#seo-crawl ul{margin:0 0 12px}
-#seo-crawl ul{padding-left:1.2em}
-#seo-crawl li{margin:0 0 6px}
+/* Visually hidden for humans (keeps crawlable text for search engines). First paint uses #mr-boot instead. */
+#seo-crawl h1,#seo-crawl h2,#seo-crawl h3{font-weight:700}
 #seo-crawl a{color:#d8ec3f}
-#seo-crawl strong{color:#f5f5f7}
 </style>
 <section id="seo-crawl" aria-label="Mineradio 官网介绍">
 <div>
@@ -876,9 +892,11 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
   &quot;praiseMarquee&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;动效&quot;}
 }">
 class Component extends DCLogic {
+  NOTICE_ID = 'android-2.1.8-pan-20261029';
   state = {
     lang: (() => { try { return localStorage.getItem('mr_lang') === 'en' ? 'en' : 'zh'; } catch (e) { return 'zh'; } })(),
     clogOpen: false,
+    noticeOpen: false,
     dlModal: null,
     dlHref: '',
     dlSources: {
@@ -949,10 +967,14 @@ class Component extends DCLogic {
     foot_legal: { zh: '© 2026 Mineradio · GPL-3.0 开源', en: '© 2026 Mineradio · GPL-3.0 open source' },
     foot_proof: { zh: '爱发电证明原作者是XxHuber', en: 'Afdian proof of authorship by XxHuber' },
     clog_t: { zh: '更新日志', en: 'Changelog' },
-    clog1: { zh: '安卓端更新至 2.1.8，支持多下载源选择。', en: 'Android updated to 2.1.8 with multi-source download support.' },
-    clog2: { zh: 'Intel 与 Apple 芯片合并为同一安装包。', en: 'Intel and Apple Silicon merged into a single installer.' },
+    clog1: { zh: '安卓端更新至 2.1.8；官网夸克/百度网盘已转存量并更换链接，请从下载页重新获取。', en: 'Android updated to 2.1.8; official cloud-drive links refreshed — please re-download from this site.' },
+    clog2: { zh: '桌面端当前为 v2.2.0；Intel 与 Apple 芯片共用安装包。', en: 'Desktop builds are v2.2.0; one installer covers Intel and Apple Silicon.' },
     clog3: { zh: '修复 QQ 音乐无法登录的问题；重构安装包，体积更小。', en: 'Fixed QQ Music login; rebuilt installers for a smaller size.' },
     clog_close: { zh: '关闭', en: 'Close' },
+    notice_t: { zh: '有新版本可下载', en: 'New version available' },
+    notice_body: { zh: 'Android 已更新至 <strong style="color:#f5f5f7">v2.1.8</strong>。官网网盘已转存量并更换分享链接，请从本站下载页重新获取安装包，勿使用旧链接或第三方转发包。', en: 'Android is now <strong style="color:#f5f5f7">v2.1.8</strong>. Official cloud-drive shares were refreshed — please re-download from this site, and avoid old or third-party links.' },
+    notice_go: { zh: '去下载页', en: 'Go to download' },
+    notice_later: { zh: '知道了', en: 'Got it' },
     gt_web: { zh: '网页版', en: 'Web' },
     dlm_t: { zh: '安装前必看', en: 'Before you install' },
     dlm_cancel: { zh: '取消', en: 'Cancel' },
@@ -985,6 +1007,18 @@ class Component extends DCLogic {
       openClog: () => { try { if (window.trackEvent) window.trackEvent('changelog_open', { category: 'Engagement' }); } catch (e) {} this.setState({ clogOpen: true }); },
       closeClog: () => this.setState({ clogOpen: false }),
       clogMaskClick: e => { if (e.target === e.currentTarget || e.target.hasAttribute('data-clog-mask')) this.setState({ clogOpen: false }); },
+      noticeOpen: this.state.noticeOpen,
+      dismissNotice: () => {
+        try { localStorage.setItem('mr_notice_seen', this.NOTICE_ID); } catch (e) {}
+        try { if (window.trackEvent) window.trackEvent('release_notice_dismiss', { category: 'Engagement', notice: this.NOTICE_ID }); } catch (e) {}
+        this.setState({ noticeOpen: false });
+      },
+      noticeMaskClick: e => {
+        if (e.target === e.currentTarget || (e.target.hasAttribute && e.target.hasAttribute('data-notice-mask'))) {
+          try { localStorage.setItem('mr_notice_seen', this.NOTICE_ID); } catch (err) {}
+          this.setState({ noticeOpen: false });
+        }
+      },
       guideSteps: this.GUIDES[this.state.guideTab][L],
       dlOpen: !!this.state.dlModal,
       dlSteps: this.state.dlModal ? this.GUIDES[this.state.dlModal][L] : [],
@@ -1083,7 +1117,34 @@ class Component extends DCLogic {
     window.__mrCleanup = this._cleanup;
     this.setup();
     this.applyLang();
-    const onKey = e => { if (e.key === 'Escape') { if (this.state.clogOpen) this.setState({ clogOpen: false }); if (this.state.dlModal) this.setState({ dlModal: null }); } };
+    try {
+      document.documentElement.classList.add('mr-ready');
+      const boot = document.getElementById('mr-boot');
+      if (boot) {
+        const hideBoot = () => boot.classList.add('mr-boot-gone');
+        boot.addEventListener('transitionend', hideBoot, { once: true });
+        setTimeout(hideBoot, 400);
+      }
+    } catch (e) {}
+    try {
+      const seen = localStorage.getItem('mr_notice_seen');
+      if (seen !== this.NOTICE_ID) {
+        const t = setTimeout(() => {
+          if (!this.state.clogOpen && !this.state.dlModal) this.setState({ noticeOpen: true });
+        }, 700);
+        this._cleanup.push(() => clearTimeout(t));
+      }
+    } catch (e) {}
+    const onKey = e => {
+      if (e.key === 'Escape') {
+        if (this.state.noticeOpen) {
+          try { localStorage.setItem('mr_notice_seen', this.NOTICE_ID); } catch (err) {}
+          this.setState({ noticeOpen: false });
+        }
+        if (this.state.clogOpen) this.setState({ clogOpen: false });
+        if (this.state.dlModal) this.setState({ dlModal: null });
+      }
+    };
     document.addEventListener('keydown', onKey);
     this._cleanup.push(() => document.removeEventListener('keydown', onKey));
   }

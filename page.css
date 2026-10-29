@@ -634,7 +634,29 @@ tr:last-child td { border-bottom: none; }
   border-bottom: 1.5px solid var(--accent);
   text-decoration: none;
 }
-.dl-notice strong { color: #111113; }
+.dl-notice strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #111113;
+  font-size: 13.5px;
+}
+.dl-notice-dismiss {
+  display: inline-block;
+  margin-top: 10px;
+  border: 1px solid rgba(17, 17, 19, 0.14);
+  background: transparent;
+  color: rgba(17, 17, 19, 0.55);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.dl-notice-dismiss:hover { color: #111113; border-color: rgba(17, 17, 19, 0.28); }
+.dl-notice.is-muted {
+  opacity: 0.72;
+}
 
 .dl-grid {
   display: grid;

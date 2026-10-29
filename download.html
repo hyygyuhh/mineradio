@@ -76,8 +76,10 @@
           <p class="dl-band-sub">当前版本：Windows / macOS <strong>v2.2.0</strong> · Android <strong>v2.1.8</strong></p>
         </div>
 
-        <div class="dl-notice">
-          项目持续更新中，请从本页获取最新安装包。安装遇到拦截请看 <a href="/install.html">安装指南</a>。
+        <div class="dl-notice" id="dlReleaseNotice">
+          <strong>新版本提醒 · Android v2.1.8</strong>
+          官网夸克 / 百度网盘已转存量并更换分享链接。请在本页重新获取安装包，勿使用旧链接或第三方转发。安装遇拦截见 <a href="/install.html">安装指南</a>。
+          <button type="button" class="dl-notice-dismiss" id="dlNoticeDismiss" hidden>不再提示</button>
         </div>
 
         <div class="dl-grid" id="dlGrid">
@@ -228,6 +230,22 @@
   document.querySelectorAll('#dlJump a').forEach(function (a) {
     if (a.getAttribute('data-jump') === os) a.classList.add('is-on');
   });
+
+  var NOTICE_ID = 'android-2.1.8-pan-20261029';
+  var notice = document.getElementById('dlReleaseNotice');
+  var dismiss = document.getElementById('dlNoticeDismiss');
+  try {
+    if (localStorage.getItem('mr_notice_seen') === NOTICE_ID) {
+      if (notice) notice.classList.add('is-muted');
+    } else if (dismiss) {
+      dismiss.hidden = false;
+      dismiss.addEventListener('click', function () {
+        try { localStorage.setItem('mr_notice_seen', NOTICE_ID); } catch (e) {}
+        if (notice) notice.classList.add('is-muted');
+        dismiss.hidden = true;
+      });
+    }
+  } catch (e) {}
 })();
 </script>
 </body>

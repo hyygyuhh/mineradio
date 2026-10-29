@@ -287,16 +287,20 @@
 </script>
 <style id="mr-boot-css">
 #seo-crawl{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-#mr-boot{position:fixed;inset:0;z-index:9998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#02030a;color:rgba(245,245,247,.72);font-family:"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif;opacity:1;visibility:visible;transition:opacity .48s cubic-bezier(.22,1,.36,1),visibility 0s linear 0s}
+#mr-boot{position:fixed;inset:0;z-index:9998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#02030a;color:rgba(245,245,247,.72);font-family:"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif;opacity:1;visibility:visible;transform:none;filter:none;will-change:opacity,transform,filter;transition:opacity .48s cubic-bezier(.22,1,.36,1),transform .48s cubic-bezier(.22,1,.36,1),filter .48s ease,visibility 0s linear 0s}
 #mr-boot strong{font-size:22px;font-weight:700;letter-spacing:-.03em;color:#f5f5f7;animation:mrBootIn .6s cubic-bezier(.22,1,.36,1) both}
 #mr-boot span{font-size:13px;letter-spacing:.18em;color:rgba(245,245,247,.38);animation:mrBootPulse 1.35s ease-in-out infinite}
 @keyframes mrBootIn{from{opacity:0;transform:translateY(10px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
 @keyframes mrBootPulse{0%,100%{opacity:.28}50%{opacity:.62}}
-html.mr-ready #mr-boot{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .42s cubic-bezier(.4,0,.2,1),visibility 0s linear .42s}
-html.mr-ready #mr-boot.mr-boot-gone{display:none}
-html.mr-ready-quick #mr-boot{transition-duration:.16s}
-html.mr-ready-quick #mr-boot strong,html.mr-ready-quick #mr-boot span{animation:none!important}
-@media (prefers-reduced-motion:reduce){#mr-boot,#mr-boot strong,#mr-boot span,html.mr-ready #mr-boot{animation:none!important;transition-duration:.01ms!important}}
+@keyframes mrBootQuickIn{from{opacity:0;transform:translateY(6px) scale(.985)}to{opacity:1;transform:none}}
+html.mr-ready #mr-boot{opacity:0;visibility:hidden;pointer-events:none;transform:scale(1.02);filter:blur(10px);transition:opacity .42s cubic-bezier(.4,0,.2,1),transform .42s cubic-bezier(.4,0,.2,1),filter .42s ease,visibility 0s linear .42s}
+html.mr-ready #mr-boot.mr-boot-gone{display:none;will-change:auto}
+/* 同会话刷新：轻 veil + 品牌轻入场，再柔和揭开 */
+html.mr-ready-quick #mr-boot{gap:0;background:radial-gradient(120% 80% at 50% 40%,#07101f 0%,#02030a 72%);transition:opacity .32s cubic-bezier(.22,1,.36,1),transform .32s cubic-bezier(.22,1,.36,1),filter .32s ease,visibility 0s linear 0s}
+html.mr-ready-quick #mr-boot strong{animation:mrBootQuickIn .34s cubic-bezier(.22,1,.36,1) both}
+html.mr-ready-quick #mr-boot span{display:none}
+html.mr-ready.mr-ready-quick #mr-boot{opacity:0;transform:scale(1.03);filter:blur(12px);transition:opacity .34s cubic-bezier(.33,1,.3,1),transform .34s cubic-bezier(.33,1,.3,1),filter .34s ease,visibility 0s linear .34s}
+@media (prefers-reduced-motion:reduce){#mr-boot,#mr-boot strong,#mr-boot span,html.mr-ready #mr-boot,html.mr-ready-quick #mr-boot,html.mr-ready.mr-ready-quick #mr-boot{animation:none!important;transition-duration:.01ms!important;filter:none!important;transform:none!important}}
 </style>
 <script>
 (function(){try{if(sessionStorage.getItem('mr_session_ready')==='1')document.documentElement.classList.add('mr-ready-quick')}catch(e){}})();
@@ -1137,9 +1141,14 @@ class Component extends DCLogic {
       const boot = document.getElementById('mr-boot');
       if (boot) {
         const hideBoot = () => boot.classList.add('mr-boot-gone');
-        const wait = document.documentElement.classList.contains('mr-ready-quick') ? 220 : 520;
-        boot.addEventListener('transitionend', hideBoot, { once: true });
-        setTimeout(hideBoot, wait);
+        const quick = document.documentElement.classList.contains('mr-ready-quick');
+        const wait = quick ? 400 : 520;
+        const onEnd = (e) => {
+          if (e.target !== boot || (e.propertyName && e.propertyName !== 'opacity')) return;
+          hideBoot();
+        };
+        boot.addEventListener('transitionend', onEnd);
+        setTimeout(() => { boot.removeEventListener('transitionend', onEnd); hideBoot(); }, wait);
       }
     } catch (e) {}
     try {

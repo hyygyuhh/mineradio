@@ -68,12 +68,12 @@
       var style = document.createElement('style');
       style.id = 'mr-totop-css';
       style.textContent =
-        '#mr-totop{position:fixed;right:22px;bottom:28px;z-index:70;width:44px;height:44px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(10,12,20,.78);color:#f5f5f7;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:grid;place-items:center;cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(10px);transition:opacity .28s ease,transform .28s cubic-bezier(.22,1,.36,1),visibility .28s,background .2s,border-color .2s,color .2s;box-shadow:0 10px 28px rgba(0,0,0,.28)}' +
+        '#mr-totop{position:fixed;right:20px;bottom:24px;z-index:80;width:48px;height:48px;border:1px solid rgba(255,255,255,.2);border-radius:16px;background:rgba(16,18,28,.92);color:#f5f5f7;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:grid;place-items:center;cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(12px) scale(.96);transition:opacity .28s ease,transform .28s cubic-bezier(.22,1,.36,1),visibility .28s,background .2s,border-color .2s,color .2s;box-shadow:0 12px 32px rgba(0,0,0,.35)}' +
         '#mr-totop.is-show{opacity:1;visibility:visible;pointer-events:auto;transform:none}' +
-        '#mr-totop:hover{background:rgba(216,236,63,.92);border-color:rgba(216,236,63,.95);color:#111113}' +
+        '#mr-totop:hover{background:#d8ec3f;border-color:#d8ec3f;color:#111113}' +
         '#mr-totop:focus-visible{outline:2px solid #d8ec3f;outline-offset:3px}' +
-        '#mr-totop svg{display:block;width:18px;height:18px}' +
-        '@media (max-width:720px){#mr-totop{right:16px;bottom:20px;width:42px;height:42px;border-radius:12px}}' +
+        '#mr-totop svg{display:block;width:20px;height:20px}' +
+        '@media (max-width:720px){#mr-totop{right:14px;bottom:18px;width:46px;height:46px;border-radius:14px}}' +
         '@media (prefers-reduced-motion:reduce){#mr-totop{transition:none}}';
       document.head.appendChild(style);
     }
@@ -83,29 +83,44 @@
     btn.setAttribute('aria-label', '回到顶部');
     btn.title = '回到顶部';
     btn.innerHTML =
-      '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg>';
-    document.body.appendChild(btn);
+      '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg>';
+    (document.body || document.documentElement).appendChild(btn);
     var reduce = false;
     try {
       reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     } catch (e) {}
+    function scrollY() {
+      return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    }
     function sync() {
-      btn.classList.toggle('is-show', window.scrollY > 420);
+      btn.classList.toggle('is-show', scrollY() > 280);
     }
     window.addEventListener('scroll', sync, { passive: true });
+    document.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync, { passive: true });
     sync();
+    setTimeout(sync, 300);
     btn.addEventListener('click', function () {
       try {
         if (typeof trackEvent === 'function') trackEvent('back_to_top', { category: 'Nav' });
       } catch (e) {}
-      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      try {
+        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      } catch (e) {
+        window.scrollTo(0, 0);
+      }
     });
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initToTop);
-  } else {
-    initToTop();
+  function scheduleToTop() {
+    try { initToTop(); } catch (e) {}
   }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleToTop);
+  } else {
+    scheduleToTop();
+  }
+  setTimeout(scheduleToTop, 0);
+  setTimeout(scheduleToTop, 800);
 
   // —— 统一事件 ——
   window.trackEvent = function (eventName, params) {

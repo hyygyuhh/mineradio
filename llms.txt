@@ -21,6 +21,11 @@ Mineradio 由独立开发者 XxHuber 创建，完全免费、无广告、无内�
 - [Android 版](https://mineradio.cn/download.html): v2.1.8，支持 Android 8.0+，APK 格式
 - [网页版](https://mineradio.art/): 无需下载，浏览器直接使用
 
+## 功能与版本
+
+- [功能介绍](https://mineradio.cn/features.html): 粒子可视化、聚合搜索、3D 歌单架、桌面歌词、四端与网页版
+- [历史版本](https://mineradio.cn/changelog.html): Android / Windows / macOS 版本记录与更新说明
+
 ## 对比
 
 - [对比总览](https://mineradio.cn/compare.html)

@@ -421,8 +421,9 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
   <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:16px">
     <a href="#top" style="display:flex;align-items:center;gap:10px"><img src="images/inline/inline-01.jpg" alt="MR" style="width:26px;height:26px;border-radius:7px;display:block"><x-import component-from-global-scope="MineradioDS.BrandWordmark" class="text-[15px] font-bold tracking-tight" hint-size="86px,20px"></x-import></a>
     <div style="display:flex;align-items:center;gap:22px;font-size:14px;flex-wrap:wrap;justify-content:flex-end">
-      <a href="#features" data-i18n="nav_feat" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">功能</a>
+      <a href="/features.html" data-i18n="nav_feat" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">功能</a>
       <a href="/download.html" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">下载</a>
+      <a href="/changelog.html" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">版本</a>
       <a href="/compare.html" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">对比</a>
       <a href="#faq" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">FAQ</a>
       <a href="#praise" data-i18n="nav_praise" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">评价</a>
@@ -717,13 +718,13 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
   <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between">
     <span style="display:flex;align-items:center;gap:9px"><img src="images/inline/inline-10.jpg" alt="MR" style="width:22px;height:22px;border-radius:6px;display:block"><x-import component-from-global-scope="MineradioDS.BrandWordmark" class="text-[14px] font-bold tracking-tight" hint-size="80px,18px"></x-import><span data-i18n="foot_slogan" style="margin-left:8px;font-size:12.5px;color:#6e6e76">听见，也看见。</span></span>
     <div style="display:flex;gap:24px;font-size:13px;flex-wrap:wrap">
-      <a href="#features" data-i18n="nav_feat2" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">功能</a>
+      <a href="/features.html" data-i18n="nav_feat2" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">功能</a>
       <a href="/download.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">下载</a>
+      <a href="/changelog.html" data-i18n="foot_clog" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">历史版本</a>
       <a href="/install.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">安装指南</a>
       <a href="/compare.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">对比</a>
       <a href="#faq" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">FAQ</a>
       <a href="https://mineradio.art" target="_blank" rel="noreferrer" data-i18n="foot_web" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">网页版</a>
-      <button onClick="{{ openClog }}" data-i18n="foot_clog" style="border:none;background:none;padding:0;font-family:inherit;font-size:13px;color:#8e8e96;cursor:pointer;transition:color .2s" style-hover="color:#f5f5f7">更新日志</button>
       <a href="#support" data-i18n="foot_fund" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">资助我们</a>
       <a href="/privacy.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">隐私政策</a>
       <a href="mailto:support@mineradio.cn" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">support@mineradio.cn</a>
@@ -789,7 +790,8 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
         <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb"><strong style="color:#f5f5f7">v2.2.0 · Windows / macOS</strong><br><span data-i18n="clog2">桌面端当前为 v2.2.0；Intel 与 Apple 芯片共用安装包。</span></p></div>
         <div style="display:flex;gap:12px"><span style="color:#d8ec3f;flex:none">▸</span><p data-i18n="clog3" style="margin:0;font-size:14px;line-height:1.7;color:#c4c4cb">修复 QQ 音乐无法登录的问题；重构安装包，体积更小。</p></div>
       </div>
-      <button onClick="{{ closeClog }}" data-i18n="clog_close" style="margin-top:24px;width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#f5f5f7;border-radius:12px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s" style-hover="background:rgba(255,255,255,.12)">关闭</button>
+      <a href="/changelog.html" data-i18n="clog_more" style="display:block;margin-top:18px;text-align:center;font-size:13.5px;font-weight:700;color:#d8ec3f">查看完整历史版本 →</a>
+      <button onClick="{{ closeClog }}" data-i18n="clog_close" style="margin-top:12px;width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#f5f5f7;border-radius:12px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s" style-hover="background:rgba(255,255,255,.12)">关闭</button>
     </div>
   </div>
 </sc-if>
@@ -962,7 +964,8 @@ class Component extends DCLogic {
     sup_p: { zh: '赞赏通道打开的目的是获取少量算力费用来维持开发进度，目前整体的算力额度都被榨干了，我的钱包也有些羞涩。收到的赞助费我们也会全部拿来开发软件。<br>承蒙所有 MR 玩家厚爱，感激不尽 🙏', en: 'Donations cover a little compute cost to keep development moving — the quota is drained and my wallet is a bit shy. Every contribution goes straight back into building the app.<br>Heartfelt thanks to every MR player 🙏' },
     qr_mac: { zh: 'Mac 端赞赏码', en: 'macOS donation code' }, qr_win: { zh: 'Windows 端赞赏码', en: 'Windows donation code' },
     qr_note: { zh: '扫码前请确认收款人信息 · 二维码来自作者提供', en: 'Verify the recipient before paying · QR codes provided by the author' },
-    nav_feat2: { zh: '功能', en: 'Features' }, nav_dl2: { zh: '下载', en: 'Download' }, foot_web: { zh: '网页版', en: 'Web app' }, foot_clog: { zh: '更新日志', en: 'Changelog' }, foot_fund: { zh: '资助我们', en: 'Fund us' }, foot_dy: { zh: '抖音', en: 'Douyin' },
+    nav_feat2: { zh: '功能', en: 'Features' }, nav_dl2: { zh: '下载', en: 'Download' }, foot_web: { zh: '网页版', en: 'Web app' }, foot_clog: { zh: '历史版本', en: 'Changelog' }, foot_fund: { zh: '资助我们', en: 'Fund us' }, foot_dy: { zh: '抖音', en: 'Douyin' },
+    clog_more: { zh: '查看完整历史版本 →', en: 'Full version history →' },
     foot_slogan: { zh: '听见，也看见。', en: 'Hear it. See it.' },
     foot_legal: { zh: '© 2026 Mineradio · GPL-3.0 开源', en: '© 2026 Mineradio · GPL-3.0 open source' },
     foot_proof: { zh: '爱发电证明原作者是XxHuber', en: 'Afdian proof of authorship by XxHuber' },

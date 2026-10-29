@@ -974,12 +974,122 @@ tr:last-child td { border-bottom: none; }
   color: var(--soft);
 }
 
+/* —— features / changelog pages —— */
+.feat-band {
+  padding: 12px 0 48px;
+}
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.feat-card {
+  padding: 26px 24px 24px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.feat-card h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.feat-card p:last-child {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--soft);
+}
+.feat-eye {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+.clog-note {
+  margin: 0 0 28px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--soft);
+}
+.clog-note a {
+  color: var(--ink);
+  font-weight: 700;
+  border-bottom: 1.5px solid var(--accent);
+}
+.clog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.clog-item {
+  padding: 24px 24px 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.clog-item.is-current {
+  border-color: rgba(216, 236, 63, 0.35);
+}
+.clog-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.clog-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(216, 236, 63, 0.16);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.clog-item h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.clog-item ul {
+  margin: 0;
+  padding-left: 1.15em;
+  color: var(--soft);
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+.clog-item li { margin: 0 0 6px; }
+.clog-cta {
+  margin: 14px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+.clog-cta a {
+  color: var(--ink);
+  border-bottom: 1.5px solid var(--accent);
+}
+
 @media (max-width: 860px) {
   .dl-grid,
   .ig-grid { grid-template-columns: 1fr; }
   .cmp-grid { grid-template-columns: 1fr; }
   .cmp-verdict { grid-template-columns: 1fr; }
   .dl-tip-grid { grid-template-columns: 1fr; }
+  .feat-grid { grid-template-columns: 1fr; }
   .dl-fade-in,
   .dl-fade-out { height: 80px; }
 }

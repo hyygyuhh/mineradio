@@ -739,7 +739,7 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
       <a href="https://mineradio.art" target="_blank" rel="noreferrer" data-i18n="foot_web" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">网页版</a>
       <a href="#support" data-i18n="foot_fund" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">资助我们</a>
       <a href="/privacy.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">隐私政策</a>
-      <a href="mailto:support%40mineradio.cn" data-mr-mail="support|mineradio.cn" data-mr-mail-label="1" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">联系我们</a>
+      <span style="color:#8e8e96">联系邮箱：<a href="mailto:support@mineradio.cn" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">support@mineradio.cn</a></span>
       <a href="https://github.com/XxHuberrr/Mineradio" target="_blank" rel="noreferrer" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">GitHub</a>
       <a href="https://v.douyin.com/_TO1zfAfPX0/" target="_blank" rel="noreferrer" data-i18n="foot_dy" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">抖音</a>
     </div>
@@ -1133,9 +1133,6 @@ class Component extends DCLogic {
     this.setup();
     this.applyLang();
     try {
-      if (typeof window.MR_fillMails === 'function') window.MR_fillMails();
-    } catch (e) {}
-    try {
       sessionStorage.setItem('mr_session_ready', '1');
       document.documentElement.classList.add('mr-ready');
       const boot = document.getElementById('mr-boot');
@@ -1173,11 +1170,7 @@ class Component extends DCLogic {
     document.addEventListener('keydown', onKey);
     this._cleanup.push(() => document.removeEventListener('keydown', onKey));
   }
-  componentDidUpdate() {
-    this.applyTweaks();
-    this.applyLang();
-    try { if (typeof window.MR_fillMails === 'function') window.MR_fillMails(); } catch (e) {}
-  }
+  componentDidUpdate() { this.applyTweaks(); this.applyLang(); }
   componentWillUnmount() { (this._cleanup || []).forEach(f => { try { f(); } catch (e) {} }); }
   applyLang() {
     const root = this.rootRef.current;

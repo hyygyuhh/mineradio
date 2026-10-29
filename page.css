@@ -516,6 +516,33 @@ tr:last-child td { border-bottom: none; }
   text-decoration: none;
 }
 .foot-links a:hover { color: var(--ink); }
+.foot-mail {
+  color: var(--muted);
+  font-size: 13px;
+}
+.foot-mail a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.foot-mail a:hover { color: var(--ink); }
+.contact-mail {
+  margin: 8px 0 0;
+  line-height: 1.9;
+}
+.contact-mail-h {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+.contact-mail-v {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+.contact-mail-v a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.contact-mail-v a:hover { color: var(--accent); }
 .foot-legal {
   font-size: 12.5px;
   color: #6e6e76;

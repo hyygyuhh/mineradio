@@ -61,53 +61,6 @@
       'https://api.indexnow.org/indexnow?url=' + indexNowUrl + '&key=' + indexNowKey;
   } catch (e) {}
 
-  // —— 邮箱：拆开写进 data-mr-mail，避免 Cloudflare Email Obfuscation；点击用捕获处理，避免 href="#" 回顶 ——
-  function mrMailFromEl(el) {
-    var parts = String((el && el.getAttribute('data-mr-mail')) || '').split('|');
-    if (parts.length < 2) return '';
-    var user = parts[0].trim();
-    var domain = parts[1].trim();
-    if (!user || !domain) return '';
-    return user + '@' + domain;
-  }
-  window.MR_fillMails = function (root) {
-    root = root || document;
-    var nodes = root.querySelectorAll('[data-mr-mail]');
-    for (var i = 0; i < nodes.length; i++) {
-      var el = nodes[i];
-      var email = mrMailFromEl(el);
-      if (!email) continue;
-      el.setAttribute('href', 'mailto:' + email);
-      if (el.getAttribute('data-mr-mail-label') !== '1') {
-        el.textContent = email;
-      }
-    }
-  };
-  document.addEventListener(
-    'click',
-    function (e) {
-      var el = e.target && e.target.closest ? e.target.closest('[data-mr-mail]') : null;
-      if (!el) return;
-      var email = mrMailFromEl(el);
-      if (!email) return;
-      e.preventDefault();
-      e.stopPropagation();
-      window.location.href = 'mailto:' + email;
-    },
-    true
-  );
-  function scheduleFillMails() {
-    try { window.MR_fillMails(); } catch (e) {}
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', scheduleFillMails);
-  } else {
-    scheduleFillMails();
-  }
-  setTimeout(scheduleFillMails, 0);
-  setTimeout(scheduleFillMails, 400);
-  setTimeout(scheduleFillMails, 1200);
-
   // —— 回到顶部 ——
   function initToTop() {
     if (document.getElementById('mr-totop')) return;

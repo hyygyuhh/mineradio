@@ -61,6 +61,35 @@
       'https://api.indexnow.org/indexnow?url=' + indexNowUrl + '&key=' + indexNowKey;
   } catch (e) {}
 
+  // —— 邮箱：拆开写进 data-mr-mail，避免 Cloudflare Email Obfuscation 显示成 [email protected] ——
+  window.MR_fillMails = function (root) {
+    root = root || document;
+    var nodes = root.querySelectorAll('[data-mr-mail]');
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      var parts = String(el.getAttribute('data-mr-mail') || '').split('|');
+      if (parts.length < 2) continue;
+      var user = parts[0].trim();
+      var domain = parts[1].trim();
+      if (!user || !domain) continue;
+      var email = user + '@' + domain;
+      el.setAttribute('href', 'mailto:' + email);
+      if (el.getAttribute('data-mr-mail-label') !== '1') {
+        el.textContent = email;
+      }
+    }
+  };
+  function scheduleFillMails() {
+    try { window.MR_fillMails(); } catch (e) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleFillMails);
+  } else {
+    scheduleFillMails();
+  }
+  setTimeout(scheduleFillMails, 0);
+  setTimeout(scheduleFillMails, 400);
+
   // —— 统一事件 ——
   window.trackEvent = function (eventName, params) {
     params = params || {};

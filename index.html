@@ -287,12 +287,20 @@
 </script>
 <style id="mr-boot-css">
 #seo-crawl{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
-#mr-boot{position:fixed;inset:0;z-index:9998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#02030a;color:rgba(245,245,247,.72);font-family:"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif}
-#mr-boot strong{font-size:22px;font-weight:700;letter-spacing:-.03em;color:#f5f5f7}
-#mr-boot span{font-size:13px;letter-spacing:.12em;color:rgba(245,245,247,.38)}
-html.mr-ready #mr-boot{opacity:0;pointer-events:none;transition:opacity .28s ease}
+#mr-boot{position:fixed;inset:0;z-index:9998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#02030a;color:rgba(245,245,247,.72);font-family:"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif;opacity:1;visibility:visible;transition:opacity .48s cubic-bezier(.22,1,.36,1),visibility 0s linear 0s}
+#mr-boot strong{font-size:22px;font-weight:700;letter-spacing:-.03em;color:#f5f5f7;animation:mrBootIn .6s cubic-bezier(.22,1,.36,1) both}
+#mr-boot span{font-size:13px;letter-spacing:.18em;color:rgba(245,245,247,.38);animation:mrBootPulse 1.35s ease-in-out infinite}
+@keyframes mrBootIn{from{opacity:0;transform:translateY(10px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes mrBootPulse{0%,100%{opacity:.28}50%{opacity:.62}}
+html.mr-ready #mr-boot{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .42s cubic-bezier(.4,0,.2,1),visibility 0s linear .42s}
 html.mr-ready #mr-boot.mr-boot-gone{display:none}
+html.mr-ready-quick #mr-boot{transition-duration:.16s}
+html.mr-ready-quick #mr-boot strong,html.mr-ready-quick #mr-boot span{animation:none!important}
+@media (prefers-reduced-motion:reduce){#mr-boot,#mr-boot strong,#mr-boot span,html.mr-ready #mr-boot{animation:none!important;transition-duration:.01ms!important}}
 </style>
+<script>
+(function(){try{if(sessionStorage.getItem('mr_session_ready')==='1')document.documentElement.classList.add('mr-ready-quick')}catch(e){}})();
+</script>
 </head>
 <body>
 <div id="mr-boot" aria-hidden="true"><strong>Mineradio</strong><span>LOADING</span></div>
@@ -727,7 +735,7 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
       <a href="https://mineradio.art" target="_blank" rel="noreferrer" data-i18n="foot_web" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">网页版</a>
       <a href="#support" data-i18n="foot_fund" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">资助我们</a>
       <a href="/privacy.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">隐私政策</a>
-      <a href="mailto:support@mineradio.cn" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">support@mineradio.cn</a>
+      <a href="#" data-mr-mail="support|mineradio.cn" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">support</a>
       <a href="https://github.com/XxHuberrr/Mineradio" target="_blank" rel="noreferrer" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">GitHub</a>
       <a href="https://v.douyin.com/_TO1zfAfPX0/" target="_blank" rel="noreferrer" data-i18n="foot_dy" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">抖音</a>
     </div>
@@ -1121,12 +1129,17 @@ class Component extends DCLogic {
     this.setup();
     this.applyLang();
     try {
+      if (typeof window.MR_fillMails === 'function') window.MR_fillMails();
+    } catch (e) {}
+    try {
+      sessionStorage.setItem('mr_session_ready', '1');
       document.documentElement.classList.add('mr-ready');
       const boot = document.getElementById('mr-boot');
       if (boot) {
         const hideBoot = () => boot.classList.add('mr-boot-gone');
+        const wait = document.documentElement.classList.contains('mr-ready-quick') ? 220 : 520;
         boot.addEventListener('transitionend', hideBoot, { once: true });
-        setTimeout(hideBoot, 400);
+        setTimeout(hideBoot, wait);
       }
     } catch (e) {}
     try {
@@ -1151,7 +1164,11 @@ class Component extends DCLogic {
     document.addEventListener('keydown', onKey);
     this._cleanup.push(() => document.removeEventListener('keydown', onKey));
   }
-  componentDidUpdate() { this.applyTweaks(); this.applyLang(); }
+  componentDidUpdate() {
+    this.applyTweaks();
+    this.applyLang();
+    try { if (typeof window.MR_fillMails === 'function') window.MR_fillMails(); } catch (e) {}
+  }
   componentWillUnmount() { (this._cleanup || []).forEach(f => { try { f(); } catch (e) {} }); }
   applyLang() {
     const root = this.rootRef.current;

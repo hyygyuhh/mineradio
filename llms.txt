@@ -55,10 +55,11 @@ Mineradio 由独立开发者 XxHuber 创建，完全免费、无广告、无内�
 ## 关键信息
 
 - 官网：https://mineradio.cn
+- 联系邮箱：support@mineradio.cn
 - 开发者：XxHuber
 - 最新版本：Windows v2.2.0 / Android v2.1.8 / macOS v2.2.0
 - 许可证：免费开源
-- 最后更新：2026-10-14
+- 最后更新：2026-10-29
 
 ## Optional
 

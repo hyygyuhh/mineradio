@@ -9,6 +9,7 @@
 Mineradio（Mine Radio）是一款完全免费且开源的多平台音乐播放器。支持 Windows 10/11、macOS（Apple芯片/Intel自动识别）、Android 8.0+ 以及 Web 网页版。聚合搜索网易云音乐、QQ音乐、酷狗音乐、Spotify 等多个音乐平台，一键搜索全网音乐。提供封面粒子可视化、桌面歌词、手势控制等沉浸式功能。
 
 - 官网：https://mineradio.cn
+- 联系邮箱：support@mineradio.cn
 - 开发者：XxHuber
 - 许可证：免费开源
 - 最新版本：Windows v2.2.0 / Android v2.1.8 / macOS v2.2.0

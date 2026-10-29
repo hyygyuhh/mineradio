@@ -986,7 +986,7 @@ class Component extends DCLogic {
       guideSteps: this.GUIDES[this.state.guideTab][L],
       dlOpen: !!this.state.dlModal,
       dlSteps: this.state.dlModal ? this.GUIDES[this.state.dlModal][L] : [],
-      dlPlatLabel: this.state.dlModal ? ({ mac: 'MACOS · V2.2.0' + (this._macArch ? ' · ' + this._macArch.toUpperCase() : ''), win: 'WINDOWS · V2.1.0', and: 'ANDROID · V2.1.8', web: L === 'en' ? 'WEB APP' : '网页版' })[this.state.dlModal] : '',
+      dlPlatLabel: this.state.dlModal ? ({ mac: 'MACOS · V2.2.0' + (this._macArch ? ' · ' + this._macArch.toUpperCase() : ''), win: 'WINDOWS · V2.2.0', and: 'ANDROID · V2.1.8', web: L === 'en' ? 'WEB APP' : '网页版' })[this.state.dlModal] : '',
       dlConfirmLabel: this.state.dlModal === 'web' ? (L === 'en' ? 'Got it, open the web app' : '知道了，打开网页版') : (L === 'en' ? 'Got it, start download' : '知道了，开始下载'),
       dlConfirmDisabled: (this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource,
       dlConfirmBg: ((this.state.dlModal === 'mac' || this.state.dlModal === 'win' || this.state.dlModal === 'and') && !this.state.dlSelectedSource) ? 'rgba(216,236,63,.3)' : '#d8ec3f',

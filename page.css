@@ -550,6 +550,10 @@ tr:last-child td { border-bottom: none; }
   text-align: right;
 }
 
+@media (max-width: 1100px) {
+  .nav-links { gap: 14px; flex-wrap: nowrap; }
+  .nav-links .nav-hide-sm { display: none; }
+}
 @media (max-width: 720px) {
   .wrap { width: min(100% - 32px, var(--max)); }
   .site-nav .bar { padding: 12px 0; }
@@ -687,12 +691,13 @@ tr:last-child td { border-bottom: none; }
 
 .dl-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
 }
 .dl-card {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 28px 2.7em auto 18px;
+  align-content: start;
   gap: 14px;
   min-height: 100%;
   padding: 26px 24px 22px;
@@ -713,9 +718,10 @@ tr:last-child td { border-bottom: none; }
 }
 .dl-card-top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
+  min-width: 0;
 }
 .dl-os {
   margin: 0;
@@ -725,8 +731,9 @@ tr:last-child td { border-bottom: none; }
   color: #111113;
 }
 .dl-ver {
-  margin: 6px 0 0;
+  margin: 0;
   font-size: 13px;
+  line-height: 1.35;
   color: rgba(17, 17, 19, 0.52);
 }
 .dl-badge {
@@ -739,6 +746,13 @@ tr:last-child td { border-bottom: none; }
   padding: 5px 10px;
   white-space: nowrap;
 }
+.dl-mains {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-self: end;
+}
+.dl-span { grid-column: 1 / -1; }
 .dl-primary {
   display: inline-flex;
   align-items: center;
@@ -753,6 +767,11 @@ tr:last-child td { border-bottom: none; }
   font-weight: 700;
   text-decoration: none !important;
   transition: background .2s, transform .2s;
+}
+.dl-mains .dl-primary {
+  margin-top: 0;
+  padding: 10px 6px;
+  font-size: 13px;
 }
 .dl-primary:hover {
   background: #000;
@@ -769,26 +788,26 @@ tr:last-child td { border-bottom: none; }
 }
 .dl-sources {
   display: flex;
+  align-items: center;
+  min-height: 18px;
   flex-wrap: wrap;
   gap: 8px;
 }
 .dl-sources a {
   display: inline-flex;
   align-items: center;
-  padding: 7px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(17, 17, 19, 0.1);
-  background: rgba(17, 17, 19, 0.03);
-  color: rgba(17, 17, 19, 0.72);
-  font-size: 12.5px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: border-color .2s, background .2s, color .2s;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(17, 17, 19, 0.4);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color .2s;
 }
 .dl-sources a:hover {
-  border-color: rgba(17, 17, 19, 0.22);
-  background: rgba(17, 17, 19, 0.06);
-  color: #111113;
+  color: rgba(17, 17, 19, 0.72);
 }
 .dl-band-note {
   margin: 28px 0 0;

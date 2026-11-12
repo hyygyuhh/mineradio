@@ -341,6 +341,25 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
 @media (max-height: 760px){[data-hero-hint]{display:none !important}}
 @media (prefers-reduced-motion: reduce){*{animation-duration:.01s !important;transition-duration:.01s !important}}
 [data-lang="en"] h1,[data-lang="en"] h2,[data-lang="en"] h3{letter-spacing:-0.022em !important;word-spacing:0.06em !important}
+.mr-nav-links{display:flex;align-items:center;gap:16px;font-size:14px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:1080px){.mr-nav-extra{display:none !important}}
+.mr-dl-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:40px;text-align:left}
+.mr-dl-card{display:grid;grid-template-rows:28px 2.6em auto 18px;align-content:start;gap:10px;width:100%;padding:22px 18px;height:100%;box-sizing:border-box}
+.mr-dl-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+.mr-dl-os{font-size:20px;font-weight:700;color:#111113}
+.mr-dl-ver{margin:0;font-size:13px;line-height:1.35;color:rgba(17,17,19,.55)}
+[data-rec]{flex:none;font-size:11.5px;font-weight:700;color:#5c6b00;background:rgba(216,236,63,.35);border-radius:999px;padding:4px 8px;white-space:nowrap}
+.mr-dl-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-top:0;align-self:end}
+.mr-dl-btn{display:inline-flex;align-items:center;justify-content:center;width:100%;min-width:0;margin-top:0;background:#111113;color:#f5f5f7;border-radius:999px;padding:10px 8px;font-size:13px;font-weight:700}
+.mr-dl-span{grid-column:1 / -1}
+.mr-dl-alt{display:flex;align-items:center;min-height:18px;gap:12px;flex-wrap:wrap;margin-top:0}
+.mr-dl-alt a{font-size:12px;font-weight:500;color:rgba(17,17,19,.4);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:1100px){.mr-dl-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){.mr-dl-grid{grid-template-columns:1fr}}
+.mr-notice{position:fixed;top:72px;left:50%;transform:translateX(-50%);z-index:60;width:min(680px,calc(100% - 28px));display:flex;align-items:center;gap:12px;padding:12px 12px 12px 16px;border-radius:16px;background:rgba(18,18,22,.94);border:1px solid rgba(255,255,255,.12);box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.mr-notice p{margin:0;flex:1;font-size:13.5px;line-height:1.5;color:#d7d7de}
+.mr-notice a{flex:none;background:#d8ec3f;color:#0a0a0c;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700}
+.mr-notice button{flex:none;border:none;background:transparent;color:#9a9aa3;cursor:pointer;font:inherit;font-size:20px;line-height:1;padding:4px 6px}
 </style>
 </helmet>
 <div ref="{{ rootRef }}" style="color:#f5f5f7;overflow-x:clip;position:relative;background:#02030a">
@@ -350,14 +369,13 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
 <nav data-nav="" style="position:fixed;top:0;left:0;right:0;z-index:50;border-bottom:1px solid transparent;transition:background .45s ease,border-color .45s ease">
   <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;gap:16px">
     <a href="#top" style="display:flex;align-items:center;gap:10px"><img src="images/inline/inline-01.jpg" alt="MR" style="width:26px;height:26px;border-radius:7px;display:block"><x-import component-from-global-scope="MineradioDS.BrandWordmark" class="text-[15px] font-bold tracking-tight" hint-size="86px,20px"></x-import></a>
-    <div style="display:flex;align-items:center;gap:22px;font-size:14px;flex-wrap:wrap;justify-content:flex-end">
+    <div class="mr-nav-links">
       <a href="/features.html" data-i18n="nav_feat" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">功能</a>
-      <a href="/download.html" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">下载</a>
-      <a href="/changelog.html" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">版本</a>
-      <a href="/compare.html" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">对比</a>
-      <a href="#faq" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">FAQ</a>
-      <a href="#praise" data-i18n="nav_praise" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">评价</a>
-      <a href="https://github.com/XxHuberrr/Mineradio" target="_blank" rel="noreferrer" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">GitHub</a>
+      <a class="mr-nav-extra" href="/changelog.html" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">版本</a>
+      <a class="mr-nav-extra" href="/compare.html" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">对比</a>
+      <a class="mr-nav-extra" href="#faq" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">FAQ</a>
+      <a class="mr-nav-extra" href="#praise" data-i18n="nav_praise" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">评价</a>
+      <a class="mr-nav-extra" href="https://github.com/XxHuberrr/Mineradio" target="_blank" rel="noreferrer" style="color:#c9c9cf;transition:color .2s" style-hover="color:#ffffff">GitHub</a>
       <span style="display:flex;border:1px solid rgba(255,255,255,.18);border-radius:999px;overflow:hidden;font-size:12px">
         <button data-lang-btn="zh" onClick="{{ setZh }}" style="border:none;cursor:pointer;padding:5px 12px;background:#f5f5f7;color:#0a0a0c;font-weight:600;font-family:inherit;transition:background .2s,color .2s">中</button>
         <button data-lang-btn="en" onClick="{{ setEn }}" style="border:none;cursor:pointer;padding:5px 12px;background:transparent;color:#8e8e96;font-family:inherit;transition:background .2s,color .2s">EN</button>
@@ -540,37 +558,37 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
     <p style="margin:18px 0 0;font-size:15px;font-weight:600;letter-spacing:.01em;color:rgba(17,17,19,.72)">Mineradio 下载安装 · Windows / Mac / Android / 网页版</p>
     <p data-i18n="dl_sub" data-reveal="1" style="margin:10px 0 0;font-size:17px;line-height:1.7;color:rgba(17,17,19,.6)">桌面、手机、浏览器，全部免费。</p>
     <p style="margin:16px auto 0;max-width:640px;padding:12px 14px;border-radius:12px;background:rgba(17,17,19,.05);border:1px solid rgba(17,17,19,.08);font-size:13.5px;line-height:1.7;color:rgba(17,17,19,.62);text-align:left">当前提供 Windows / macOS / Android v2.2.0，项目持续更新中。完整网盘链接见 <a href="/download.html" style="color:#111113;font-weight:700;border-bottom:1.5px solid #d8ec3f">下载专页</a>，安装排错见 <a href="/install.html" style="color:#111113;font-weight:700;border-bottom:1.5px solid #d8ec3f">安装指南</a>。</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:56px">
-      <div data-reveal="0" data-dl-os="mac" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,190px">
-        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:26px 24px;height:100%;box-sizing:border-box">
-          <span style="font-size:20px;font-weight:700;color:#111113">macOS</span>
-          <span style="font-size:13px;color:rgba(17,17,19,.55)">Apple 芯片 / Intel · v2.2.0</span>
-          <span data-rec style="display:none;font-size:11.5px;font-weight:700;color:#5c6b00">● 为你的设备推荐</span>
-          <a data-dl-link="mac" href="{{ macDownloadHref }}" target="_blank" rel="noreferrer" data-i18n="get1" style="margin-top:14px;font-size:14px;font-weight:700;color:#111113;border-bottom:1.5px solid #d8ec3f" style-hover="color:#000000">获取 ↓</a>
+    <div class="mr-dl-grid">
+      <div data-reveal="0" data-dl-os="mac" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,210px">
+        <div class="mr-dl-card">
+          <div class="mr-dl-head"><span class="mr-dl-os">macOS</span><span data-rec style="display:none">● 为你的设备推荐</span></div>
+          <p class="mr-dl-ver">Apple 芯片 / Intel · v2.2.0</p>
+          <div class="mr-dl-row"><a data-dl-direct="mac" data-dl-src="quark" href="https://pan.quark.cn/s/805e91a9a0ee" target="_blank" rel="noreferrer" class="mr-dl-btn">夸克网盘</a><a data-dl-direct="mac" data-dl-src="baidu" href="https://pan.baidu.com/s/1MaqXaOh2oN39zpx6rIr6hw?pwd=a9j5" target="_blank" rel="noreferrer" class="mr-dl-btn">百度网盘</a></div>
+          <span class="mr-dl-alt"><a data-dl-direct="mac" data-dl-src="lanzou" href="https://xxhuber.lanzout.com/s/Mineradio-Mac" target="_blank" rel="noreferrer">蓝奏云</a></span>
         </div>
       </x-import></div>
-      <div data-reveal="1" data-dl-os="windows" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,190px">
-        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:26px 24px;height:100%;box-sizing:border-box">
-          <span style="font-size:20px;font-weight:700;color:#111113">Windows</span>
-          <span style="font-size:13px;color:rgba(17,17,19,.55)">Windows 10 / 11 · v2.2.0</span>
-          <span data-rec style="display:none;font-size:11.5px;font-weight:700;color:#5c6b00">● 为你的设备推荐</span>
-          <a data-dl-link="win" href="https://pan.quark.cn/s/408490c838d6" target="_blank" rel="noreferrer" data-i18n="get2" style="margin-top:14px;font-size:14px;font-weight:700;color:#111113;border-bottom:1.5px solid #d8ec3f" style-hover="color:#000000">获取 ↓</a>
+      <div data-reveal="1" data-dl-os="windows" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,210px">
+        <div class="mr-dl-card">
+          <div class="mr-dl-head"><span class="mr-dl-os">Windows</span><span data-rec style="display:none">● 为你的设备推荐</span></div>
+          <p class="mr-dl-ver">Windows 10 / 11 · v2.2.0</p>
+          <div class="mr-dl-row"><a data-dl-direct="win" data-dl-src="quark" href="https://pan.quark.cn/s/408490c838d6" target="_blank" rel="noreferrer" class="mr-dl-btn">夸克网盘</a><a data-dl-direct="win" data-dl-src="baidu" href="https://pan.baidu.com/s/12Vst-hsKZDUsnjkIznAaQg?pwd=SJHP" target="_blank" rel="noreferrer" class="mr-dl-btn">百度网盘</a></div>
+          <span class="mr-dl-alt"><a data-dl-direct="win" data-dl-src="lanzou" href="https://xxhuber.lanzout.com/s/Mineradio" target="_blank" rel="noreferrer">蓝奏云</a></span>
         </div>
       </x-import></div>
-      <div data-reveal="2" data-dl-os="android" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,190px">
-        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:26px 24px;height:100%;box-sizing:border-box">
-          <span style="font-size:20px;font-weight:700;color:#111113">Android</span>
-          <span style="font-size:13px;color:rgba(17,17,19,.55)">Android 8.0+ · v2.2.0</span>
-          <span data-rec style="display:none;font-size:11.5px;font-weight:700;color:#5c6b00">● 为你的设备推荐</span>
-          <a data-dl-link="and" href="https://pan.quark.cn/s/ad5edec16ded" target="_blank" rel="noreferrer" data-i18n="get3" style="margin-top:14px;font-size:14px;font-weight:700;color:#111113;border-bottom:1.5px solid #d8ec3f" style-hover="color:#000000">获取 ↓</a>
+      <div data-reveal="2" data-dl-os="android" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,210px">
+        <div class="mr-dl-card">
+          <div class="mr-dl-head"><span class="mr-dl-os">Android</span><span data-rec style="display:none">● 为你的设备推荐</span></div>
+          <p class="mr-dl-ver">Android 8.0+ · v2.2.0</p>
+          <div class="mr-dl-row"><a data-dl-direct="and" data-dl-src="quark" href="https://pan.quark.cn/s/ad5edec16ded" target="_blank" rel="noreferrer" class="mr-dl-btn">夸克网盘</a><a data-dl-direct="and" data-dl-src="baidu" href="https://pan.baidu.com/s/1VX4xDzv1dbeNS8vNISYkew?pwd=zv6v" target="_blank" rel="noreferrer" class="mr-dl-btn">百度网盘</a></div>
+          <span class="mr-dl-alt"></span>
         </div>
       </x-import></div>
-      <div data-reveal="3" data-dl-os="web" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,190px">
-        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:26px 24px;height:100%;box-sizing:border-box">
-          <span data-i18n="web_t" style="font-size:20px;font-weight:700;color:#111113">网页版</span>
-          <span data-i18n="web_s" style="font-size:13px;color:rgba(17,17,19,.55);white-space:nowrap">mineradio.art · 浏览器打开</span>
-          <span data-rec style="display:none;font-size:11.5px;font-weight:700;color:#5c6b00">● 为你的设备推荐</span>
-          <a data-dl-link="web" href="https://mineradio.art" target="_blank" rel="noreferrer" data-i18n="web_go" style="margin-top:14px;font-size:14px;font-weight:700;color:#111113;border-bottom:1.5px solid #d8ec3f" style-hover="color:#000000">打开 ↗</a>
+      <div data-reveal="3" data-dl-os="web" style="min-width:0"><x-import component-from-global-scope="MineradioDS.GlareCard" class="h-full" hint-size="100%,210px">
+        <div class="mr-dl-card">
+          <div class="mr-dl-head"><span class="mr-dl-os" data-i18n="web_t">网页版</span><span data-rec style="display:none">● 为你的设备推荐</span></div>
+          <p class="mr-dl-ver" data-i18n="web_s">mineradio.art · 浏览器打开</p>
+          <div class="mr-dl-row"><a data-dl-direct="web" data-dl-src="webapp" href="https://mineradio.art" target="_blank" rel="noreferrer" class="mr-dl-btn mr-dl-span" data-i18n="web_go">打开网页版</a></div>
+          <span class="mr-dl-alt"></span>
         </div>
       </x-import></div>
     </div>
@@ -697,16 +715,10 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
 </sc-if>
 
 <sc-if value="{{ noticeOpen }}" hint-placeholder-val="{{ false }}">
-  <div onClick="{{ noticeMaskClick }}" data-notice-mask="" style="position:fixed;inset:0;z-index:96;background:rgba(0,0,0,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px">
-    <div role="dialog" aria-modal="true" aria-labelledby="mr-notice-title" style="width:min(440px,100%);background:rgba(18,18,22,.97);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:28px 28px 22px;animation:mrModal .4s cubic-bezier(.22,1,.36,1) both">
-      <p style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:.18em;color:#d8ec3f">NEW RELEASE</p>
-      <h3 id="mr-notice-title" data-i18n="notice_t" style="margin:0 0 12px;font-size:21px;font-weight:700">有新版本可下载</h3>
-      <p data-i18n="notice_body" style="margin:0 0 18px;font-size:14.5px;line-height:1.75;color:#c4c4cb">Android 已更新至 <strong style="color:#f5f5f7">v2.2.0</strong>：每日推荐分平台、在线歌词、Folia 动画、应用内更新与插件市场。请从本站下载页重新获取安装包。</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a href="/download.html" data-i18n="notice_go" onClick="{{ dismissNotice }}" style="flex:1;min-width:140px;text-align:center;background:#d8ec3f;color:#0a0a0c;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:700">去下载页</a>
-        <button type="button" onClick="{{ dismissNotice }}" data-i18n="notice_later" style="flex:1;min-width:120px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#f5f5f7;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">知道了</button>
-      </div>
-    </div>
+  <div class="mr-notice" role="status">
+    <p data-i18n="notice_body">Android v2.2.0 已发布，请从下载页获取新安装包。</p>
+    <a href="/download.html#android" data-i18n="notice_go" onClick="{{ dismissNotice }}">去下载</a>
+    <button type="button" onClick="{{ dismissNotice }}" aria-label="关闭">×</button>
   </div>
 </sc-if>
 
@@ -815,8 +827,8 @@ class Component extends DCLogic {
     clog3: { zh: '修复 QQ 音乐无法登录的问题；重构安装包，体积更小。', en: 'Fixed QQ Music login; rebuilt installers for a smaller size.' },
     clog_close: { zh: '关闭', en: 'Close' },
     notice_t: { zh: '有新版本可下载', en: 'New version available' },
-    notice_body: { zh: 'Android 已更新至 <strong style="color:#f5f5f7">v2.2.0</strong>：每日推荐分平台、在线歌词、Folia 动画、应用内更新与插件市场。请从本站下载页重新获取安装包。', en: 'Android is now <strong style="color:#f5f5f7">v2.2.0</strong>: daily picks by platform, online lyrics, Folia visuals, in-app updates, and a plugin store. Please re-download from this site.' },
-    notice_go: { zh: '去下载页', en: 'Go to download' },
+    notice_body: { zh: 'Android v2.2.0 已发布，请从下载页获取新安装包。', en: 'Android v2.2.0 is out. Get the new build from the download page.' },
+    notice_go: { zh: '去下载', en: 'Download' },
     notice_later: { zh: '知道了', en: 'Got it' },
     gt_web: { zh: '网页版', en: 'Web' },
     dlm_t: { zh: '安装前必看', en: 'Before you install' },
@@ -836,10 +848,10 @@ class Component extends DCLogic {
     supEye: { zh: '赞赏通道', en: 'SUPPORT THE AUTHOR' }, supH: { zh: '请作者一杯咖啡', en: 'Buy the author a coffee' },
   };
   GUIDES = {
-    mac: { zh: ['双击 DMG，把 Mineradio 拖进「应用程序」。', '请选择下载源后再点击下载按钮。', '首次打开提示「已损坏」时：打开终端，粘贴 xattr -cr /Applications/Mineradio.app 后回车（如需密码就是开机密码，输入时不显示）。', '仍打不开：系统设置 → 隐私与安全性 → 仍要打开。'], en: ['Open the DMG and drag Mineradio into Applications.', 'Please select a download source before clicking the download button.', 'If it says "damaged": open Terminal and run xattr -cr /Applications/Mineradio.app (your login password won\u2019t show while typing).', 'Still blocked? System Settings → Privacy & Security → Open Anyway.'] },
-    win: { zh: ['下载 MineRadio-Windows.exe，双击安装。', '若 SmartScreen 拦截：点「更多信息」→「仍要运行」。', '请选择下载源后再点击下载按钮。'], en: ['Download MineRadio-Windows.exe and run it.', 'If SmartScreen warns: click "More info" → "Run anyway".', 'Please select a download source before clicking the download button.'] },
+    mac: { zh: ['双击 DMG，把 Mineradio 拖进「应用程序」。', '优先点夸克网盘；打不开时再用百度网盘或蓝奏云。', '首次打开提示「已损坏」时：打开终端，粘贴 xattr -cr /Applications/Mineradio.app 后回车（如需密码就是开机密码，输入时不显示）。', '仍打不开：系统设置 → 隐私与安全性 → 仍要打开。'], en: ['Open the DMG and drag Mineradio into Applications.', 'Use Quark first. If it does not open, try Baidu Pan or Lanzou.', 'If it says "damaged": open Terminal and run xattr -cr /Applications/Mineradio.app (your login password won\u2019t show while typing).', 'Still blocked? System Settings → Privacy & Security → Open Anyway.'] },
+    win: { zh: ['下载 MineRadio-Windows.exe，双击安装。', '若 SmartScreen 拦截：点「更多信息」→「仍要运行」。', '优先点夸克网盘；打不开时再用百度网盘或蓝奏云。'], en: ['Download MineRadio-Windows.exe and run it.', 'If SmartScreen warns: click "More info" → "Run anyway".', 'Use Quark first. If it does not open, try Baidu Pan or Lanzou.'] },
     web: { zh: ['直接访问：在浏览器中打开', '无需下载安装任何客户端，只需安装扩展：首次访问时，系统会提示安装 Bridge 扩展（支持 Chrome / Edge）。该扩展是网页版接通音源的核心组件，请务必安装。', '登录使用：完成扩展安装后，登录您的个人账号，即可开始畅享服务。'], en: ['Direct access: Open in your browser', 'No need to download or install any client. Just install the extension: On first visit, the system will prompt you to install the Bridge extension (supports Chrome / Edge). This extension is a core component for the web version to connect to music sources, please make sure to install it.', 'Log in to use: After completing the extension installation, log in to your personal account to start enjoying the service.'] },
-    and: { zh: ['下载 Mineradio-2.2.0.apk，选择下载源后点击下载。', '安装时允许「未知来源」即可。', '若浏览器把文件存成 .apk.1，重命名回 .apk 再安装。'], en: ['Download Mineradio-2.2.0.apk. Select a download source before clicking download.', 'Allow "unknown sources" when installing.', 'If your browser saves it as .apk.1, rename it back to .apk first.'] },
+    and: { zh: ['下载 Mineradio-2.2.0.apk。优先点夸克网盘，打不开再用百度网盘。', '安装时允许「未知来源」即可。', '若浏览器把文件存成 .apk.1，重命名回 .apk 再安装。'], en: ['Download Mineradio-2.2.0.apk. Use Quark first, or Baidu Pan if it does not open.', 'Allow "unknown sources" when installing.', 'If your browser saves it as .apk.1, rename it back to .apk first.'] },
   };
   renderVals() {
     const L = this.state.lang;
@@ -1024,9 +1036,13 @@ class Component extends DCLogic {
       b.style.color = on ? '#ffffff' : '#8e8e96';
     });
     this.q('[data-dl-os]').forEach(card => {
+      const on = card.getAttribute('data-dl-os') === this._detectedOs;
+      card.style.order = on ? '-1' : '0';
+      card.style.borderRadius = '20px';
+      card.style.boxShadow = on ? '0 0 0 2px #d8ec3f' : '';
       const badge = card.querySelector('[data-rec]');
       if (badge) {
-        badge.style.display = card.getAttribute('data-dl-os') === this._detectedOs ? 'inline' : 'none';
+        badge.style.display = on ? 'inline' : 'none';
         badge.innerHTML = this.I18N.rec[L];
       }
     });
@@ -1112,21 +1128,11 @@ class Component extends DCLogic {
       vs.onload = runVeil;
       document.body.appendChild(vs);
     }
-    this.q('[data-dl-link]').forEach(a => {
-      const onClick = e => {
-        e.preventDefault();
-        const plat = a.getAttribute('data-dl-link');
-        let href = a.getAttribute('href');
-        let selectedSource = null;
-        if (plat === 'win') {
-          const rotated = this.rotateWinQuarkUrl();
-          if (rotated) {
-            href = rotated;
-            selectedSource = 'quark';
-          }
-        }
-        try { if (window.trackEvent) window.trackEvent('download_open', { category: 'Download', platform: plat, from: 'card' }); } catch (err) {}
-        this.setState({ dlModal: plat, dlHref: href, dlSelectedSource: selectedSource });
+    this.q('[data-dl-direct]').forEach(a => {
+      const onClick = () => {
+        try {
+          if (window.trackEvent) window.trackEvent('download_confirm', { category: 'Download', platform: a.getAttribute('data-dl-direct') || 'unknown', source: a.getAttribute('data-dl-src') || 'direct' });
+        } catch (err) {}
       };
       a.addEventListener('click', onClick);
       this._cleanup.push(() => a.removeEventListener('click', onClick));
@@ -1144,6 +1150,8 @@ class Component extends DCLogic {
       this._macArch = os === 'mac' ? this.detectMacArch() : null;
     }
     this._detectedOs = os;
+    const guide = os === 'windows' ? 'win' : os === 'android' ? 'and' : os === 'mac' ? 'mac' : 'web';
+    if (this.state.guideTab !== guide) this.setState({ guideTab: guide });
     console.log('[Mineradio] OS detected:', os, '| Mac arch:', this._macArch, '| UA:', u);
     try {
       if (window.trackEvent) {

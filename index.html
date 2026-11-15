@@ -361,6 +361,29 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
 .mr-notice p{margin:0;flex:1;font-size:13.5px;line-height:1.5;color:#d7d7de}
 .mr-notice a{flex:none;background:#d8ec3f;color:#0a0a0c;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700}
 .mr-notice button{flex:none;border:none;background:transparent;color:#9a9aa3;cursor:pointer;font:inherit;font-size:20px;line-height:1;padding:4px 6px}
+.mr-cube-wrap{width:min(920px,94%);margin:48px auto 0;display:flex;flex-direction:column;align-items:center;gap:22px}
+.mr-cube-copy{text-align:center;min-height:7.2em;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px}
+.mr-cube-eye{font-size:11px;font-weight:600;letter-spacing:.22em;color:#9fd4c4}
+.mr-cube-copy h3{margin:0;font-size:clamp(24px,3.4vw,30px);font-weight:700;letter-spacing:-0.02em;text-wrap:balance}
+.mr-cube-copy p{margin:0;max-width:46ch;font-size:16px;line-height:1.75;color:#b9b9c0;text-wrap:pretty}
+.mr-cube{position:relative;width:100%;aspect-ratio:16/10;perspective:1600px;cursor:grab;touch-action:pan-y;outline:none;user-select:none;-webkit-user-select:none}
+.mr-cube:active{cursor:grabbing}
+.mr-cube-stage{position:absolute;inset:0;z-index:1;transform-style:preserve-3d;transition:transform .8s ease;will-change:transform}
+.mr-cube-face{position:absolute;inset:0;display:grid;place-items:center;border-radius:20px;overflow:hidden;background:#0c0c10;border:1px solid rgba(255,255,255,.12);box-shadow:0 22px 56px rgba(0,0,0,.4);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.mr-cube-face img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;-webkit-user-drag:none}
+.mr-cube-face[data-mr-cube-face="0"]{background:radial-gradient(ellipse at 50% 46%,#1c2030 0%,#0c0e16 52%,#07080d 100%)}
+.mr-cube-face[data-mr-cube-face="0"] img{width:92%;height:auto;max-height:none;object-fit:contain;filter:drop-shadow(0 18px 42px rgba(0,0,0,.55))}
+.mr-cube-shadow{position:absolute;left:5%;right:5%;bottom:-28px;height:48px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.62),rgba(0,0,0,.18) 42%,transparent 72%);pointer-events:none;filter:blur(10px);opacity:.9;z-index:0;transform:scale(.9);transform-origin:center bottom}
+.mr-cube-dots{display:flex;justify-content:center;gap:9px;margin-top:6px}
+.mr-cube-dots button{width:9px;height:9px;padding:0;border:none;border-radius:999px;background:rgba(255,255,255,.22);cursor:pointer;transition:background .25s,transform .25s}
+.mr-cube-dots button.is-on,.mr-cube-dots button[aria-current="true"]{background:#d8ec3f;transform:scale(1.2)}
+.mr-cube.is-flat .mr-cube-stage{transform:none !important;transition:none}
+.mr-cube.is-flat .mr-cube-face{opacity:0;transform:none !important;transition:opacity .35s ease;pointer-events:none}
+.mr-cube.is-flat .mr-cube-face.is-on{opacity:1;pointer-events:auto}
+.mr-cube.is-flat .mr-cube-shadow{opacity:.4}
+@media (max-width:900px){.mr-cube-wrap{width:min(100%,720px)}.mr-cube{perspective:1200px}}
+@media (max-width:720px){.mr-cube-wrap{width:min(100%,100%);margin-top:28px;gap:16px}.mr-cube{aspect-ratio:4/3;perspective:900px}.mr-cube-face{border-radius:14px}.mr-cube-copy{min-height:6.2em;gap:6px}.mr-cube-copy h3{font-size:22px}.mr-cube-copy p{font-size:14px}}
+@media (prefers-reduced-motion:reduce){.mr-cube-stage{transition:none}}
 </style>
 </helmet>
 <div ref="{{ rootRef }}" style="color:#f5f5f7;overflow-x:clip;position:relative;background:#02030a">
@@ -426,105 +449,36 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
   <div data-reveal="1" style="display:flex;justify-content:center;margin-top:44px"><x-import component-from-global-scope="MineradioDS.SearchPill" placeholder="{{ tSearchPh }}" hint-size="560px,52px"></x-import></div>
 </section>
 
-<section data-screen-label="视觉控制台" style="padding:170px 24px 150px">
+<section data-screen-label="视觉控制台" style="padding:170px 24px 170px">
   <div style="display:flex;flex-direction:column;align-items:center;justify-content:center">
     <div style="text-align:center;margin-bottom:30px">
       <x-import component-from-global-scope="MineradioDS.SectionHeading" eyebrow="{{ tVisEye }}" title="{{ tVisH }}" centered="{{ true }}" hint-size="100%,150px"><p>视觉控制台</p><h2>随节拍生长的视觉</h2></x-import>
       <p data-i18n="vis_lead" style="margin:16px auto 0;max-width:560px;font-size:16px;line-height:1.7;color:#b9b9c0">粒子、镜头、色彩全部可调。</p>
     </div>
-    <div data-vp-grid style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px;margin-top:44px;width:min(1100px,100%)">
-      <div data-reveal="0" style="position:relative;text-align:left;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);border-radius:16px;padding:34px 18px 16px;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s" style-hover="transform:translateY(-4px)"><span style="position:absolute;top:13px;right:15px;font-size:13px;color:#8e8e96">≋</span><p data-i18n="vp0n" style="margin:0;font-size:15px;font-weight:700;color:#f5f5f7">emily专辑封面</p><p data-i18n="vp0d" style="margin:4px 0 0;font-size:12px;color:#8e8e96">封面粒子 · 快速入场</p></div>
-      <div data-reveal="1" style="position:relative;text-align:left;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);border-radius:16px;padding:34px 18px 16px;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s" style-hover="transform:translateY(-4px)"><span style="position:absolute;top:13px;right:15px;font-size:13px;color:#8e8e96">∿</span><p data-i18n="vp1n" style="margin:0;font-size:15px;font-weight:700;color:#f5f5f7">音域回响</p><p data-i18n="vp1d" style="margin:4px 0 0;font-size:12px;color:#8e8e96">频谱方块 · 反应堆核心</p></div>
-      <div data-reveal="2" style="position:relative;text-align:left;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);border-radius:16px;padding:34px 18px 16px;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s" style-hover="transform:translateY(-4px)"><span style="position:absolute;top:13px;right:15px;font-size:13px;color:#8e8e96">✚</span><p data-i18n="vp2n" style="margin:0;font-size:15px;font-weight:700;color:#f5f5f7">安魂</p><p data-i18n="vp2d" style="margin:4px 0 0;font-size:12px;color:#8e8e96">骷髅 · YUI7W</p></div>
-      <div data-reveal="3" style="position:relative;text-align:left;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);border-radius:16px;padding:34px 18px 16px;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s" style-hover="transform:translateY(-4px)"><span style="position:absolute;top:13px;right:15px;font-size:13px;color:#8e8e96">✦</span><p data-i18n="vp3n" style="margin:0;font-size:15px;font-weight:700;color:#f5f5f7">星河</p><p data-i18n="vp3d" style="margin:4px 0 0;font-size:12px;color:#8e8e96">壁纸粒子 · 音乐律动</p></div>
-      <div data-reveal="4" style="position:relative;text-align:left;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);border-radius:16px;padding:34px 18px 16px;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s" style-hover="transform:translateY(-4px)"><span style="position:absolute;top:13px;right:15px;font-size:13px;color:#8e8e96">◎</span><p data-i18n="vp4n" style="margin:0;font-size:15px;font-weight:700;color:#f5f5f7">唱片</p><p data-i18n="vp4d" style="margin:4px 0 0;font-size:12px;color:#8e8e96">唱片 · 圆形封面</p></div>
-      <div data-reveal="0" style="position:relative;text-align:left;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);border-radius:16px;padding:34px 18px 16px;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s" style-hover="transform:translateY(-4px)"><span style="position:absolute;top:13px;right:15px;font-size:13px;color:#8e8e96">○</span><p data-i18n="vp5n" style="margin:0;font-size:15px;font-weight:700;color:#f5f5f7">星球</p><p data-i18n="vp5d" style="margin:4px 0 0;font-size:12px;color:#8e8e96">星球 · 雕塑感</p></div>
-      <div data-reveal="1" style="position:relative;text-align:left;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);border-radius:16px;padding:34px 18px 16px;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s" style-hover="transform:translateY(-4px)"><span style="position:absolute;top:13px;right:15px;font-size:13px;color:#8e8e96">◉</span><p data-i18n="vp6n" style="margin:0;font-size:15px;font-weight:700;color:#f5f5f7">滚筒</p><p data-i18n="vp6d" style="margin:4px 0 0;font-size:12px;color:#8e8e96">隧道 · 沉浸感</p></div>
-      <div data-reveal="2" style="position:relative;text-align:left;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);border-radius:16px;padding:34px 18px 16px;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .3s,background .3s" style-hover="transform:translateY(-4px)"><span style="position:absolute;top:13px;right:15px;font-size:13px;color:#8e8e96">⊘</span><p data-i18n="vp7n" style="margin:0;font-size:15px;font-weight:700;color:#f5f5f7">虚空</p><p data-i18n="vp7d" style="margin:4px 0 0;font-size:12px;color:#8e8e96">无粒子 · 自定义背景</p></div>
-    </div>
-    <p data-i18n="vis_count" style="margin:20px 0 0;font-size:12.5px;color:#6e6e76">预设一键切换，还能存一份自己的档。</p>
-  </div>
-</section>
-
-<section data-screen-label="功能矩阵" style="padding:150px 24px 170px;max-width:1180px;margin:0 auto">
-  <div style="display:flex;flex-direction:column;gap:26px">
-
-    <div data-reveal="0" style="perspective:1300px">
-      <article data-tilt style="position:relative;border-radius:26px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));overflow:hidden;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s,border-color .5s">
-        <div style="padding:40px 44px 0;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:18px 40px;transform:translateZ(30px)">
-          <div style="min-width:0">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><span style="font-size:11px;font-weight:600;letter-spacing:.22em;color:#9fd4c4">PLAYER</span></div>
-            <h3 data-i18n="b1_h" style="margin:0;font-size:27px;font-weight:700;letter-spacing:-0.02em;text-wrap:balance">控制条，一眼全局。</h3>
-          </div>
-          <p data-i18n="b1_p" style="margin:0;font-size:15px;line-height:1.8;color:#b9b9c0;max-width:44ch;text-wrap:pretty">播放、进度、频谱在同一条上实时走动，暂停与继续一键即达。</p>
+    <div class="mr-cube-wrap" data-reveal="1">
+      <div class="mr-cube-copy" data-mr-cube-copy aria-live="polite">
+        <span class="mr-cube-eye" data-mr-cube-eye>PLAYER</span>
+        <h3 data-mr-cube-h data-i18n="b1_h">控制条，一眼全局。</h3>
+        <p data-mr-cube-p data-i18n="b1_p">播放、进度、频谱在同一条上实时走动，暂停与继续一键即达。</p>
+      </div>
+      <div class="mr-cube" data-mr-cube tabindex="0" role="region" aria-roledescription="carousel" aria-label="产品界面预览">
+        <div class="mr-cube-stage" data-mr-cube-stage>
+          <div class="mr-cube-face" data-mr-cube-face="0"><img src="images/inline/inline-03-cut.png?v=3" alt="播放控制条" width="1024" height="115" decoding="async"></div>
+          <div class="mr-cube-face" data-mr-cube-face="1"><img src="images/inline/inline-04.jpg?v=2" alt="首页六卡导览" width="1024" height="693" decoding="async"></div>
+          <div class="mr-cube-face" data-mr-cube-face="2"><img src="images/inline/inline-05.jpg?v=2" alt="导入 MP4 壁纸" width="1024" height="638" decoding="async"></div>
+          <div class="mr-cube-face" data-mr-cube-face="3"><img src="images/inline/inline-06.jpg?v=2" alt="3D 歌单架" width="1024" height="640" decoding="async"></div>
+          <div class="mr-cube-face" data-mr-cube-face="4"><img src="images/inline/inline-07.jpg?v=2" alt="360° 自由旋转" width="1024" height="634" decoding="async"></div>
         </div>
-        <div data-tilt-media style="position:relative;margin:30px 44px 44px;border-radius:14px;overflow:hidden;background:#0c0c10;border:1px solid rgba(255,255,255,.08);transform:translateZ(18px)">
-          <img src="images/inline/inline-03.jpg" alt="播放控制条" style="display:block;width:100%;height:auto;transition:transform .6s cubic-bezier(.22,1,.36,1)">
-        </div>
-      </article>
+        <div class="mr-cube-shadow" aria-hidden="true"></div>
+      </div>
+      <div class="mr-cube-dots" data-mr-cube-dots role="tablist" aria-label="预览页">
+        <button type="button" aria-label="控制条" aria-current="true"></button>
+        <button type="button" aria-label="首页"></button>
+        <button type="button" aria-label="壁纸"></button>
+        <button type="button" aria-label="歌单架"></button>
+        <button type="button" aria-label="360°"></button>
+      </div>
     </div>
-
-    <div data-reveal="1" style="perspective:1300px">
-      <article data-tilt style="position:relative;border-radius:26px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));overflow:hidden;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s,border-color .5s">
-        <div style="display:flex;flex-wrap:wrap;align-items:stretch;transform-style:preserve-3d">
-          <div data-tilt-media style="position:relative;flex:1 1 380px;min-height:440px;overflow:hidden;background:#0c0c10">
-            <img src="images/inline/inline-04.jpg" alt="首页六卡导览" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .6s cubic-bezier(.22,1,.36,1)">
-          </div>
-          <div style="flex:1 1 340px;padding:52px 48px;display:flex;flex-direction:column;justify-content:center;transform:translateZ(38px)">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px"><span style="font-size:11px;font-weight:600;letter-spacing:.22em;color:#9fd4c4">HOME</span></div>
-            <h3 data-i18n="b2_h" style="margin:0 0 12px;font-size:27px;font-weight:700;letter-spacing:-0.02em;text-wrap:balance">打开，就有安排。</h3>
-            <p data-i18n="b2_p" style="margin:0 0 18px;font-size:15.5px;line-height:1.8;color:#b9b9c0">首页六张卡，从歌单到画像一步直达。</p>
-            <div style="display:flex;flex-wrap:wrap;gap:8px"><span data-i18n="hc1" style="border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 13px;font-size:12px;color:#c4c4cb">我的歌单</span><span data-i18n="hc2" style="border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 13px;font-size:12px;color:#c4c4cb">每日推荐</span><span data-i18n="hc3" style="border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 13px;font-size:12px;color:#c4c4cb">推荐歌曲</span><span data-i18n="hc4" style="border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 13px;font-size:12px;color:#c4c4cb">继续听</span><span data-i18n="hc5" style="border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 13px;font-size:12px;color:#c4c4cb">听歌画像</span><span data-i18n="hc6" style="border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 13px;font-size:12px;color:#c4c4cb">更多歌曲</span></div>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <div data-reveal="2" style="perspective:1300px">
-      <article data-tilt style="position:relative;border-radius:26px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));overflow:hidden;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s,border-color .5s">
-        <div style="display:flex;flex-wrap:wrap;flex-direction:row-reverse;align-items:stretch;transform-style:preserve-3d">
-          <div data-tilt-media style="position:relative;flex:1 1 380px;min-height:440px;overflow:hidden;background:#0c0c10">
-            <img src="images/inline/inline-05.jpg" alt="导入 MP4 壁纸" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .6s cubic-bezier(.22,1,.36,1)">
-          </div>
-          <div style="flex:1 1 340px;padding:52px 48px;display:flex;flex-direction:column;justify-content:center;transform:translateZ(38px)">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px"><span style="font-size:11px;font-weight:600;letter-spacing:.22em;color:#9fd4c4">WALLPAPER</span></div>
-            <h3 data-i18n="hl1n" style="margin:0 0 12px;font-size:27px;font-weight:700;letter-spacing:-0.02em;text-wrap:balance">导入 MP4 壁纸</h3>
-            <p data-i18n="hl1d" style="margin:0;font-size:15.5px;line-height:1.8;color:#b9b9c0">自己的视频，直接当动态背景。</p>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <div data-reveal="1" style="perspective:1300px">
-      <article data-tilt style="position:relative;border-radius:26px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));overflow:hidden;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s,border-color .5s">
-        <div style="display:flex;flex-wrap:wrap;align-items:stretch;transform-style:preserve-3d">
-          <div data-tilt-media style="position:relative;flex:1 1 380px;min-height:440px;overflow:hidden;background:#0c0c10">
-            <img src="images/inline/inline-06.jpg" alt="手势控制" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .6s cubic-bezier(.22,1,.36,1)">
-          </div>
-          <div style="flex:1 1 340px;padding:52px 48px;display:flex;flex-direction:column;justify-content:center;transform:translateZ(38px)">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px"><span style="font-size:11px;font-weight:600;letter-spacing:.22em;color:#9fd4c4">GESTURE</span></div>
-            <h3 data-i18n="hl2n" style="margin:0 0 12px;font-size:27px;font-weight:700;letter-spacing:-0.02em;text-wrap:balance">手势控制</h3>
-            <p data-i18n="hl2d" style="margin:0;font-size:15.5px;line-height:1.8;color:#b9b9c0">摄像头识别，隔空操控画面。</p>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <div data-reveal="2" style="perspective:1300px">
-      <article data-tilt style="position:relative;border-radius:26px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));overflow:hidden;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s,border-color .5s">
-        <div style="display:flex;flex-wrap:wrap;flex-direction:row-reverse;align-items:stretch;transform-style:preserve-3d">
-          <div data-tilt-media style="position:relative;flex:1 1 380px;min-height:440px;overflow:hidden;background:#0c0c10">
-            <img src="images/inline/inline-07.jpg" alt="360° 自由旋转" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .6s cubic-bezier(.22,1,.36,1)">
-          </div>
-          <div style="flex:1 1 340px;padding:52px 48px;display:flex;flex-direction:column;justify-content:center;transform:translateZ(38px)">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px"><span style="font-size:11px;font-weight:600;letter-spacing:.22em;color:#9fd4c4">ORBIT</span></div>
-            <h3 data-i18n="hl3n" style="margin:0 0 12px;font-size:27px;font-weight:700;letter-spacing:-0.02em;text-wrap:balance">360° 自由旋转</h3>
-            <p data-i18n="hl3d" style="margin:0;font-size:15.5px;line-height:1.8;color:#b9b9c0">镜头随手拖，任意视角看粒子。</p>
-          </div>
-        </div>
-      </article>
-    </div>
-
   </div>
 </section>
 
@@ -805,7 +759,6 @@ class Component extends DCLogic {
     vp7n: { zh: '虚空', en: 'Void' }, vp7d: { zh: '无粒子 · 自定义背景', en: 'No particles · custom backdrop' },
     vp8n: { zh: '黑洞', en: 'Black Hole' }, vp8d: { zh: '吸积盘 · 引力漩涡', en: 'Accretion disk · gravity swirl' },
     vp9n: { zh: '极光', en: 'Aurora' }, vp9d: { zh: '丝带翻涌 · 中频流动', en: 'Ribbons · mid-band flow' },
-    vis_count: { zh: '预设一键切换，还能存一份自己的档。', en: 'Switch presets in one tap — and save your own.' },
     vdesc0: { zh: '频谱方块 · 反应堆核心', en: 'Spectrum blocks · reactor core' }, vdesc1: { zh: '唱片 · 圆形封面', en: 'Vinyl · circular artwork' }, vdesc2: { zh: '封面粒子 · 快速入场感', en: 'Planet · sculptural' }, vdesc3: { zh: '壁纸粒子 · 音乐律动', en: 'Wallpaper particles · music-driven' },
     cover_p: { zh: '按下播放，封面在粒子里聚拢成型，它的颜色随之渗满整个界面——每首歌，界面都换一次呼吸。', en: 'Press play — the artwork assembles from particles, and its palette floods the whole interface. Every song gives the app a new breath.' },
     lyr_p: { zh: '歌词跨源自动匹配，逐行高亮跟唱；桌面歌词跨窗口浮动——切出去干活，也能跟着唱。', en: 'Lyrics auto-match across sources and highlight line by line; desktop lyrics float over any window — sing along while you work.' },
@@ -814,13 +767,12 @@ class Component extends DCLogic {
     ges_chip: { zh: '摄像头识别 · 全程本地', en: 'Camera gestures · fully local' },
     b1_h: { zh: '控制条，一眼全局。', en: 'One bar, full control.' }, b1_p: { zh: '播放、进度、频谱在同一条上实时走动，暂停与继续一键即达。', en: 'Playback, progress and spectrum move live on one bar; pause and resume are one click away.' },
     b2_h: { zh: '打开，就有安排。', en: 'Open it, it\u2019s ready.' }, b2_p: { zh: '首页六张卡，从歌单到画像一步直达。', en: 'Six home cards take you from playlists to your listening profile in one tap.' },
-    hc1: { zh: '我的歌单', en: 'My playlists' }, hc2: { zh: '每日推荐', en: 'Daily picks' }, hc3: { zh: '推荐歌曲', en: 'For you' }, hc4: { zh: '继续听', en: 'Continue' }, hc5: { zh: '听歌画像', en: 'Profile' }, hc6: { zh: '更多歌曲', en: 'More music' },
     dl_sub: { zh: '桌面、手机、平板、浏览器，全部免费。', en: 'Desktop, phone, tablet and browser. All free.' },
     get1: { zh: '获取 ↓', en: 'Get ↓' }, get2: { zh: '获取 ↓', en: 'Get ↓' }, get3: { zh: '获取 ↓', en: 'Get ↓' },
     web_t: { zh: '网页版', en: 'Web app' }, web_s: { zh: 'mineradio.art · 浏览器打开', en: 'mineradio.art · in browser' }, web_go: { zh: '打开 ↗', en: 'Open ↗' },
     dl_note: { zh: 'iPhone / iPad 测试版走 TestFlight；网页版可在浏览器直接打开。', en: 'iPhone / iPad beta is on TestFlight; the web app opens in your browser.' },
     hl1n: { zh: '导入 MP4 壁纸', en: 'Import MP4 wallpapers' }, hl1d: { zh: '自己的视频，直接当动态背景', en: 'Your own video, straight in as a live backdrop' },
-    hl2n: { zh: '手势控制', en: 'Gesture control' }, hl2d: { zh: '摄像头识别，隔空操控画面', en: 'Camera-tracked — steer the visuals from across the room' },
+    hl2n: { zh: '3D 歌单架', en: '3D playlist shelf' }, hl2d: { zh: '歌单卡片立体排布，随手拨动切换，一眼扫完整收藏。', en: 'Playlist cards in 3D — flick through and see your whole library at a glance.' },
     hl3n: { zh: '360° 自由旋转', en: '360° free orbit' }, hl3d: { zh: '镜头随手拖，任意视角看粒子', en: 'Drag the camera — view the particles from any angle' },
     ig_h: { zh: '安装前必看', en: 'Before you install' },
     sup_p: { zh: '赞赏通道打开的目的是获取少量算力费用来维持开发进度，目前整体的算力额度都被榨干了，我的钱包也有些羞涩。收到的赞助费我们也会全部拿来开发软件。<br>承蒙所有 MR 玩家厚爱，感激不尽 🙏', en: 'Donations cover a little compute cost to keep development moving — the quota is drained and my wallet is a bit shy. Every contribution goes straight back into building the app.<br>Heartfelt thanks to every MR player 🙏' },
@@ -1173,17 +1125,143 @@ class Component extends DCLogic {
         }
       }
     } catch (e) {}
-    const vps = this.q('[data-vp-grid] > div');
-    if (vps.length) {
-      const setVp = i => vps.forEach((c, j) => {
-        const on = j === i;
-        c.style.borderColor = on ? 'rgba(216,236,63,.45)' : 'rgba(255,255,255,.1)';
-        c.style.background = on ? 'rgba(216,236,63,.06)' : 'rgba(255,255,255,.03)';
-        const ic = c.querySelector('span');
-        if (ic) ic.style.color = on ? '#d8ec3f' : '#8e8e96';
+    const cubeRoot = root.querySelector('[data-mr-cube]');
+    if (cubeRoot) {
+      const stage = cubeRoot.querySelector('[data-mr-cube-stage]');
+      const faces = Array.from(cubeRoot.querySelectorAll('[data-mr-cube-face]'));
+      const dotsWrap = root.querySelector('[data-mr-cube-dots]');
+      const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('button')) : [];
+      const eyeEl = root.querySelector('[data-mr-cube-eye]');
+      const hEl = root.querySelector('[data-mr-cube-h]');
+      const pEl = root.querySelector('[data-mr-cube-p]');
+      const slides = [
+        { eye: 'PLAYER', h: 'b1_h', p: 'b1_p' },
+        { eye: 'HOME', h: 'b2_h', p: 'b2_p' },
+        { eye: 'WALLPAPER', h: 'hl1n', p: 'hl1d' },
+        { eye: 'SHELF', h: 'hl2n', p: 'hl2d' },
+        { eye: 'ORBIT', h: 'hl3n', p: 'hl3d' }
+      ];
+      const n = faces.length;
+      const step = 360 / n;
+      const delay = 2000;
+      let idx = 0;
+      let rot = 0;
+      let timer = null;
+      let depth = 0;
+      let busy = false;
+      let autoplay = false;
+      const flat = !this.motionOn() || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (flat) cubeRoot.classList.add('is-flat');
+      const syncCopy = () => {
+        const s = slides[idx];
+        if (!s) return;
+        const L = this.state.lang || 'zh';
+        if (eyeEl) eyeEl.textContent = s.eye;
+        if (hEl) {
+          hEl.setAttribute('data-i18n', s.h);
+          if (this.I18N[s.h] && this.I18N[s.h][L] != null) hEl.textContent = this.I18N[s.h][L];
+        }
+        if (pEl) {
+          pEl.setAttribute('data-i18n', s.p);
+          if (this.I18N[s.p] && this.I18N[s.p][L] != null) pEl.textContent = this.I18N[s.p][L];
+        }
+      };
+      const clearTimer = () => { if (timer) { clearTimeout(timer); timer = null; } };
+      const arm = () => {
+        clearTimer();
+        if (!autoplay || flat || n < 2) return;
+        timer = setTimeout(() => go(idx + 1), delay);
+      };
+      const applyRot = () => {
+        stage.style.transform = 'translateZ(' + (-depth) + 'px) rotateY(' + rot + 'deg)';
+      };
+      const layout = () => {
+        const w = cubeRoot.clientWidth || 400;
+        depth = Math.round((w / 2) / Math.tan(Math.PI / n)) || 200;
+        faces.forEach((face, i) => {
+          if (flat) face.style.transform = '';
+          else face.style.transform = 'rotateY(' + (i * step) + 'deg) translateZ(' + depth + 'px)';
+        });
+        go(idx, true);
+      };
+      const go = (next, instant) => {
+        const prev = idx;
+        idx = ((next % n) + n) % n;
+        let delta = idx - prev;
+        if (delta > n / 2) delta -= n;
+        if (delta < -n / 2) delta += n;
+        rot -= delta * step;
+        clearTimer();
+        if (flat) {
+          faces.forEach((face, i) => face.classList.toggle('is-on', i === idx));
+          busy = false;
+          arm();
+        } else if (instant) {
+          busy = false;
+          rot = -idx * step;
+          stage.style.transition = 'none';
+          applyRot();
+          requestAnimationFrame(() => { stage.style.transition = ''; arm(); });
+        } else {
+          busy = true;
+          applyRot();
+        }
+        dots.forEach((dot, i) => {
+          const on = i === idx;
+          dot.classList.toggle('is-on', on);
+          if (on) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
+        syncCopy();
+      };
+      const start = () => { autoplay = true; arm(); };
+      const stop = () => { autoplay = false; clearTimer(); };
+      const onTransitionEnd = e => {
+        if (e.target !== stage || e.propertyName !== 'transform') return;
+        busy = false;
+        arm();
+      };
+      stage.addEventListener('transitionend', onTransitionEnd);
+      layout();
+      start();
+      const onResize = () => layout();
+      window.addEventListener('resize', onResize);
+      dots.forEach((dot, i) => {
+        const onClick = () => { go(i); start(); };
+        dot.addEventListener('click', onClick);
+        this._cleanup.push(() => dot.removeEventListener('click', onClick));
       });
-      vps.forEach((c, i) => { c.style.cursor = 'pointer'; c.addEventListener('click', () => setVp(i)); });
-      setVp(0);
+      let dragX = null;
+      const onDown = e => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        dragX = e.clientX;
+        stop();
+        try { cubeRoot.setPointerCapture(e.pointerId); } catch (err) {}
+      };
+      const onUp = e => {
+        if (dragX == null) return;
+        const dx = e.clientX - dragX;
+        dragX = null;
+        if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+        start();
+      };
+      const onKey = e => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(idx + 1); start(); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx - 1); start(); }
+      };
+      cubeRoot.addEventListener('pointerdown', onDown);
+      cubeRoot.addEventListener('pointerup', onUp);
+      cubeRoot.addEventListener('pointercancel', onUp);
+      cubeRoot.addEventListener('keydown', onKey);
+      this._cleanup.push(() => {
+        stop();
+        stage.removeEventListener('transitionend', onTransitionEnd);
+        window.removeEventListener('resize', onResize);
+        cubeRoot.removeEventListener('pointerdown', onDown);
+        cubeRoot.removeEventListener('pointerup', onUp);
+        cubeRoot.removeEventListener('pointercancel', onUp);
+        cubeRoot.removeEventListener('keydown', onKey);
+      });
     }
     const mr = root.querySelector('[data-mr-mag]');
     if (mr) {

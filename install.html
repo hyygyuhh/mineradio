@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mineradio 官网安装指南 - Windows / Mac / Android 排错</title>
-<meta name="description" content="Mineradio 安装指南：Windows SmartScreen、macOS 已损坏 / xattr、Android 未知来源与 APK 重命名、网页版 Bridge 扩展说明。">
+<title>Mineradio 官网安装指南 - Windows / Mac / Android / iOS 排错</title>
+<meta name="description" content="Mineradio 安装指南：Windows SmartScreen、macOS 已损坏 / xattr、Android APK、iOS TestFlight、网页版 Bridge 扩展说明。">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://mineradio.cn/install.html">
 <meta name="theme-color" content="#02030a">
@@ -47,6 +47,7 @@
           <a href="#windows" data-jump="windows">Windows</a>
           <a href="#macos" data-jump="mac">macOS</a>
           <a href="#android" data-jump="android">Android</a>
+          <a href="#ios" data-jump="ios">iPhone / iPad</a>
           <a href="#web" data-jump="web">网页版</a>
         </div>
         <p class="dl-rec-line" id="igRecLine" hidden></p>
@@ -58,11 +59,11 @@
       <div class="wrap">
         <div class="dl-band-head">
           <p class="dl-band-eye">Install guide</p>
-          <h2>四端安装与排错</h2>
-          <p class="dl-band-sub">先下载正式包，再按系统处理拦截提示</p>
+          <h2>多端安装与排错</h2>
+          <p class="dl-band-sub">桌面与 Android 先下载正式包；iPhone / iPad 走 TestFlight</p>
         </div>
         <div class="dl-notice">
-          请只使用 <a href="/download.html">官方下载页</a> 公布的网盘链接。项目持续更新中，请下载最新版本。
+          请只使用 <a href="/download.html">官方下载页</a> 公布的网盘与 TestFlight 链接。项目持续更新中，请获取最新版本。
         </div>
 
         <div class="ig-grid" id="igGrid">
@@ -121,6 +122,23 @@
             <a class="dl-primary" href="/download.html#android">去下载 Android 版 →</a>
           </article>
 
+          <article class="ig-card" id="ios" data-os="ios">
+            <div class="dl-card-top">
+              <div>
+                <p class="dl-os">iPhone / iPad</p>
+                <p class="dl-ver">iOS / iPadOS 17.0+ · TestFlight</p>
+              </div>
+              <span class="dl-badge" hidden>● 为你的设备推荐</span>
+            </div>
+            <ol class="ig-steps">
+              <li>在 App Store 下载 Apple 官方 <strong>TestFlight</strong>。</li>
+              <li>打开 Mineradio 测试邀请链接，按提示接受邀请。</li>
+              <li>在 TestFlight 中点「安装」。测试版可能有兼容或播放问题。</li>
+              <li>反馈可至抖音「宝剑 Killian」或 TestFlight 反馈邮箱。名额有限；到期后请在 TestFlight 更新。</li>
+            </ol>
+            <a class="dl-primary" href="https://testflight.apple.com/join/75MbmCZP" rel="noreferrer" target="_blank">加入 TestFlight 测试 →</a>
+          </article>
+
           <article class="ig-card" id="web" data-os="web">
             <div class="dl-card-top">
               <div>
@@ -132,7 +150,7 @@
             <ol class="ig-steps">
               <li>浏览器打开 mineradio.art。</li>
               <li>首次按提示安装 Bridge 扩展（Chrome / Edge）。</li>
-              <li>登录账号即可使用。暂无独立 iOS App。</li>
+              <li>登录账号即可使用。iPhone / iPad 也可走 TestFlight 测试版。</li>
             </ol>
             <a class="dl-primary" href="https://mineradio.art/" rel="noreferrer" target="_blank">打开网页版 ↗</a>
           </article>
@@ -192,11 +210,11 @@
   var platform = navigator.platform || '';
   var os = 'web';
   if (/Android/i.test(ua)) os = 'android';
-  else if (/iPhone|iPad|iPod/i.test(ua)) os = 'web';
+  else if (/iPhone|iPad|iPod/i.test(ua)) os = 'ios';
   else if (/Mac|Macintosh|MacIntel|MacPPC/i.test(platform) || /Mac OS X/i.test(ua)) os = 'mac';
   else if (/Win/i.test(platform) || /Windows/i.test(ua)) os = 'windows';
 
-  var labels = { windows: 'Windows', mac: 'macOS', android: 'Android', web: '网页版' };
+  var labels = { windows: 'Windows', mac: 'macOS', android: 'Android', ios: 'iPhone / iPad', web: '网页版' };
   var card = document.querySelector('.ig-card[data-os="' + os + '"]');
   if (card) {
     card.classList.add('is-recommended');

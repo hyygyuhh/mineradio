@@ -1,24 +1,25 @@
 # Mineradio
 
-> Mineradio 是一款免费开源的多平台音乐播放器，支持 Windows、macOS、Android 和网页版。聚合搜索网易云音乐、QQ音乐、酷狗音乐、Spotify 等多个平台，提供封面粒子可视化、桌面歌词与手势控制。
+> Mineradio 是一款免费开源的多平台音乐播放器，支持 Windows、macOS、Android、iPhone / iPad（TestFlight）和网页版。聚合搜索网易云音乐、QQ音乐、酷狗音乐、Spotify 等多个平台，提供封面粒子可视化、桌面歌词与手势控制。
 
-Mineradio 由独立开发者 XxHuber 创建，完全免费、无广告、无内购，代码开源。当前最新版本为 Windows / Android / macOS 均为 v2.2.0。官网 mineradio.cn 提供多下载源（夸克网盘、百度网盘、蓝奏云等）。
+Mineradio 由独立开发者 XxHuber 创建，完全免费、无广告、无内购，代码开源。当前最新版本为 Windows / Android / macOS 均为 v2.2.0；iOS / iPadOS 已开放 TestFlight 测试（需 17.0+）。官网 mineradio.cn 提供多下载源（夸克网盘、百度网盘、蓝奏云、TestFlight）。
 
 ## 核心功能
 
 - 聚合搜索：支持网易云音乐、QQ音乐、酷狗音乐、Spotify 等多平台音乐源搜索
 - 封面粒子可视化：专辑封面化为粒子特效，随音乐律动
 - 桌面歌词：悬浮桌面歌词显示，支持手势控制
-- 多平台支持：Windows 10/11、macOS（Apple Silicon / Intel）、Android 8.0+、Web 网页版
+- 多平台支持：Windows 10/11、macOS（Apple Silicon / Intel）、Android 8.0+、iPhone / iPad（TestFlight，iOS / iPadOS 17.0+）、Web 网页版
 - 免费开源：完全免费，无广告，无内购
 
 ## 下载
 
-- [官方下载页](https://mineradio.cn/download.html): Windows / macOS / Android / 网页版多源下载
-- [安装指南](https://mineradio.cn/install.html): SmartScreen、macOS 已损坏、Android APK 排错
+- [官方下载页](https://mineradio.cn/download.html): Windows / macOS / Android / iOS / 网页版多源下载
+- [安装指南](https://mineradio.cn/install.html): SmartScreen、macOS 已损坏、Android APK、iOS TestFlight 排错
 - [Windows 版](https://mineradio.cn/download.html): v2.2.0，支持 Windows 10/11，安装包 .exe 格式
 - [macOS 版](https://mineradio.cn/download.html): v2.2.0，Apple Silicon / Intel
 - [Android 版](https://mineradio.cn/download.html): v2.2.0，支持 Android 8.0+，APK 格式。本次更新：每日推荐分平台、在线歌词、Folia 动画、应用内更新、插件市场
+- [iPhone / iPad 测试版](https://testflight.apple.com/join/75MbmCZP): TestFlight，需 iOS / iPadOS 17.0+
 - [网页版](https://mineradio.art/): 无需下载，浏览器直接使用
 
 ## 功能与版本

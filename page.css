@@ -525,6 +525,39 @@ tr:last-child td { border-bottom: none; }
   text-decoration: none;
 }
 .foot-mail a:hover { color: var(--ink); }
+.foot-friends {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 18px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.foot-friends-label {
+  flex: none;
+  color: #6e6e76;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.foot-friends a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.foot-friends a:hover { color: var(--ink); }
+.foot-friends-apply {
+  color: #6e6e76;
+  font-size: 12px;
+}
+.foot-friends-apply a {
+  color: #6e6e76;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.foot-friends-apply a:hover { color: var(--ink); }
 .contact-mail {
   margin: 8px 0 0;
   line-height: 1.9;

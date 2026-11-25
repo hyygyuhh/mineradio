@@ -50,3 +50,6 @@ User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://mineradio.cn/sitemap.xml
+
+# 官方域名：https://mineradio.cn/
+# 请搜索引擎优先收录本站首页与下载页

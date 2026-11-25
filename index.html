@@ -47,22 +47,8 @@
     ga4: '' /* 在此填入 G-XXXXXXXXXX，保存后全站自动加载 GA4 */
   };
 </script>
-<script src="/js/analytics.js?v=5" defer></script>
-<!-- 百度链接自动推送 -->
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    } else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-<!-- IndexNow：由 /js/analytics.js 统一推送 -->
+<script src="/js/analytics.js?v=6" defer></script>
+<!-- 百度链接推送 + IndexNow：由 /js/analytics.js 统一处理 -->
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
@@ -308,7 +294,11 @@ html.mr-ready.mr-ready-quick #mr-boot{opacity:0;transform:scale(1.03);filter:blu
 <body>
 <div id="mr-boot" aria-hidden="true"><strong>Mineradio</strong><span>LOADING</span></div>
 <noscript>
-<p style="max-width:720px;margin:24px auto;padding:0 20px;font-family:sans-serif;line-height:1.7">Mineradio 是免费开源音乐播放器。直接打开 <a href="/download.html">下载页</a> 获取 Windows、macOS、Android 安装包，或使用 <a href="https://mineradio.art/">网页版</a>。</p>
+<main style="max-width:720px;margin:24px auto;padding:0 20px;font-family:sans-serif;line-height:1.75;color:#111">
+  <h1>Mineradio 官网</h1>
+  <p>Mineradio 是免费开源的多平台音乐播放器，官方域名唯一为 <strong>mineradio.cn</strong>。支持 Windows、macOS、Android、鸿蒙、iPhone / iPad（TestFlight）与网页版，聚合搜索网易云、QQ 音乐、酷狗、Spotify，并提供封面粒子可视化与桌面歌词。</p>
+  <p>请从官方入口获取安装包：<a href="/download.html">下载页</a> · <a href="/install.html">安装指南</a> · <a href="/features.html">功能介绍</a> · <a href="https://mineradio.art/">网页版</a>。勿使用其他仿冒站点的安装包。</p>
+</main>
 </noscript>
 <x-dc>
 <helmet data-dc-atomics="">
@@ -636,26 +626,34 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
 </section>
 
 <footer style="border-top:1px solid rgba(255,255,255,.08);padding:44px 24px 60px">
-  <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between">
-    <span style="display:flex;align-items:center;gap:9px"><img src="images/inline/inline-10.jpg" alt="MR" style="width:22px;height:22px;border-radius:6px;display:block"><x-import component-from-global-scope="MineradioDS.BrandWordmark" class="text-[14px] font-bold tracking-tight" hint-size="80px,18px"></x-import><span data-i18n="foot_slogan" style="margin-left:8px;font-size:12.5px;color:#6e6e76">听见，也看见。</span></span>
-    <div style="display:flex;gap:24px;font-size:13px;flex-wrap:wrap">
-      <a href="/features.html" data-i18n="nav_feat2" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">功能</a>
-      <a href="/download.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">下载</a>
-      <a href="/changelog.html" data-i18n="foot_clog" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">历史版本</a>
-      <a href="/install.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">安装指南</a>
-      <a href="/compare.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">对比</a>
-      <a href="#faq" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">FAQ</a>
-      <a href="https://mineradio.art" target="_blank" rel="noreferrer" data-i18n="foot_web" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">网页版</a>
-      <a href="#support" data-i18n="foot_fund" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">资助我们</a>
-      <a href="/privacy.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">隐私政策</a>
-      <span style="color:#8e8e96">联系邮箱：<a href="mailto:support@mineradio.cn" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">support@mineradio.cn</a></span>
-      <a href="https://github.com/XxHuberrr/Mineradio" target="_blank" rel="noreferrer" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">GitHub</a>
-      <a href="https://v.douyin.com/_TO1zfAfPX0/" target="_blank" rel="noreferrer" data-i18n="foot_dy" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">抖音</a>
+  <div style="max-width:1180px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between">
+      <span style="display:flex;align-items:center;gap:9px"><img src="images/inline/inline-10.jpg" alt="MR" style="width:22px;height:22px;border-radius:6px;display:block"><x-import component-from-global-scope="MineradioDS.BrandWordmark" class="text-[14px] font-bold tracking-tight" hint-size="80px,18px"></x-import><span data-i18n="foot_slogan" style="margin-left:8px;font-size:12.5px;color:#6e6e76">听见，也看见。</span></span>
+      <div style="display:flex;gap:24px;font-size:13px;flex-wrap:wrap">
+        <a href="/features.html" data-i18n="nav_feat2" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">功能</a>
+        <a href="/download.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">下载</a>
+        <a href="/changelog.html" data-i18n="foot_clog" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">历史版本</a>
+        <a href="/install.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">安装指南</a>
+        <a href="/compare.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">对比</a>
+        <a href="#faq" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">FAQ</a>
+        <a href="https://mineradio.art" target="_blank" rel="noreferrer" data-i18n="foot_web" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">网页版</a>
+        <a href="#support" data-i18n="foot_fund" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">资助我们</a>
+        <a href="/privacy.html" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">隐私政策</a>
+        <span style="color:#8e8e96">联系邮箱：<a href="mailto:support@mineradio.cn" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">support@mineradio.cn</a></span>
+        <a href="https://github.com/XxHuberrr/Mineradio" target="_blank" rel="noreferrer" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">GitHub</a>
+        <a href="https://v.douyin.com/_TO1zfAfPX0/" target="_blank" rel="noreferrer" data-i18n="foot_dy" style="color:#8e8e96;transition:color .2s" style-hover="color:#f5f5f7">抖音</a>
+      </div>
+      <span data-i18n="foot_legal" style="font-size:12.5px;color:#6e6e76;max-width:520px;text-align:right">© 2026 Mineradio · GPL-3.0 开源</span>
+      <span style="font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.03em" data-i18n="foot_proof">爱发电证明原作者是XxHuber</span>
     </div>
-    <span data-i18n="foot_legal" style="font-size:12.5px;color:#6e6e76;max-width:520px;text-align:right">© 2026 Mineradio · GPL-3.0 开源</span>
-    <span style="font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.03em" data-i18n="foot_proof">爱发电证明原作者是XxHuber</span>
+    <nav class="foot-friends" data-mr-friends aria-label="友情链接" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 18px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.06);font-size:13px;line-height:1.6">
+      <span class="foot-friends-label" style="flex:none;color:#6e6e76;font-size:12px;font-weight:600;letter-spacing:.08em">友情链接</span>
+      <a href="https://wave.kugou.com/" target="_blank" rel="noopener noreferrer" style="color:#8e8e96;text-decoration:none">酷狗 WAVE</a>
+      <span class="foot-friends-apply" style="color:#6e6e76;font-size:12px">申请友链：<a href="mailto:support@mineradio.cn?subject=%E7%94%B3%E8%AF%B7%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5" style="color:#6e6e76;border-bottom:1px solid rgba(255,255,255,.14);text-decoration:none">support@mineradio.cn</a></span>
+    </nav>
   </div>
 </footer>
+<script src="/js/friend-links.js?v=1" defer></script>
 
 <sc-if value="{{ dlOpen }}" hint-placeholder-val="{{ false }}">
   <div onClick="{{ dlMaskClick }}" data-dl-mask style="position:fixed;inset:0;z-index:95;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px">
@@ -713,6 +711,29 @@ h2 span.inline-block.overflow-hidden{line-height:1.16 !important;padding-bottom:
 
 </div>
 </x-dc>
+
+<!-- 百度等搜索引擎可直接抓取的静态正文（不依赖 React / x-dc） -->
+<section id="guanwang" style="border-top:1px solid rgba(255,255,255,.08);background:#07080f;color:#d8d8de;padding:56px 24px 72px;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
+  <div style="max-width:720px;margin:0 auto;line-height:1.8;font-size:15px">
+    <p style="margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:.14em;color:#d8ec3f">OFFICIAL SITE</p>
+    <h2 style="margin:0 0 16px;font-size:26px;font-weight:700;letter-spacing:-.02em;color:#f5f5f7">Mineradio 官网说明</h2>
+    <p style="margin:0 0 14px">本站 <strong style="color:#f5f5f7">mineradio.cn</strong> 是 Mineradio 的官方网站与唯一官方下载入口。Mineradio 是一款免费开源（GPL-3.0）音乐播放器，支持 Windows、macOS、Android、鸿蒙、iPhone / iPad（TestFlight）以及网页版，聚合搜索网易云音乐、QQ 音乐、酷狗、Spotify 等音源，并提供封面粒子可视化、3D 歌单架、桌面歌词与流体城市等视觉能力。</p>
+    <p style="margin:0 0 14px">请认准域名 <strong style="color:#f5f5f7">mineradio.cn</strong>。互联网上若出现 mineradioplay、mineradiobfq 等仿冒或镜像站点，请勿下载其安装包。官方安装包、TestFlight 邀请与更新说明均以本站公布链接为准。</p>
+    <h3 style="margin:28px 0 12px;font-size:18px;font-weight:700;color:#f5f5f7">官方入口</h3>
+    <ul style="margin:0;padding-left:1.2em">
+      <li style="margin:0 0 8px"><a href="/download.html" style="color:#d8ec3f">下载 Mineradio 官方安装包</a>（Windows / macOS / Android / 鸿蒙 / iOS / 网页版）</li>
+      <li style="margin:0 0 8px"><a href="/install.html" style="color:#d8ec3f">安装指南</a>：SmartScreen、「已损坏」、未知来源与 TestFlight 排错</li>
+      <li style="margin:0 0 8px"><a href="/features.html" style="color:#d8ec3f">功能介绍</a> · <a href="/changelog.html" style="color:#d8ec3f">历史版本</a> · <a href="/compare.html" style="color:#d8ec3f">和其他播放器对比</a></li>
+      <li style="margin:0 0 8px"><a href="https://mineradio.art/" style="color:#d8ec3f">网页版 mineradio.art</a> · <a href="https://github.com/XxHuberrr/Mineradio" style="color:#d8ec3f">GitHub 源码</a></li>
+      <li style="margin:0 0 8px">联系邮箱：<a href="mailto:support@mineradio.cn" style="color:#d8ec3f">support@mineradio.cn</a></li>
+    </ul>
+    <h3 style="margin:28px 0 12px;font-size:18px;font-weight:700;color:#f5f5f7">常见问题</h3>
+    <p style="margin:0 0 10px"><strong style="color:#f5f5f7">Mineradio 是免费的吗？</strong> 是。完全免费开源，无广告、无内购；第三方音源的会员权益以对应平台规则为准。</p>
+    <p style="margin:0 0 10px"><strong style="color:#f5f5f7">官网下载入口在哪？</strong> 打开 <a href="https://mineradio.cn/download.html" style="color:#d8ec3f">https://mineradio.cn/download.html</a>，按系统选择夸克网盘、百度网盘、蓝奏云或 TestFlight。</p>
+    <p style="margin:0 0 10px"><strong style="color:#f5f5f7">有鸿蒙版吗？</strong> 有。鸿蒙版当前为 v2.2.2，可在下载页「鸿蒙」入口获取。</p>
+    <p style="margin:0"><strong style="color:#f5f5f7">和 LX Music、MusicFree 有何不同？</strong> Mineradio 侧重视觉氛围与多端体验；详见 <a href="/compare.html" style="color:#d8ec3f">对比总览</a>。</p>
+  </div>
+</section>
 
 <script type="text/x-dc" data-dc-script data-props="{
   &quot;motion&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;标准&quot;, &quot;克制&quot;], &quot;default&quot;: &quot;标准&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;动效&quot;},

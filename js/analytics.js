@@ -52,6 +52,21 @@
     console.warn('[Mineradio] GA4 ID 格式无效，应为 G-XXXXXXXXXX，当前：', ga4);
   }
 
+  // —— 百度链接自动推送（全站；站长平台验证后才会计入配额）——
+  try {
+    if (!window.__mrBaiduPushLoaded) {
+      window.__mrBaiduPushLoaded = true;
+      var bp = document.createElement('script');
+      bp.async = true;
+      bp.src =
+        (location.protocol === 'https:' ? 'https://zz.bdstatic.com' : 'http://push.zhanzhang.baidu.com') +
+        '/linksubmit/push.js';
+      var s0 = document.getElementsByTagName('script')[0];
+      if (s0 && s0.parentNode) s0.parentNode.insertBefore(bp, s0);
+      else (document.head || document.documentElement).appendChild(bp);
+    }
+  } catch (e) {}
+
   // —— IndexNow：通知 Bing / Yandex 等当前页可抓 ——
   try {
     var indexNowKey = '447cd2c000f248cc84cbc2415f3ee4af';

@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mineradio 官网安装指南 - Windows / Mac / Android / iOS 排错</title>
-<meta name="description" content="Mineradio 安装指南：Windows SmartScreen、macOS 已损坏 / xattr、Android APK、iOS TestFlight、网页版 Bridge 扩展说明。">
+<title>Mineradio 官网安装指南 - Windows / Mac / Android / 鸿蒙 / iOS 排错</title>
+<meta name="description" content="Mineradio 安装指南：Windows SmartScreen、macOS 已损坏 / xattr、Android APK、鸿蒙版、iOS TestFlight、网页版 Bridge 扩展说明。">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://mineradio.cn/install.html">
 <meta name="theme-color" content="#02030a">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:title" content="Mineradio 官网安装指南">
-<meta property="og:description" content="Windows / Mac / Android / 网页版安装步骤与常见拦截排错。">
+<meta property="og:description" content="Windows / Mac / Android / 鸿蒙 / 网页版安装步骤与常见拦截排错。">
 <meta property="og:url" content="https://mineradio.cn/install.html">
 <meta property="og:image" content="https://mineradio.cn/images/og-cover.jpg">
 <link rel="stylesheet" href="/page.css">
@@ -47,6 +47,7 @@
           <a href="#windows" data-jump="windows">Windows</a>
           <a href="#macos" data-jump="mac">macOS</a>
           <a href="#android" data-jump="android">Android</a>
+          <a href="#harmony" data-jump="harmony">鸿蒙</a>
           <a href="#ios" data-jump="ios">iPhone / iPad</a>
           <a href="#web" data-jump="web">网页版</a>
         </div>
@@ -60,7 +61,7 @@
         <div class="dl-band-head">
           <p class="dl-band-eye">Install guide</p>
           <h2>多端安装与排错</h2>
-          <p class="dl-band-sub">桌面与 Android 先下载正式包；iPhone / iPad 走 TestFlight</p>
+          <p class="dl-band-sub">桌面 / Android / 鸿蒙先下载正式包；iPhone / iPad 走 TestFlight</p>
         </div>
         <div class="dl-notice">
           请只使用 <a href="/download.html">官方下载页</a> 公布的网盘与 TestFlight 链接。项目持续更新中，请获取最新版本。
@@ -120,6 +121,22 @@
               <li>若变成 <code>.apk.1</code>，重命名回 <code>.apk</code> 再装。</li>
             </ol>
             <a class="dl-primary" href="/download.html#android">去下载 Android 版 →</a>
+          </article>
+
+          <article class="ig-card" id="harmony" data-os="harmony">
+            <div class="dl-card-top">
+              <div>
+                <p class="dl-os">鸿蒙</p>
+                <p class="dl-ver">HarmonyOS · v2.2.2</p>
+              </div>
+              <span class="dl-badge" hidden>● 为你的设备推荐</span>
+            </div>
+            <ol class="ig-steps">
+              <li>从官网下载页获取鸿蒙版安装包（夸克优先，百度提取码 <code>n7u2</code>）。</li>
+              <li>打开安装包，按系统提示完成安装。</li>
+              <li>若提示未知来源 / 纯净模式拦截，按提示允许后继续。</li>
+            </ol>
+            <a class="dl-primary" href="/download.html#harmony">去下载鸿蒙版 →</a>
           </article>
 
           <article class="ig-card" id="ios" data-os="ios">
@@ -209,12 +226,13 @@
   var ua = navigator.userAgent || '';
   var platform = navigator.platform || '';
   var os = 'web';
-  if (/Android/i.test(ua)) os = 'android';
+  if (/HarmonyOS|OpenHarmony|Harmony/i.test(ua)) os = 'harmony';
+  else if (/Android/i.test(ua)) os = 'android';
   else if (/iPhone|iPad|iPod/i.test(ua)) os = 'ios';
   else if (/Mac|Macintosh|MacIntel|MacPPC/i.test(platform) || /Mac OS X/i.test(ua)) os = 'mac';
   else if (/Win/i.test(platform) || /Windows/i.test(ua)) os = 'windows';
 
-  var labels = { windows: 'Windows', mac: 'macOS', android: 'Android', ios: 'iPhone / iPad', web: '网页版' };
+  var labels = { windows: 'Windows', mac: 'macOS', android: 'Android', harmony: '鸿蒙', ios: 'iPhone / iPad', web: '网页版' };
   var card = document.querySelector('.ig-card[data-os="' + os + '"]');
   if (card) {
     card.classList.add('is-recommended');
